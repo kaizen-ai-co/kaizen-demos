@@ -15,6 +15,32 @@ for (const f of revisarContraste(undefined, MINIMO)) {
   console.error(`✗ tema.json (${f.modo}): ${f.par[0]} sobre ${f.par[1]} = ${f.valor}:1`);
 }
 
+// Insignias y avisos de estado: texto del tono sobre su propio tinte (`text-aviso` sobre `bg-aviso/15`).
+const TONOS = ['exito', 'aviso', 'peligro'] as const;
+const TINTE = 0.15;
+const canales = (h: string) => [1, 3, 5].map((i) => parseInt(h.slice(i, i + 2), 16));
+const tinte = (color: string, fondo: string) =>
+  '#' +
+  canales(color)
+    .map((v, i) =>
+      Math.round(v * TINTE + canales(fondo)[i]! * (1 - TINTE))
+        .toString(16)
+        .padStart(2, '0'),
+    )
+    .join('');
+function revisarTintes(paleta: Record<string, string>, origen: string) {
+  for (const t of TONOS) {
+    const v = contraste(paleta[t]!, tinte(paleta[t]!, paleta.fondo!));
+    if (v < MINIMO) {
+      fallas++;
+      console.error(`✗ ${origen}: ${t} sobre bg-${t}/15 = ${v}:1`);
+    }
+  }
+}
+const base = resolverTema();
+revisarTintes(base.colores, 'tema.json (claro)');
+revisarTintes(base.coloresOscuro, 'tema.json (oscuro)');
+
 const PARES: [string, string][] = [
   ['primarioTexto', 'primario'],
   ['acentoTexto', 'acento'],
@@ -33,6 +59,7 @@ for (const plantilla of readdirSync(path.join(raiz, 'semillas'))) {
     const colores = JSON.parse(readFileSync(path.join(carpeta, a), 'utf8'))?._estructura?.tema?.colores;
     if (!colores) continue;
     const paleta = resolverTema({ colores }).colores as Record<string, string>;
+    revisarTintes(paleta, `semillas/${plantilla}/${a}`);
     for (const [x, y] of PARES) {
       const v = contraste(paleta[x]!, paleta[y]!);
       if (v < MINIMO) {

@@ -339,7 +339,7 @@ export function Reserva({
                     key={d}
                     type="button"
                     aria-pressed={d === fecha}
-                    aria-label={e.largo}
+                    title={e.largo}
                     onClick={() => {
                       setFecha(d);
                       setHueco(null);

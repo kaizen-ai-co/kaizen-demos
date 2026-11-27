@@ -55,7 +55,8 @@ function Tarjeta({
       ref={setNodeRef}
       style={{ transform: CSS.Translate.toString(transform) }}
       className={cn(
-        'rounded-md border border-borde bg-fondo p-3 text-sm shadow-sm',
+        // min-w-0: como hijo de grid, la tarjeta no crece con un nombre largo (el texto se recorta).
+        'min-w-0 rounded-md border border-borde bg-fondo p-3 text-sm shadow-sm',
         isDragging && 'z-20 opacity-80 shadow-lg',
       )}
     >

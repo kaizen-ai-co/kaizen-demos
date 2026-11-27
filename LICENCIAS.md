@@ -6,22 +6,24 @@ Solo entran recursos con licencia permisiva. Imágenes y modelos 3D: solo **CC0*
 
 ## Librerías
 
-| Recurso                                                                                                           | Origen            | Licencia                            | Fecha      | Atribución |
-| ----------------------------------------------------------------------------------------------------------------- | ----------------- | ----------------------------------- | ---------- | ---------- |
-| Next.js                                                                                                           | npm `next`        | MIT                                 | 26/11/2026 | No         |
-| React / React DOM                                                                                                 | npm               | MIT                                 | 26/11/2026 | No         |
-| Tailwind CSS v4                                                                                                   | npm `tailwindcss` | MIT                                 | 26/11/2026 | No         |
-| shadcn/ui (convenciones y componentes adaptados)                                                                  | ui.shadcn.com     | MIT                                 | 26/11/2026 | No         |
-| class-variance-authority, clsx, tailwind-merge                                                                    | npm               | Apache-2.0 / MIT / MIT              | 26/11/2026 | No         |
-| lucide-react (íconos)                                                                                             | npm               | ISC                                 | 26/11/2026 | No         |
-| @dnd-kit (arrastrar y soltar)                                                                                     | npm               | MIT                                 | 26/11/2026 | No         |
-| Firebase JS SDK y firebase-admin                                                                                  | npm               | Apache-2.0                          | 26/11/2026 | No         |
-| three.js                                                                                                          | npm `three`       | MIT                                 | 26/11/2026 | No         |
-| @react-three/fiber y @react-three/drei                                                                            | npm               | MIT                                 | 26/11/2026 | No         |
-| pdf-lib (PDF de cotizaciones)                                                                                     | npm `pdf-lib`     | MIT                                 | 26/11/2026 | No         |
-| Vitest, Playwright, tsx, TypeScript                                                                               | npm               | MIT / Apache-2.0 / MIT / Apache-2.0 | 26/11/2026 | No         |
-| ESLint, typescript-eslint, eslint-plugin-react-hooks, @next/eslint-plugin-next, eslint-plugin-jsx-a11y-x, globals | npm               | MIT                                 | 27/11/2026 | No         |
-| Prettier                                                                                                          | npm `prettier`    | MIT                                 | 27/11/2026 | No         |
+| Recurso                                                                                                           | Origen                     | Licencia                            | Fecha      | Atribución |
+| ----------------------------------------------------------------------------------------------------------------- | -------------------------- | ----------------------------------- | ---------- | ---------- |
+| Next.js                                                                                                           | npm `next`                 | MIT                                 | 26/11/2026 | No         |
+| React / React DOM                                                                                                 | npm                        | MIT                                 | 26/11/2026 | No         |
+| Tailwind CSS v4                                                                                                   | npm `tailwindcss`          | MIT                                 | 26/11/2026 | No         |
+| shadcn/ui (convenciones y componentes adaptados)                                                                  | ui.shadcn.com              | MIT                                 | 26/11/2026 | No         |
+| class-variance-authority, clsx, tailwind-merge                                                                    | npm                        | Apache-2.0 / MIT / MIT              | 26/11/2026 | No         |
+| lucide-react (íconos)                                                                                             | npm                        | ISC                                 | 26/11/2026 | No         |
+| @dnd-kit (arrastrar y soltar)                                                                                     | npm                        | MIT                                 | 26/11/2026 | No         |
+| Firebase JS SDK y firebase-admin                                                                                  | npm                        | Apache-2.0                          | 26/11/2026 | No         |
+| three.js                                                                                                          | npm `three`                | MIT                                 | 26/11/2026 | No         |
+| @react-three/fiber y @react-three/drei                                                                            | npm                        | MIT                                 | 26/11/2026 | No         |
+| pdf-lib (PDF de cotizaciones)                                                                                     | npm `pdf-lib`              | MIT                                 | 26/11/2026 | No         |
+| Vitest, Playwright, tsx, TypeScript                                                                               | npm                        | MIT / Apache-2.0 / MIT / Apache-2.0 | 26/11/2026 | No         |
+| ESLint, typescript-eslint, eslint-plugin-react-hooks, @next/eslint-plugin-next, eslint-plugin-jsx-a11y-x, globals | npm                        | MIT                                 | 27/11/2026 | No         |
+| Prettier                                                                                                          | npm `prettier`             | MIT                                 | 27/11/2026 | No         |
+| @axe-core/playwright (revisión de accesibilidad en e2e; solo desarrollo)                                          | npm `@axe-core/playwright` | MPL-2.0                             | 27/11/2026 | No         |
+| Lighthouse (línea base, vía `npx`, no se instala)                                                                 | npm `lighthouse`           | Apache-2.0                          | 27/11/2026 | No         |
 
 ## Imágenes y modelos
 
