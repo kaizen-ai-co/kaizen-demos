@@ -22,6 +22,9 @@ export function configNext(extra: NextConfig = {}): NextConfig {
     outputFileTracingRoot: raiz,
     reactStrictMode: true,
     poweredByHeader: false,
+    // El lint corre una sola vez para todo el monorepo (eslint.config.mjs, `npm run check` y CI),
+    // no dentro de cada `next build`.
+    eslint: { ignoreDuringBuilds: true },
     transpilePackages: [
       '@kaizen/datos',
       '@kaizen/editor',
