@@ -1,5 +1,12 @@
 import 'server-only';
-import { ErrorAcceso, evaluarAcceso, tienePermiso, type Permiso, type ResultadoAcceso, type Usuario } from '@kaizen/datos';
+import {
+  ErrorAcceso,
+  evaluarAcceso,
+  tienePermiso,
+  type Permiso,
+  type ResultadoAcceso,
+  type Usuario,
+} from '@kaizen/datos';
 import { obtenerCapaDatos } from '@kaizen/datos/servidor';
 import { cookies } from 'next/headers';
 

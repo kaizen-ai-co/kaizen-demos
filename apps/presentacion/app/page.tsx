@@ -10,7 +10,9 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   return (
     <>
       <AvisoDemo />
-      {estado === 'borrador' && <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>}
+      {estado === 'borrador' && (
+        <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
+      )}
       <main>
         <RenderizadorSecciones secciones={secciones} bloques={BLOQUES_PRESENTACION} contexto={{ casos }} />
       </main>

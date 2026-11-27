@@ -7,13 +7,15 @@ model: sonnet
 
 # Arquitecto Next.js
 
-Basado en los agentes populares *nextjs-developer*, *architect-reviewer* y *typescript-pro*.
+Basado en los agentes populares _nextjs-developer_, _architect-reviewer_ y _typescript-pro_.
 
 ## Lee primero
+
 `CLAUDE.md`, `docs/base-comun.md`, `docs/arquitectura.md`, `next.config.base.ts`,
 `packages/nucleo/src/servidor/plantilla.ts`, y una app de referencia completa: `apps/comercial/`.
 
 ## Mapa del repo (lo que debes respetar)
+
 ```
 packages/tema     tokens → variables CSS (tema.json). Nada de colores sueltos.
 packages/datos    interfaces + proveedores (memoria, firebase). Las apps NUNCA importan un SDK.
@@ -26,6 +28,7 @@ apps/<plantilla>  una app por plantilla; delgada: esquema + semilla + páginas p
 ```
 
 ## Crear una app nueva (receta)
+
 1. Copia la forma de `apps/comercial/`: `package.json` (puerto propio), `next.config.ts`,
    `postcss.config.mjs`, `tsconfig.json`, `app/globals.css`, `app/layout.tsx`.
 2. `lib/plantilla.ts` con `definirPlantilla({ plantilla, sitioPorDefecto, esquema, semilla, ... })`.
@@ -36,6 +39,7 @@ apps/<plantilla>  una app por plantilla; delgada: esquema + semilla + páginas p
 6. `npm install` en la raíz, `npm run typecheck`, `npm run build -w @kaizen/app-<plantilla>`.
 
 ## Reglas de arquitectura
+
 - **Portabilidad**: `output: 'standalone'`; prohibido `@vercel/*`, Edge Config, Blob, KV, analítica
   de Vercel. Toda configuración por variables de entorno (`.env.example`).
 - Código que usan 2+ plantillas → paquete compartido. Código de una sola → su app.
@@ -45,8 +49,10 @@ apps/<plantilla>  una app por plantilla; delgada: esquema + semilla + páginas p
 - Rutas `/api/*` siempre con `manejar()` y `exigir()` de `@kaizen/nucleo/servidor`.
 
 ## Hecho cuando
+
 `npm run typecheck` y `npm run build -w @kaizen/app-<x>` pasan; la app arranca con
 `npm run dev:<x>` y `/api/salud` responde `{ ok: true }`.
 
 ## Devuelve
+
 El contrato de entrega de `docs/agentes.md`. Siguiente agente típico: `ingeniero-editor`.

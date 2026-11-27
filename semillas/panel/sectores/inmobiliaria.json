@@ -8,8 +8,20 @@
     "camposFormulario": [
       { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "opciones": [] },
       { "id": "telefono", "etiqueta": "WhatsApp", "tipo": "telefono", "requerido": true, "opciones": [] },
-      { "id": "tipoInmueble", "etiqueta": "Tipo de inmueble", "tipo": "seleccion", "requerido": true, "opciones": [{ "texto": "Apartamento" }, { "texto": "Casa" }, { "texto": "Local" }] },
-      { "id": "operacion", "etiqueta": "¿Comprar o arrendar?", "tipo": "seleccion", "requerido": false, "opciones": [{ "texto": "Comprar" }, { "texto": "Arrendar" }] },
+      {
+        "id": "tipoInmueble",
+        "etiqueta": "Tipo de inmueble",
+        "tipo": "seleccion",
+        "requerido": true,
+        "opciones": [{ "texto": "Apartamento" }, { "texto": "Casa" }, { "texto": "Local" }]
+      },
+      {
+        "id": "operacion",
+        "etiqueta": "¿Comprar o arrendar?",
+        "tipo": "seleccion",
+        "requerido": false,
+        "opciones": [{ "texto": "Comprar" }, { "texto": "Arrendar" }]
+      },
       { "id": "presupuesto", "etiqueta": "Presupuesto aproximado", "tipo": "texto", "requerido": false, "opciones": [] }
     ],
     "textoBoton": "Quiero ver opciones",

@@ -23,17 +23,37 @@ export type Permiso =
 
 const PERMISOS: Record<Rol, readonly Permiso[]> = {
   desarrollador: [
-    'contenido:leer-borrador', 'contenido:editar', 'contenido:publicar', 'estructura:editar',
-    'reglas:editar', 'leads:leer', 'leads:gestionar', 'cotizaciones:leer', 'citas:gestionar',
-    'archivos:subir', 'registros:leer',
+    'contenido:leer-borrador',
+    'contenido:editar',
+    'contenido:publicar',
+    'estructura:editar',
+    'reglas:editar',
+    'leads:leer',
+    'leads:gestionar',
+    'cotizaciones:leer',
+    'citas:gestionar',
+    'archivos:subir',
+    'registros:leer',
   ],
   administrador: [
-    'contenido:leer-borrador', 'contenido:editar', 'contenido:publicar', 'leads:leer',
-    'leads:gestionar', 'cotizaciones:leer', 'citas:gestionar', 'archivos:subir',
+    'contenido:leer-borrador',
+    'contenido:editar',
+    'contenido:publicar',
+    'leads:leer',
+    'leads:gestionar',
+    'cotizaciones:leer',
+    'citas:gestionar',
+    'archivos:subir',
   ],
   cliente: [
-    'contenido:leer-borrador', 'contenido:editar', 'contenido:publicar', 'leads:leer',
-    'leads:gestionar', 'cotizaciones:leer', 'citas:gestionar', 'archivos:subir',
+    'contenido:leer-borrador',
+    'contenido:editar',
+    'contenido:publicar',
+    'leads:leer',
+    'leads:gestionar',
+    'cotizaciones:leer',
+    'citas:gestionar',
+    'archivos:subir',
   ],
 };
 
@@ -77,7 +97,10 @@ export const MENSAJES_SIN_ACCESO: Record<Exclude<ResultadoAcceso, { ok: true }>[
 
 /** Error tipado para que las rutas respondan 401/403 de forma uniforme. */
 export class ErrorAcceso extends Error {
-  constructor(public motivo: string, public estado: 401 | 403 = 403) {
+  constructor(
+    public motivo: string,
+    public estado: 401 | 403 = 403,
+  ) {
     super(motivo);
     this.name = 'ErrorAcceso';
   }

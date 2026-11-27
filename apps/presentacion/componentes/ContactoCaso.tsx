@@ -12,14 +12,31 @@ export function ContactoCaso({ id = 'contacto', datos, contexto }: PropsBloque) 
     <section id={id} aria-labelledby={`${id}-titulo`} className="k-seccion">
       <div className="k-contenedor">
         <Aparecer className="mx-auto mb-10 max-w-2xl text-center">
-          <h2 id={`${id}-titulo`} className="text-3xl md:text-4xl">{texto(datos.titulo, 'Contacto')}</h2>
+          <h2 id={`${id}-titulo`} className="text-3xl md:text-4xl">
+            {texto(datos.titulo, 'Contacto')}
+          </h2>
           {texto(datos.subtitulo) && <p className="mt-3 text-lg text-suave">{texto(datos.subtitulo)}</p>}
         </Aparecer>
         <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-5">
           <div className="space-y-4 md:col-span-2">
-            {texto(datos.correo) && <p><span className="block text-sm text-suave">Correo</span>{texto(datos.correo)}</p>}
-            {texto(datos.telefono) && <p><span className="block text-sm text-suave">Teléfono</span>{texto(datos.telefono)}</p>}
-            {texto(datos.direccion) && <p><span className="block text-sm text-suave">Dirección</span>{texto(datos.direccion)}</p>}
+            {texto(datos.correo) && (
+              <p>
+                <span className="block text-sm text-suave">Correo</span>
+                {texto(datos.correo)}
+              </p>
+            )}
+            {texto(datos.telefono) && (
+              <p>
+                <span className="block text-sm text-suave">Teléfono</span>
+                {texto(datos.telefono)}
+              </p>
+            )}
+            {texto(datos.direccion) && (
+              <p>
+                <span className="block text-sm text-suave">Dirección</span>
+                {texto(datos.direccion)}
+              </p>
+            )}
           </div>
           <Tarjeta className="md:col-span-3">
             <FormularioCaso

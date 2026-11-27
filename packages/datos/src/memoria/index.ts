@@ -1,20 +1,6 @@
 import type { CapaDatos } from '../interfaces';
-import type {
-  ArchivoSubido,
-  Cita,
-  Cotizacion,
-  Lead,
-  Usuario,
-  VersionContenido,
-} from '../tipos';
-import {
-  ahoraISO,
-  aplicarCambiosLead,
-  citaChoca,
-  coincideFiltro,
-  nuevoId,
-  numeroCotizacion,
-} from '../utilidades';
+import type { ArchivoSubido, Cita, Cotizacion, Lead, Usuario, VersionContenido } from '../tipos';
+import { ahoraISO, aplicarCambiosLead, citaChoca, coincideFiltro, nuevoId, numeroCotizacion } from '../utilidades';
 
 /**
  * Proveedor en memoria: desarrollo local y pruebas, sin servicios externos.
@@ -41,8 +27,22 @@ export function usuariosDePrueba(sitioId = process.env.SITIO_ID ?? 'demo'): Usua
   const en14dias = new Date(Date.now() + 14 * 864e5).toISOString();
   return [
     { uid: 'u_dev', correo: 'desarrollador@kaizen.test', nombre: 'Dev de prueba', rol: 'desarrollador', activo: true },
-    { uid: 'u_admin', correo: 'administrador@kaizen.test', nombre: 'Admin de prueba', rol: 'administrador', activo: true },
-    { uid: 'u_cliente', correo: 'cliente@kaizen.test', nombre: 'Cliente de prueba', rol: 'cliente', activo: true, sitioId, venceEl: en14dias },
+    {
+      uid: 'u_admin',
+      correo: 'administrador@kaizen.test',
+      nombre: 'Admin de prueba',
+      rol: 'administrador',
+      activo: true,
+    },
+    {
+      uid: 'u_cliente',
+      correo: 'cliente@kaizen.test',
+      nombre: 'Cliente de prueba',
+      rol: 'cliente',
+      activo: true,
+      sitioId,
+      venceEl: en14dias,
+    },
     // 'nadie@kaizen.test' NO está en la lista a propósito: debe ver "Sin acceso".
   ];
 }
@@ -115,7 +115,14 @@ export function crearCapaMemoria(): CapaDatos {
       async guardarBorrador(sitioId, datos, autor) {
         const versiones = lista(a.contenido, sitioId);
         const i = versiones.findIndex((x) => x.estado === 'borrador');
-        const v: VersionContenido = { id: 'borrador', sitioId, estado: 'borrador', datos: clon(datos), actualizadoPor: autor, actualizadoEl: ahoraISO() };
+        const v: VersionContenido = {
+          id: 'borrador',
+          sitioId,
+          estado: 'borrador',
+          datos: clon(datos),
+          actualizadoPor: autor,
+          actualizadoEl: ahoraISO(),
+        };
         if (i >= 0) versiones[i] = v;
         else versiones.push(v);
         return clon(v) as never;
@@ -131,7 +138,11 @@ export function crearCapaMemoria(): CapaDatos {
           anterior.id = `v_${Date.parse(anterior.publicadoEl ?? fecha)}_${nuevoId().slice(0, 4)}`;
         }
         const publicado: VersionContenido = {
-          ...clon(borrador), id: 'publicado', estado: 'publicado', publicadoPor: autor, publicadoEl: fecha,
+          ...clon(borrador),
+          id: 'publicado',
+          estado: 'publicado',
+          publicadoPor: autor,
+          publicadoEl: fecha,
         };
         versiones.push(publicado);
         return clon(publicado);
@@ -155,7 +166,13 @@ export function crearCapaMemoria(): CapaDatos {
         previa.publicadoEl = fecha;
         // El borrador pasa a ser igual a lo restaurado, para que el editor no muestre cambios fantasma.
         const iB = versiones.findIndex((x) => x.estado === 'borrador');
-        const borrador: VersionContenido = { ...clon(previa), id: 'borrador', estado: 'borrador', actualizadoPor: autor, actualizadoEl: fecha };
+        const borrador: VersionContenido = {
+          ...clon(previa),
+          id: 'borrador',
+          estado: 'borrador',
+          actualizadoPor: autor,
+          actualizadoEl: fecha,
+        };
         if (iB >= 0) versiones[iB] = borrador;
         else versiones.push(borrador);
         return clon(previa);
@@ -188,7 +205,8 @@ export function crearCapaMemoria(): CapaDatos {
           creadoEl: fecha,
           actualizadoEl: fecha,
         };
-        if (nuevo.responsableId) lead.historial.push({ tipo: 'responsable', fecha, autor: 'sistema', a: nuevo.responsableId });
+        if (nuevo.responsableId)
+          lead.historial.push({ tipo: 'responsable', fecha, autor: 'sistema', a: nuevo.responsableId });
         lista(a.leads, nuevo.sitioId).push(lead);
         return clon(lead);
       },
@@ -217,7 +235,13 @@ export function crearCapaMemoria(): CapaDatos {
       async crear(nueva) {
         const sec = (a.secuencias.get(`cot_${nueva.sitioId}`) ?? 0) + 1;
         a.secuencias.set(`cot_${nueva.sitioId}`, sec);
-        const c: Cotizacion = { ...clon(nueva), id: nuevoId('c_'), numero: numeroCotizacion(sec), estado: 'recibida', creadoEl: ahoraISO() };
+        const c: Cotizacion = {
+          ...clon(nueva),
+          id: nuevoId('c_'),
+          numero: numeroCotizacion(sec),
+          estado: 'recibida',
+          creadoEl: ahoraISO(),
+        };
         lista(a.cotizaciones, nueva.sitioId).push(c);
         return clon(c);
       },
@@ -244,10 +268,16 @@ export function crearCapaMemoria(): CapaDatos {
         return { ok: true, cita: clon(cita) };
       },
       async listarRango(sitioId, desde, hasta, profesionalId) {
-        const d = Date.parse(desde), h = Date.parse(hasta);
+        const d = Date.parse(desde),
+          h = Date.parse(hasta);
         return clon(
           lista(a.citas, sitioId)
-            .filter((c) => Date.parse(c.inicio) < h && Date.parse(c.fin) > d && (!profesionalId || c.profesionalId === profesionalId))
+            .filter(
+              (c) =>
+                Date.parse(c.inicio) < h &&
+                Date.parse(c.fin) > d &&
+                (!profesionalId || c.profesionalId === profesionalId),
+            )
             .sort((x, y) => x.inicio.localeCompare(y.inicio)),
         );
       },

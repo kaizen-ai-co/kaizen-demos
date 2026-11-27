@@ -8,9 +8,27 @@
   },
   "servicios": {
     "lista": [
-      { "id": "s-valoracion", "nombre": "Valoración estética", "descripcion": "Revisión inicial y plan de tratamiento.", "duracionMin": 30, "precio": 0 },
-      { "id": "s-sesion", "nombre": "Limpieza facial profunda", "descripcion": "Sesión de 60 minutos.", "duracionMin": 60, "precio": 150000 },
-      { "id": "s-control", "nombre": "Control post tratamiento", "descripcion": "Seguimiento corto.", "duracionMin": 30, "precio": 50000 }
+      {
+        "id": "s-valoracion",
+        "nombre": "Valoración estética",
+        "descripcion": "Revisión inicial y plan de tratamiento.",
+        "duracionMin": 30,
+        "precio": 0
+      },
+      {
+        "id": "s-sesion",
+        "nombre": "Limpieza facial profunda",
+        "descripcion": "Sesión de 60 minutos.",
+        "duracionMin": 60,
+        "precio": 150000
+      },
+      {
+        "id": "s-control",
+        "nombre": "Control post tratamiento",
+        "descripcion": "Seguimiento corto.",
+        "duracionMin": 30,
+        "precio": 50000
+      }
     ]
   },
   "mensajes": {

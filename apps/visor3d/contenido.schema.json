@@ -31,17 +31,32 @@
         { "id": "nombreProducto", "etiqueta": "Nombre del producto", "tipo": "texto", "requerido": true, "max": 50 },
         { "id": "descripcion", "etiqueta": "Descripción corta", "tipo": "textoLargo", "max": 200 },
         {
-          "id": "archivo", "etiqueta": "Modelo .glb", "tipo": "modelo3d", "maxBytes": 15000000, "formatos": ["glb", "gltf"],
+          "id": "archivo",
+          "etiqueta": "Modelo .glb",
+          "tipo": "modelo3d",
+          "maxBytes": 15000000,
+          "formatos": ["glb", "gltf"],
           "ayuda": "GLB comprimido (Draco), idealmente menos de 3 MB. Solo modelos CC0 o con licencia comercial clara: anótalo en LICENCIAS.md."
         },
-        { "id": "imagenReserva", "etiqueta": "Imagen de reserva (sin WebGL)", "tipo": "imagen", "requerido": true, "maxBytes": 800000 }
+        {
+          "id": "imagenReserva",
+          "etiqueta": "Imagen de reserva (sin WebGL)",
+          "tipo": "imagen",
+          "requerido": true,
+          "maxBytes": 800000
+        }
       ]
     },
     {
       "id": "camara",
       "titulo": "Cámara inicial",
       "campos": [
-        { "id": "camaraInicial", "etiqueta": "Vista inicial", "tipo": "vistaCamara", "ayuda": "Gira y acerca el visor y pulsa «Guardar vista»." }
+        {
+          "id": "camaraInicial",
+          "etiqueta": "Vista inicial",
+          "tipo": "vistaCamara",
+          "ayuda": "Gira y acerca el visor y pulsa «Guardar vista»."
+        }
       ]
     },
     {
@@ -50,19 +65,54 @@
       "descripcion": "Cada parte cambia el material de las mallas (o materiales) con el nombre indicado en «Malla».",
       "campos": [
         {
-          "id": "partes", "etiqueta": "Partes", "tipo": "lista", "minItems": 1, "maxItems": 6, "nombreItem": "parte", "campoTitulo": "nombre",
+          "id": "partes",
+          "etiqueta": "Partes",
+          "tipo": "lista",
+          "minItems": 1,
+          "maxItems": 6,
+          "nombreItem": "parte",
+          "campoTitulo": "nombre",
           "campos": [
             { "id": "id", "etiqueta": "Id", "tipo": "texto" },
             { "id": "nombre", "etiqueta": "Nombre visible", "tipo": "texto", "requerido": true, "max": 30 },
-            { "id": "malla", "etiqueta": "Malla o material del modelo", "tipo": "texto", "requerido": true, "max": 60, "ayuda": "Objeto de demostración: asiento, respaldo o patas." },
             {
-              "id": "opciones", "etiqueta": "Opciones", "tipo": "lista", "minItems": 1, "maxItems": 8, "nombreItem": "opción", "campoTitulo": "nombre",
+              "id": "malla",
+              "etiqueta": "Malla o material del modelo",
+              "tipo": "texto",
+              "requerido": true,
+              "max": 60,
+              "ayuda": "Objeto de demostración: asiento, respaldo o patas."
+            },
+            {
+              "id": "opciones",
+              "etiqueta": "Opciones",
+              "tipo": "lista",
+              "minItems": 1,
+              "maxItems": 8,
+              "nombreItem": "opción",
+              "campoTitulo": "nombre",
               "campos": [
                 { "id": "id", "etiqueta": "Id", "tipo": "texto" },
                 { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 30 },
                 { "id": "color", "etiqueta": "Color", "tipo": "color", "requerido": true },
-                { "id": "rugosidad", "etiqueta": "Rugosidad (0 brillante – 1 mate)", "tipo": "numero", "min": 0, "max": 1, "paso": 0.05, "porDefecto": 0.6 },
-                { "id": "metalicidad", "etiqueta": "Metalicidad (0 – 1)", "tipo": "numero", "min": 0, "max": 1, "paso": 0.05, "porDefecto": 0 }
+                {
+                  "id": "rugosidad",
+                  "etiqueta": "Rugosidad (0 brillante – 1 mate)",
+                  "tipo": "numero",
+                  "min": 0,
+                  "max": 1,
+                  "paso": 0.05,
+                  "porDefecto": 0.6
+                },
+                {
+                  "id": "metalicidad",
+                  "etiqueta": "Metalicidad (0 – 1)",
+                  "tipo": "numero",
+                  "min": 0,
+                  "max": 1,
+                  "paso": 0.05,
+                  "porDefecto": 0
+                }
               ]
             }
           ]
@@ -76,7 +126,11 @@
       "campos": [
         { "id": "instrucciones", "etiqueta": "Instrucciones", "tipo": "texto", "requerido": true, "max": 120 },
         {
-          "id": "consejos", "etiqueta": "Consejos", "tipo": "lista", "maxItems": 4, "nombreItem": "consejo",
+          "id": "consejos",
+          "etiqueta": "Consejos",
+          "tipo": "lista",
+          "maxItems": 4,
+          "nombreItem": "consejo",
           "campos": [{ "id": "texto", "etiqueta": "Consejo", "tipo": "texto", "requerido": true, "max": 90 }]
         }
       ]
@@ -88,7 +142,13 @@
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
         { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
         { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "requerido": true, "max": 32 },
-        { "id": "mensajeExito", "etiqueta": "Mensaje de confirmación", "tipo": "textoLargo", "requerido": true, "max": 200 }
+        {
+          "id": "mensajeExito",
+          "etiqueta": "Mensaje de confirmación",
+          "tipo": "textoLargo",
+          "requerido": true,
+          "max": 200
+        }
       ]
     },
     {
@@ -96,9 +156,19 @@
       "titulo": "Escena (iluminación y entorno)",
       "rol": "desarrollador",
       "campos": [
-        { "id": "iluminacion", "etiqueta": "Intensidad de luz", "tipo": "numero", "min": 0, "max": 3, "paso": 0.1, "porDefecto": 1.2 },
         {
-          "id": "entorno", "etiqueta": "Entorno", "tipo": "seleccion",
+          "id": "iluminacion",
+          "etiqueta": "Intensidad de luz",
+          "tipo": "numero",
+          "min": 0,
+          "max": 3,
+          "paso": 0.1,
+          "porDefecto": 1.2
+        },
+        {
+          "id": "entorno",
+          "etiqueta": "Entorno",
+          "tipo": "seleccion",
           "opciones": [
             { "valor": "local", "etiqueta": "Estudio local (sin descargas)" },
             { "valor": "studio", "etiqueta": "Studio (HDR externo)" },
@@ -107,7 +177,12 @@
             { "valor": "sunset", "etiqueta": "Sunset (HDR externo)" }
           ]
         },
-        { "id": "fondo", "etiqueta": "Color de fondo del visor", "tipo": "color", "ayuda": "Vacío = superficie del tema." }
+        {
+          "id": "fondo",
+          "etiqueta": "Color de fondo del visor",
+          "tipo": "color",
+          "ayuda": "Vacío = superficie del tema."
+        }
       ]
     },
     {

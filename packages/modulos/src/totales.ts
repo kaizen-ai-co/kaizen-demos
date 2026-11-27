@@ -52,7 +52,10 @@ export function calcularTotales(lineas: LineaCalculo[], c: CondicionesCalculo): 
     const e = validarLinea(l);
     if (e) throw new Error(e);
   }
-  const subtotal = redondear(lineas.reduce((s, l) => s + l.precioUnitario * l.cantidad, 0), d);
+  const subtotal = redondear(
+    lineas.reduce((s, l) => s + l.precioUnitario * l.cantidad, 0),
+    d,
+  );
   const descuento = redondear(subtotal * desc, d);
   const baseImpuesto = redondear(subtotal - descuento, d);
   const impuesto = redondear(baseImpuesto * tasa, d);

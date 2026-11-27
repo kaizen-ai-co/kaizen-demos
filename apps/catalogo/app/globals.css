@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "@kaizen/tema/base.css";
+@import 'tailwindcss';
+@import '@kaizen/tema/base.css';
 
 /* Tailwind debe ver las clases usadas en los paquetes compartidos. */
 @source "../../../packages/ui/src";

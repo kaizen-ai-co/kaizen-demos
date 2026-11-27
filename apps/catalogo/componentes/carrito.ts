@@ -17,7 +17,10 @@ export function leerCarrito(): Carrito {
     const crudo = JSON.parse(localStorage.getItem(CLAVE) ?? '{}') as unknown;
     if (!crudo || typeof crudo !== 'object') return {};
     return Object.fromEntries(
-      Object.entries(crudo as Record<string, unknown>).filter(([, v]) => Number.isInteger(v) && (v as number) > 0) as [string, number][],
+      Object.entries(crudo as Record<string, unknown>).filter(([, v]) => Number.isInteger(v) && (v as number) > 0) as [
+        string,
+        number,
+      ][],
     );
   } catch {
     return {};

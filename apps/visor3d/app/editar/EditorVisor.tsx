@@ -9,7 +9,11 @@ import { normalizarEscena, normalizarPartes, normalizarVista, seleccionInicial, 
 
 const Visor = dynamic(() => import('@/componentes/Visor'), {
   ssr: false,
-  loading: () => <div className="flex h-64 items-center justify-center rounded-md border border-borde bg-superficie text-xs text-suave">Cargando visor…</div>,
+  loading: () => (
+    <div className="flex h-64 items-center justify-center rounded-md border border-borde bg-superficie text-xs text-suave">
+      Cargando visor…
+    </div>
+  ),
 });
 
 /**

@@ -1,5 +1,13 @@
 import 'server-only';
-import { rolDeEdicion, tienePermiso, type CambiosLead, type CapaDatos, type NuevoLead, type Permiso, type Usuario } from '@kaizen/datos';
+import {
+  rolDeEdicion,
+  tienePermiso,
+  type CambiosLead,
+  type CapaDatos,
+  type NuevoLead,
+  type Permiso,
+  type Usuario,
+} from '@kaizen/datos';
 import { leerArchivoMemoria, obtenerCapaDatos } from '@kaizen/datos/servidor';
 import {
   completarContenido,
@@ -17,8 +25,18 @@ import { COOKIE_SESION, accesoActual, exigir, usuarioActual } from './sesion';
 
 type Ctx = { params: Promise<Record<string, string | string[]>> };
 
-const TIPOS_IMAGEN: Record<string, string> = { 'image/png': 'png', 'image/jpeg': 'jpg', 'image/webp': 'webp', 'image/avif': 'avif', 'image/gif': 'gif' };
-const TIPOS_MODELO: Record<string, string> = { 'model/gltf-binary': 'glb', 'model/gltf+json': 'gltf', 'application/octet-stream': 'glb' };
+const TIPOS_IMAGEN: Record<string, string> = {
+  'image/png': 'png',
+  'image/jpeg': 'jpg',
+  'image/webp': 'webp',
+  'image/avif': 'avif',
+  'image/gif': 'gif',
+};
+const TIPOS_MODELO: Record<string, string> = {
+  'model/gltf-binary': 'glb',
+  'model/gltf+json': 'gltf',
+  'application/octet-stream': 'glb',
+};
 const RESERVADOS = new Set(['nombre', 'correo', 'telefono', 'origen', 'extra', '_trampa', 'sitioId']);
 
 /**
@@ -47,7 +65,10 @@ export function definirPlantilla(config: ConfigPlantilla) {
     if (enCurso) return enCurso;
     const tarea = (async () => {
       if (await c.colecciones.leer(id, 'sistema', 'semilla')) return;
-      await c.colecciones.guardar(id, 'sistema', 'semilla', { plantilla: config.plantilla, el: new Date().toISOString() });
+      await c.colecciones.guardar(id, 'sistema', 'semilla', {
+        plantilla: config.plantilla,
+        el: new Date().toISOString(),
+      });
       if (!(await c.contenido.leerPublicado(id))) {
         await c.contenido.guardarBorrador(id, completarContenido(config.esquema, config.semilla), 'semilla');
         await c.contenido.publicar(id, 'semilla');
@@ -122,7 +143,10 @@ export function definirPlantilla(config: ConfigPlantilla) {
         const usuario = await exigir(id, 'contenido:publicar');
         const borrador = await c.contenido.leerBorrador(id);
         if (!borrador) throw new ErrorEntrada('No hay cambios para publicar.', 409);
-        const errores = validarContenido(config.esquema, completarContenido(config.esquema, borrador.datos as Contenido));
+        const errores = validarContenido(
+          config.esquema,
+          completarContenido(config.esquema, borrador.datos as Contenido),
+        );
         if (errores.length) throw new ErrorEntrada(`El contenido tiene ${errores.length} error(es).`, 422, errores);
         const v = await c.contenido.publicar(id, usuario.correo);
         return json({ ok: true, publicadoPor: v.publicadoPor, publicadoEl: v.publicadoEl });
@@ -169,7 +193,11 @@ export function definirPlantilla(config: ConfigPlantilla) {
       // Campo trampa: un bot lo llena. Respondemos "ok" sin guardar para no darle pistas.
       if (limpiar(cuerpo._trampa)) return json({ ok: true, id: 'descartado' });
       const permitido = limitador.permitir(`lead:${ipDe(req)}`);
-      if (!permitido.ok) throw new ErrorEntrada(`Demasiados envíos. Intenta de nuevo en ${Math.ceil((permitido.reintentarEnSeg ?? 60) / 60)} min.`, 429);
+      if (!permitido.ok)
+        throw new ErrorEntrada(
+          `Demasiados envíos. Intenta de nuevo en ${Math.ceil((permitido.reintentarEnSeg ?? 60) / 60)} min.`,
+          429,
+        );
 
       const nombre = limpiar(cuerpo.nombre, 120);
       const correo = limpiar(cuerpo.correo, 160).toLowerCase();
@@ -184,8 +212,10 @@ export function definirPlantilla(config: ConfigPlantilla) {
         if (RESERVADOS.has(k) || Object.keys(campos).length >= 20) continue;
         if (/^[a-zA-Z][a-zA-Z0-9_]{0,40}$/.test(k)) campos[k] = limpiar(v, 2000);
       }
-      const extra = cuerpo.extra && typeof cuerpo.extra === 'object' ? (cuerpo.extra as Record<string, unknown>) : undefined;
-      if (extra && JSON.stringify(extra).length > 8000) throw new ErrorEntrada('Datos adicionales demasiado grandes.', 422);
+      const extra =
+        cuerpo.extra && typeof cuerpo.extra === 'object' ? (cuerpo.extra as Record<string, unknown>) : undefined;
+      if (extra && JSON.stringify(extra).length > 8000)
+        throw new ErrorEntrada('Datos adicionales demasiado grandes.', 422);
 
       const c = await capa();
       const id = sitioId();
@@ -210,12 +240,14 @@ export function definirPlantilla(config: ConfigPlantilla) {
       await exigir(id, 'leads:leer');
       const q = new URL(req.url).searchParams;
       const c = await capa();
-      return json(await c.leads.listar(id, {
-        etapa: q.get('etapa') ?? undefined,
-        responsableId: q.get('responsable') ?? undefined,
-        origen: q.get('origen') ?? undefined,
-        texto: q.get('q') ?? undefined,
-      }));
+      return json(
+        await c.leads.listar(id, {
+          etapa: q.get('etapa') ?? undefined,
+          responsableId: q.get('responsable') ?? undefined,
+          origen: q.get('origen') ?? undefined,
+          texto: q.get('q') ?? undefined,
+        }),
+      );
     }),
   };
 
@@ -254,13 +286,21 @@ export function definirPlantilla(config: ConfigPlantilla) {
       if (!(archivo instanceof File)) throw new ErrorEntrada('Falta el archivo.');
       const ext = archivo.name.split('.').pop()?.toLowerCase() ?? '';
       const tipos = carpeta === 'modelos' ? TIPOS_MODELO : TIPOS_IMAGEN;
-      const extension = tipos[archivo.type] ?? (carpeta === 'modelos' && (ext === 'glb' || ext === 'gltf') ? ext : null);
-      if (!extension) throw new ErrorEntrada(carpeta === 'modelos' ? 'Sube un modelo .glb o .gltf.' : 'Sube una imagen PNG, JPG, WEBP, AVIF o GIF.', 422);
-      const limite = carpeta === 'modelos' ? config.limitesArchivos?.modelos ?? 15e6 : config.limitesArchivos?.imagenes ?? 2e6;
+      const extension =
+        tipos[archivo.type] ?? (carpeta === 'modelos' && (ext === 'glb' || ext === 'gltf') ? ext : null);
+      if (!extension)
+        throw new ErrorEntrada(
+          carpeta === 'modelos' ? 'Sube un modelo .glb o .gltf.' : 'Sube una imagen PNG, JPG, WEBP, AVIF o GIF.',
+          422,
+        );
+      const limite =
+        carpeta === 'modelos' ? (config.limitesArchivos?.modelos ?? 15e6) : (config.limitesArchivos?.imagenes ?? 2e6);
       if (archivo.size > limite) throw new ErrorEntrada(`El archivo supera ${(limite / 1e6).toFixed(0)} MB.`, 422);
       const base = slug(archivo.name.replace(/\.[^.]+$/, '')) || 'archivo';
       const ruta = `sitios/${id}/publico/${carpeta}/${Date.now()}-${base}.${extension}`;
-      const subido = await (await capa()).archivos.subir(ruta, new Uint8Array(await archivo.arrayBuffer()), archivo.type || 'application/octet-stream');
+      const subido = await (
+        await capa()
+      ).archivos.subir(ruta, new Uint8Array(await archivo.arrayBuffer()), archivo.type || 'application/octet-stream');
       return json(subido, 201);
     }),
   };
@@ -272,7 +312,9 @@ export function definirPlantilla(config: ConfigPlantilla) {
       if (!r.includes('/publico/')) throw new ErrorEntrada('No encontrado.', 404);
       const a = leerArchivoMemoria(r);
       if (!a) throw new ErrorEntrada('No encontrado.', 404);
-      return new Response(new Uint8Array(a.datos), { headers: { 'content-type': a.tipo, 'cache-control': 'public, max-age=3600' } });
+      return new Response(new Uint8Array(a.datos), {
+        headers: { 'content-type': a.tipo, 'cache-control': 'public, max-age=3600' },
+      });
     }),
   };
 

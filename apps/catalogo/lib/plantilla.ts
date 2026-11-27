@@ -20,8 +20,16 @@ export const plantilla = definirPlantilla({
     const { productos, condiciones } = leerCatalogo(resolverSemilla('catalogo'));
     const disponibles = productos.filter((p) => p.disponible !== false).slice(0, 2);
     if (!disponibles.length) return;
-    const c = armarCotizacion(productos, condiciones, disponibles.map((p, i) => ({ productoId: p.id, cantidad: i + 2 })));
-    await capa.cotizaciones.crear({ sitioId, cliente: { nombre: 'Empresa Ficticia S.A.S.', correo: 'compras@ejemplo.test' }, ...c });
+    const c = armarCotizacion(
+      productos,
+      condiciones,
+      disponibles.map((p, i) => ({ productoId: p.id, cantidad: i + 2 })),
+    );
+    await capa.cotizaciones.crear({
+      sitioId,
+      cliente: { nombre: 'Empresa Ficticia S.A.S.', correo: 'compras@ejemplo.test' },
+      ...c,
+    });
   },
   funciones: [
     { nombre: 'Catálogo con filtros y búsqueda', estado: 'disponible' },

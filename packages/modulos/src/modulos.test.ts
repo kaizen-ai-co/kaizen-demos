@@ -18,7 +18,10 @@ describe('totales de cotización', () => {
   });
 
   it('aplica descuento antes del impuesto y redondea en pesos', () => {
-    const t = calcularTotales([{ precioUnitario: 33333, cantidad: 3 }], { tasaImpuesto: 0.19, descuentoPorcentaje: 0.1 });
+    const t = calcularTotales([{ precioUnitario: 33333, cantidad: 3 }], {
+      tasaImpuesto: 0.19,
+      descuentoPorcentaje: 0.1,
+    });
     expect(t.subtotal).toBe(99999);
     expect(t.descuento).toBe(10000);
     expect(t.baseImpuesto).toBe(89999);
@@ -42,10 +45,22 @@ describe('totales de cotización', () => {
 });
 
 describe('huecos de agenda (America/Bogota)', () => {
-  const horario: HorarioSemanal = { martes: [{ inicio: '08:00', fin: '12:00' }, { inicio: '14:00', fin: '16:00' }] };
+  const horario: HorarioSemanal = {
+    martes: [
+      { inicio: '08:00', fin: '12:00' },
+      { inicio: '14:00', fin: '16:00' },
+    ],
+  };
   // Lunes 30 nov 2026, 7:00 a. m. en Bogotá
   const ahora = new Date(instanteBogota('2026-11-30', 7 * 60));
-  const base = { fecha: '2026-12-01', profesionalId: 'p1', duracionMin: 60, horario, ahora, reglas: { intervaloMin: 30, anticipacionMin: 0 } };
+  const base = {
+    fecha: '2026-12-01',
+    profesionalId: 'p1',
+    duracionMin: 60,
+    horario,
+    ahora,
+    reglas: { intervaloMin: 30, anticipacionMin: 0 },
+  };
 
   it('convierte horas de Bogotá sin depender del servidor', () => {
     expect(diaDeSemana('2026-12-01')).toBe('martes');
@@ -63,7 +78,12 @@ describe('huecos de agenda (America/Bogota)', () => {
       ...base,
       citas: [
         { profesionalId: 'p1', inicio: '2026-12-01T09:00:00-05:00', fin: '2026-12-01T10:00:00-05:00' },
-        { profesionalId: 'p1', inicio: '2026-12-01T14:00:00-05:00', fin: '2026-12-01T15:00:00-05:00', estado: 'cancelada' },
+        {
+          profesionalId: 'p1',
+          inicio: '2026-12-01T14:00:00-05:00',
+          fin: '2026-12-01T15:00:00-05:00',
+          estado: 'cancelada',
+        },
         { profesionalId: 'p2', inicio: '2026-12-01T11:00:00-05:00', fin: '2026-12-01T12:00:00-05:00' },
       ],
     }).map((x) => x.inicio.slice(11, 16));
@@ -81,13 +101,18 @@ describe('huecos de agenda (America/Bogota)', () => {
 
   it('bloquea festivos completos y franjas de ausencia', () => {
     expect(calcularHuecos({ ...base, excepciones: [{ fecha: '2026-12-01', motivo: 'Festivo ficticio' }] })).toEqual([]);
-    const h = calcularHuecos({ ...base, excepciones: [{ fecha: '2026-12-01', profesionalId: 'p1', franjas: [{ inicio: '08:00', fin: '11:00' }] }] });
+    const h = calcularHuecos({
+      ...base,
+      excepciones: [{ fecha: '2026-12-01', profesionalId: 'p1', franjas: [{ inicio: '08:00', fin: '11:00' }] }],
+    });
     expect(h.map((x) => x.inicio.slice(11, 16))).toEqual(['11:00', '14:00', '14:30', '15:00']);
   });
 
   it('aplica anticipación mínima y ventana de días', () => {
     const casiYa = new Date(instanteBogota('2026-12-01', 9 * 60 + 10));
-    const h = calcularHuecos({ ...base, ahora: casiYa, reglas: { intervaloMin: 30, anticipacionMin: 60 } }).map((x) => x.inicio.slice(11, 16));
+    const h = calcularHuecos({ ...base, ahora: casiYa, reglas: { intervaloMin: 30, anticipacionMin: 60 } }).map((x) =>
+      x.inicio.slice(11, 16),
+    );
     expect(h[0]).toBe('10:30');
     expect(calcularHuecos({ ...base, fecha: '2027-03-02' })).toEqual([]);
     expect(calcularHuecos({ ...base, fecha: '2026-11-24' })).toEqual([]);

@@ -16,7 +16,9 @@ const { values } = parseArgs({
 });
 const { plantilla, sitio, sector } = values;
 if (!plantilla || !sitio) {
-  console.error('Uso: npm run nueva-demo -- --plantilla <comercial|presentacion|catalogo|visor3d|panel|agenda> --sitio <id> [--sector <sector>]');
+  console.error(
+    'Uso: npm run nueva-demo -- --plantilla <comercial|presentacion|catalogo|visor3d|panel|agenda> --sitio <id> [--sector <sector>]',
+  );
   process.exit(1);
 }
 if (!/^[a-z0-9][a-z0-9-]{2,40}$/.test(sitio)) {
@@ -31,7 +33,9 @@ if (!existsSync(path.join(carpeta, 'contenido.json'))) {
   process.exit(1);
 }
 if (sector && !existsSync(path.join(carpeta, 'sectores', `${sector}.json`))) {
-  console.error(`No existe el sector "${sector}" para ${plantilla}. Créalo primero en semillas/${plantilla}/sectores/.`);
+  console.error(
+    `No existe el sector "${sector}" para ${plantilla}. Créalo primero en semillas/${plantilla}/sectores/.`,
+  );
   process.exit(1);
 }
 
@@ -47,7 +51,8 @@ writeFileSync(
     {
       $sitio: sitio,
       $sector: sector ?? null,
-      $comentario: 'Capa de la demo del cliente: escribe solo lo que cambia frente a la base y el sector. Datos ficticios siempre.',
+      $comentario:
+        'Capa de la demo del cliente: escribe solo lo que cambia frente a la base y el sector. Datos ficticios siempre.',
     },
     null,
     2,
@@ -58,7 +63,9 @@ const indice = path.join(carpeta, 'index.ts');
 let ts = readFileSync(indice, 'utf8');
 const variable = 'demo_' + sitio.replace(/-/g, '_');
 if (!ts.includes('// </importaciones-demos>') || !ts.includes('// </demos>')) {
-  console.warn(`⚠ ${path.relative(raiz, indice)} no tiene los marcadores; regístrala a mano:\n  import ${variable} from './demos/${sitio}.json';\n  demos: { '${sitio}': ${variable} }`);
+  console.warn(
+    `⚠ ${path.relative(raiz, indice)} no tiene los marcadores; regístrala a mano:\n  import ${variable} from './demos/${sitio}.json';\n  demos: { '${sitio}': ${variable} }`,
+  );
 } else {
   ts = ts
     .replace('// </importaciones-demos>', `import ${variable} from './demos/${sitio}.json';\n// </importaciones-demos>`)

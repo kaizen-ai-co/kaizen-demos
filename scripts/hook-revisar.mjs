@@ -56,7 +56,9 @@ process.stdin.on('end', () => {
       /* salida no JSON */
     }
     const total = lineas.length;
-    fallas.push(`lint (${total} error(es)):\n${lineas.slice(0, 8).join('\n') || '(ver npm run lint)'}${total > 8 ? '\n…' : ''}`);
+    fallas.push(
+      `lint (${total} error(es)):\n${lineas.slice(0, 8).join('\n') || '(ver npm run lint)'}${total > 8 ? '\n…' : ''}`,
+    );
   }
   if (fallas.length) {
     process.stdout.write(

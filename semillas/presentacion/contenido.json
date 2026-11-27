@@ -105,7 +105,10 @@
   },
   "pie": {
     "texto": "© 2026 Estudio Cordillera (empresa ficticia). Demo de Kaizen.",
-    "redes": [{ "texto": "LinkedIn", "destino": "#" }, { "texto": "Instagram", "destino": "#" }]
+    "redes": [
+      { "texto": "LinkedIn", "destino": "#" },
+      { "texto": "Instagram", "destino": "#" }
+    ]
   },
   "_estructura": {
     "orden": ["encabezado", "portada", "quienesSomos", "cifras", "casos", "equipo", "logos", "contacto", "pie"],

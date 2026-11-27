@@ -14,7 +14,13 @@ export default function Editar() {
       vistas={async (usuario) => {
         if (!tienePermiso(usuario, 'leads:leer')) return [];
         const leads = await (await plantilla.capa()).leads.listar(plantilla.sitioId());
-        return [{ id: 'leads', titulo: `Configuraciones pedidas (${leads.length})`, contenido: <VistaLeads leads={leads} mostrarExtra /> }];
+        return [
+          {
+            id: 'leads',
+            titulo: `Configuraciones pedidas (${leads.length})`,
+            contenido: <VistaLeads leads={leads} mostrarExtra />,
+          },
+        ];
       }}
     />
   );

@@ -16,13 +16,76 @@
       { "id": "cafeteria", "nombre": "Cafetería" }
     ],
     "productos": [
-      { "id": "resma-carta", "nombre": "Resma de papel carta", "foto": { "url": "/semillas/producto-papel.svg", "alt": "Ilustración de una resma de papel" }, "descripcion": "500 hojas de 75 g, blancas.", "precio": 18900, "unidad": "resma", "categoria": "oficina", "disponible": true },
-      { "id": "carpeta-az", "nombre": "Carpeta AZ oficio", "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de una carpeta" }, "descripcion": "Lomo ancho con palanca metálica.", "precio": 9500, "unidad": "unidad", "categoria": "oficina", "disponible": true },
-      { "id": "boligrafos-caja", "nombre": "Caja de bolígrafos negros", "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de útiles de oficina" }, "descripcion": "Caja por 12 unidades, tinta negra.", "precio": 14200, "unidad": "caja", "categoria": "oficina", "disponible": true },
-      { "id": "jabon-galon", "nombre": "Jabón líquido para manos", "foto": { "url": "/semillas/producto-aseo.svg", "alt": "Ilustración de un galón de jabón" }, "descripcion": "Galón de 3,8 L con aroma neutro.", "precio": 32500, "unidad": "galón", "categoria": "aseo", "disponible": true },
-      { "id": "toallas-papel", "nombre": "Toallas de papel", "foto": { "url": "/semillas/producto-aseo.svg", "alt": "Ilustración de rollos de papel" }, "descripcion": "Paquete por 6 rollos de doble hoja.", "precio": 21900, "unidad": "paquete", "categoria": "aseo", "disponible": false },
-      { "id": "cafe-500", "nombre": "Café molido 500 g", "foto": { "url": "/semillas/producto-cafe.svg", "alt": "Ilustración de una bolsa de café" }, "descripcion": "Tostión media, origen ficticio.", "precio": 24800, "unidad": "bolsa", "categoria": "cafeteria", "disponible": true },
-      { "id": "vasos-carton", "nombre": "Vasos de cartón 7 oz", "foto": { "url": "/semillas/producto-cafe.svg", "alt": "Ilustración de vasos de cartón" }, "descripcion": "Paquete por 50 vasos compostables.", "precio": 11300, "unidad": "paquete", "categoria": "cafeteria", "disponible": true }
+      {
+        "id": "resma-carta",
+        "nombre": "Resma de papel carta",
+        "foto": { "url": "/semillas/producto-papel.svg", "alt": "Ilustración de una resma de papel" },
+        "descripcion": "500 hojas de 75 g, blancas.",
+        "precio": 18900,
+        "unidad": "resma",
+        "categoria": "oficina",
+        "disponible": true
+      },
+      {
+        "id": "carpeta-az",
+        "nombre": "Carpeta AZ oficio",
+        "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de una carpeta" },
+        "descripcion": "Lomo ancho con palanca metálica.",
+        "precio": 9500,
+        "unidad": "unidad",
+        "categoria": "oficina",
+        "disponible": true
+      },
+      {
+        "id": "boligrafos-caja",
+        "nombre": "Caja de bolígrafos negros",
+        "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de útiles de oficina" },
+        "descripcion": "Caja por 12 unidades, tinta negra.",
+        "precio": 14200,
+        "unidad": "caja",
+        "categoria": "oficina",
+        "disponible": true
+      },
+      {
+        "id": "jabon-galon",
+        "nombre": "Jabón líquido para manos",
+        "foto": { "url": "/semillas/producto-aseo.svg", "alt": "Ilustración de un galón de jabón" },
+        "descripcion": "Galón de 3,8 L con aroma neutro.",
+        "precio": 32500,
+        "unidad": "galón",
+        "categoria": "aseo",
+        "disponible": true
+      },
+      {
+        "id": "toallas-papel",
+        "nombre": "Toallas de papel",
+        "foto": { "url": "/semillas/producto-aseo.svg", "alt": "Ilustración de rollos de papel" },
+        "descripcion": "Paquete por 6 rollos de doble hoja.",
+        "precio": 21900,
+        "unidad": "paquete",
+        "categoria": "aseo",
+        "disponible": false
+      },
+      {
+        "id": "cafe-500",
+        "nombre": "Café molido 500 g",
+        "foto": { "url": "/semillas/producto-cafe.svg", "alt": "Ilustración de una bolsa de café" },
+        "descripcion": "Tostión media, origen ficticio.",
+        "precio": 24800,
+        "unidad": "bolsa",
+        "categoria": "cafeteria",
+        "disponible": true
+      },
+      {
+        "id": "vasos-carton",
+        "nombre": "Vasos de cartón 7 oz",
+        "foto": { "url": "/semillas/producto-cafe.svg", "alt": "Ilustración de vasos de cartón" },
+        "descripcion": "Paquete por 50 vasos compostables.",
+        "precio": 11300,
+        "unidad": "paquete",
+        "categoria": "cafeteria",
+        "disponible": true
+      }
     ]
   },
   "condiciones": {
@@ -42,7 +105,10 @@
   },
   "pie": {
     "texto": "© 2026 Distribuidora Ejemplo (marca ficticia). Demo de Kaizen.",
-    "redes": [{ "texto": "Catálogo", "destino": "/" }, { "texto": "Mi cotización", "destino": "/cotizacion" }]
+    "redes": [
+      { "texto": "Catálogo", "destino": "/" },
+      { "texto": "Mi cotización", "destino": "/cotizacion" }
+    ]
   },
   "_estructura": {
     "orden": ["encabezado", "portada", "catalogo", "condiciones", "cotizacion", "pie"],

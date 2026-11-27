@@ -4,13 +4,23 @@ import { Tarjeta, cn } from '@kaizen/ui';
 import { FormularioLead } from '@kaizen/ui/modulos';
 import dynamic from 'next/dynamic';
 import { useMemo, useState } from 'react';
-import { opcionElegida, resumenSeleccion, seleccionInicial, type Escena, type Parte, type VistaCamara } from '@/lib/tipos';
+import {
+  opcionElegida,
+  resumenSeleccion,
+  seleccionInicial,
+  type Escena,
+  type Parte,
+  type VistaCamara,
+} from '@/lib/tipos';
 
 // Carga diferida: three.js solo se descarga en el navegador y cuando hace falta.
 const Visor = dynamic(() => import('./Visor'), {
   ssr: false,
   loading: () => (
-    <div role="status" className="flex aspect-square w-full animate-pulse items-center justify-center rounded-xl border border-borde bg-superficie text-sm text-suave md:aspect-[4/3]">
+    <div
+      role="status"
+      className="flex aspect-square w-full animate-pulse items-center justify-center rounded-xl border border-borde bg-superficie text-sm text-suave md:aspect-[4/3]"
+    >
       Preparando visor 3D…
     </div>
   ),
@@ -27,7 +37,16 @@ export interface PropsConfigurador {
   solicitud: { titulo: string; subtitulo?: string; textoBoton: string; mensajeExito: string };
 }
 
-export function Configurador({ producto, modeloUrl, partes, vista, escena, imagenReserva, ayuda, solicitud }: PropsConfigurador) {
+export function Configurador({
+  producto,
+  modeloUrl,
+  partes,
+  vista,
+  escena,
+  imagenReserva,
+  ayuda,
+  solicitud,
+}: PropsConfigurador) {
   const [seleccion, setSeleccion] = useState(() => seleccionInicial(partes));
   const resumen = useMemo(() => resumenSeleccion(partes, seleccion), [partes, seleccion]);
 
@@ -76,7 +95,11 @@ export function Configurador({ producto, modeloUrl, partes, vista, escena, image
                       )}
                     >
                       {/* El color de la muestra es un dato del contenido (color del objeto), no del tema. */}
-                      <span aria-hidden className="size-5 rounded-full border border-borde" style={{ background: o.color }} />
+                      <span
+                        aria-hidden
+                        className="size-5 rounded-full border border-borde"
+                        style={{ background: o.color }}
+                      />
                       {o.nombre}
                     </button>
                   );
@@ -88,14 +111,18 @@ export function Configurador({ producto, modeloUrl, partes, vista, escena, image
 
         {!!ayuda?.consejos?.length && (
           <ul className="grid gap-1 text-sm text-suave">
-            {ayuda.consejos.map((c) => <li key={c}>• {c}</li>)}
+            {ayuda.consejos.map((c) => (
+              <li key={c}>• {c}</li>
+            ))}
           </ul>
         )}
 
         <Tarjeta id="solicitar" className="scroll-mt-24">
           <h2 className="text-xl">{solicitud.titulo}</h2>
           {solicitud.subtitulo && <p className="mt-1 text-sm text-suave">{solicitud.subtitulo}</p>}
-          <p className="mt-3 rounded-md bg-superficie p-3 text-sm"><strong>Tu configuración:</strong> {resumen}</p>
+          <p className="mt-3 rounded-md bg-superficie p-3 text-sm">
+            <strong>Tu configuración:</strong> {resumen}
+          </p>
           <FormularioLead
             className="mt-4"
             origen="visor3d"

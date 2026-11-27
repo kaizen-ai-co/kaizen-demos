@@ -4,15 +4,18 @@ Monorepo de las **seis plantillas de demo de Kaizen** sobre una base común, con
 con Google y editor de contenido propio en `/editar`. Responde y escribe en **español de Colombia**.
 
 ## Orden de lectura (antes de construir algo)
+
 1. `docs/cuentas-y-roles.md` → 2. `docs/base-comun.md` → 3. `docs/motor-edicion.md` →
-4. `docs/plantillas/0N-*.md` de la plantilla pedida → 5. `docs/calidad.md`.
-Decisiones vigentes y pendientes: `docs/decisiones.md`. Mapa de agentes: `docs/agentes.md`.
+2. `docs/plantillas/0N-*.md` de la plantilla pedida → 5. `docs/calidad.md`.
+   Decisiones vigentes y pendientes: `docs/decisiones.md`. Mapa de agentes: `docs/agentes.md`.
 
 ## Agentes (.claude/agents) y skills (.claude/skills)
+
 - Empieza por **`orquestador-demos`** para cualquier pedido de varias partes; él delega.
 - Skills: `/construir-plantilla`, `/nueva-demo-cliente`, `/agregar-bloque`, `/verificar-entrega`, `/registro-slack`.
 
 ## Comandos
+
 ```bash
 npm install                      # una vez, en la raíz
 npm run dev:comercial            # 3001 · presentacion 3002 · catalogo 3003 · visor3d 3004 · panel 3005 · agenda 3006
@@ -21,10 +24,12 @@ npm run validar                  # esquemas + contraste + licencias + tipos + pr
 npm run build -w @kaizen/app-<plantilla>
 npm run nueva-demo -- --plantilla comercial --sitio cliente-x --sector clinica
 ```
+
 Local sin servicios externos: `.env.local` con `DATOS_PROVEEDOR=memoria` y `ENTRAR_COMO_PRUEBA=1`
 → `/editar` ofrece cuentas de prueba (Desarrollador, Administrador, Cliente, No autorizada).
 
 ## Mapa
+
 ```
 packages/tema      tokens (tema.json) → variables CSS; contraste WCAG
 packages/datos     interfaces + proveedores (memoria, firebase); acceso por rol; mapeo a CRM externo
@@ -37,6 +42,7 @@ apps/<plantilla>   comercial · presentacion · catalogo · visor3d · panel · 
 ```
 
 ## Reglas que no se negocian
+
 - **Datos ficticios siempre** (Ley 1581). Nada de nombres, teléfonos o correos reales en semillas, pruebas o capturas.
 - **Portabilidad**: las apps no importan SDKs de proveedores; todo por `@kaizen/datos` y variables de entorno.
   Prohibido `@vercel/*`, Edge Config, Blob, KV. La versión AWS **no se escribe** hasta que Santiago lo confirme.

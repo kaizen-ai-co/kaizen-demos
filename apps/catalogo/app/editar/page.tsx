@@ -20,7 +20,9 @@ export default function Editar() {
           vistas.push({
             id: 'cotizaciones',
             titulo: `Cotizaciones (${cotizaciones.length})`,
-            contenido: <VistaCotizaciones cotizaciones={cotizaciones} moneda={leerCatalogo(datos).condiciones.moneda ?? 'COP'} />,
+            contenido: (
+              <VistaCotizaciones cotizaciones={cotizaciones} moneda={leerCatalogo(datos).condiciones.moneda ?? 'COP'} />
+            ),
           });
         }
         vistas.push({ id: 'importar', titulo: 'Importar CSV', contenido: <VistaImportarCsv /> });

@@ -17,11 +17,26 @@
   },
   "servicios": {
     "items": [
-      { "icono": "salud", "titulo": "Atención a pacientes", "descripcion": "Respondemos dudas frecuentes y pasamos a recepción solo lo importante." },
-      { "icono": "calendario", "titulo": "Confirmación de citas", "descripcion": "Recordatorios y confirmaciones para reducir inasistencias." },
-      { "icono": "analitica", "titulo": "Tablero de pacientes nuevos", "descripcion": "Ves cuántos llegan, por qué canal y cuántos agendan." }
+      {
+        "icono": "salud",
+        "titulo": "Atención a pacientes",
+        "descripcion": "Respondemos dudas frecuentes y pasamos a recepción solo lo importante."
+      },
+      {
+        "icono": "calendario",
+        "titulo": "Confirmación de citas",
+        "descripcion": "Recordatorios y confirmaciones para reducir inasistencias."
+      },
+      {
+        "icono": "analitica",
+        "titulo": "Tablero de pacientes nuevos",
+        "descripcion": "Ves cuántos llegan, por qué canal y cuántos agendan."
+      }
     ]
   },
-  "contacto": { "titulo": "Agenda una llamada", "mensajeExito": "Gracias. Te llamamos hoy para contarte cómo funciona en tu clínica." },
+  "contacto": {
+    "titulo": "Agenda una llamada",
+    "mensajeExito": "Gracias. Te llamamos hoy para contarte cómo funciona en tu clínica."
+  },
   "pie": { "texto": "© 2026 Clínica Ejemplo (marca ficticia). Demo de Kaizen." }
 }

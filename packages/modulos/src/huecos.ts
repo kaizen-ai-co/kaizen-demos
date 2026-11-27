@@ -53,7 +53,12 @@ export interface ReglasHuecos {
   diasAdelante: number;
 }
 
-export const REGLAS_POR_DEFECTO: ReglasHuecos = { intervaloMin: 30, colchonMin: 0, anticipacionMin: 120, diasAdelante: 30 };
+export const REGLAS_POR_DEFECTO: ReglasHuecos = {
+  intervaloMin: 30,
+  colchonMin: 0,
+  anticipacionMin: 120,
+  diasAdelante: 30,
+};
 
 export interface Hueco {
   profesionalId: string;
@@ -127,11 +132,19 @@ export function calcularHuecos(e: EntradaHuecos): Hueco[] {
   const hoy = fechaBogota(ahora);
   if (e.fecha < hoy || e.fecha > sumarDias(hoy, reglas.diasAdelante)) return [];
 
-  const excepciones = (e.excepciones ?? []).filter((x) => x.fecha === e.fecha && (!x.profesionalId || x.profesionalId === e.profesionalId));
+  const excepciones = (e.excepciones ?? []).filter(
+    (x) => x.fecha === e.fecha && (!x.profesionalId || x.profesionalId === e.profesionalId),
+  );
   if (excepciones.some((x) => !x.franjas?.length)) return []; // día bloqueado completo
 
-  const franjas = (e.horario[diaDeSemana(e.fecha)] ?? []).map((f) => [instanteBogota(e.fecha, aMin(f.inicio)), instanteBogota(e.fecha, aMin(f.fin))] as [number, number]);
-  const bloqueadas = excepciones.flatMap((x) => x.franjas!.map((f) => [instanteBogota(e.fecha, aMin(f.inicio)), instanteBogota(e.fecha, aMin(f.fin))] as [number, number]));
+  const franjas = (e.horario[diaDeSemana(e.fecha)] ?? []).map(
+    (f) => [instanteBogota(e.fecha, aMin(f.inicio)), instanteBogota(e.fecha, aMin(f.fin))] as [number, number],
+  );
+  const bloqueadas = excepciones.flatMap((x) =>
+    x.franjas!.map(
+      (f) => [instanteBogota(e.fecha, aMin(f.inicio)), instanteBogota(e.fecha, aMin(f.fin))] as [number, number],
+    ),
+  );
   const colchon = reglas.colchonMin * MS_MIN;
   const ocupadas = (e.citas ?? [])
     .filter((c) => c.profesionalId === e.profesionalId && c.estado !== 'cancelada')
@@ -148,14 +161,18 @@ export function calcularHuecos(e: EntradaHuecos): Hueco[] {
     // Los inicios se alinean a la grilla del día (8:00, 8:30…), no al borde de la franja libre.
     let t = inicioDia + Math.ceil((i - inicioDia) / paso) * paso;
     for (; t + duracion <= f; t += paso) {
-      if (t >= minimo) huecos.push({ profesionalId: e.profesionalId, inicio: isoBogota(t), fin: isoBogota(t + duracion) });
+      if (t >= minimo)
+        huecos.push({ profesionalId: e.profesionalId, inicio: isoBogota(t), fin: isoBogota(t + duracion) });
     }
   }
   return huecos;
 }
 
 /** Huecos de varios profesionales en un día (para "cualquier profesional"). */
-export function calcularHuecosVarios(base: Omit<EntradaHuecos, 'profesionalId' | 'horario'>, profesionales: { id: string; horario: HorarioSemanal }[]): Hueco[] {
+export function calcularHuecosVarios(
+  base: Omit<EntradaHuecos, 'profesionalId' | 'horario'>,
+  profesionales: { id: string; horario: HorarioSemanal }[],
+): Hueco[] {
   return profesionales
     .flatMap((p) => calcularHuecos({ ...base, profesionalId: p.id, horario: p.horario }))
     .sort((a, b) => a.inicio.localeCompare(b.inicio));

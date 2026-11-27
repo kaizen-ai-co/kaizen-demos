@@ -9,12 +9,17 @@ export function nuevoId(prefijo = ''): string {
 
 /** Dos intervalos [a1,a2) y [b1,b2) se cruzan si a1 < b2 y b1 < a2. */
 export function seCruzan(aInicio: string, aFin: string, bInicio: string, bFin: string): boolean {
-  return new Date(aInicio).getTime() < new Date(bFin).getTime() && new Date(bInicio).getTime() < new Date(aFin).getTime();
+  return (
+    new Date(aInicio).getTime() < new Date(bFin).getTime() && new Date(bInicio).getTime() < new Date(aFin).getTime()
+  );
 }
 
 export function citaChoca(nueva: Pick<Cita, 'profesionalId' | 'inicio' | 'fin'>, existentes: Cita[]): boolean {
   return existentes.some(
-    (c) => c.estado !== 'cancelada' && c.profesionalId === nueva.profesionalId && seCruzan(c.inicio, c.fin, nueva.inicio, nueva.fin),
+    (c) =>
+      c.estado !== 'cancelada' &&
+      c.profesionalId === nueva.profesionalId &&
+      seCruzan(c.inicio, c.fin, nueva.inicio, nueva.fin),
   );
 }
 
@@ -49,7 +54,10 @@ export function aplicarCambiosLead(lead: Lead, cambios: CambiosLead, autor: stri
   return siguiente;
 }
 
-export function coincideFiltro(lead: Lead, f: { etapa?: string; responsableId?: string; origen?: string; texto?: string }): boolean {
+export function coincideFiltro(
+  lead: Lead,
+  f: { etapa?: string; responsableId?: string; origen?: string; texto?: string },
+): boolean {
   if (f.etapa && lead.etapa !== f.etapa) return false;
   if (f.responsableId && lead.responsableId !== f.responsableId) return false;
   if (f.origen && lead.origen !== f.origen) return false;

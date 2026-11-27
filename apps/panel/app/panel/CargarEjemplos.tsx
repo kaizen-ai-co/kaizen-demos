@@ -10,7 +10,11 @@ export function CargarEjemplos() {
   const [estado, setEstado] = React.useState<string | null>(null);
   return (
     <div className="flex items-center gap-2">
-      {estado && <span role="status" className="text-xs text-suave">{estado}</span>}
+      {estado && (
+        <span role="status" className="text-xs text-suave">
+          {estado}
+        </span>
+      )}
       <Boton
         variante="borde"
         tamano="sm"
@@ -18,7 +22,7 @@ export function CargarEjemplos() {
           setEstado('Cargando…');
           const r = await fetch('/api/ejemplos', { method: 'POST' });
           const c = await r.json().catch(() => ({}));
-          setEstado(r.ok ? `${c.creados} lead(s) de ejemplo creados` : c.error ?? 'No se pudo cargar');
+          setEstado(r.ok ? `${c.creados} lead(s) de ejemplo creados` : (c.error ?? 'No se pudo cargar'));
           router.refresh();
         }}
       >

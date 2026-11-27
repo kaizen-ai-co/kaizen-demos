@@ -28,8 +28,7 @@ export interface Usuario {
 export type MotivoSinAcceso = 'sin-sesion' | 'no-registrado' | 'inactivo' | 'vencido' | 'otro-sitio';
 
 export type ResultadoAcceso =
-  | { ok: true; usuario: Usuario }
-  | { ok: false; motivo: MotivoSinAcceso; usuario?: Usuario };
+  { ok: true; usuario: Usuario } | { ok: false; motivo: MotivoSinAcceso; usuario?: Usuario };
 
 // ── Contenido versionado ─────────────────────────────────────────────
 export type EstadoContenido = 'borrador' | 'publicado' | 'archivado';

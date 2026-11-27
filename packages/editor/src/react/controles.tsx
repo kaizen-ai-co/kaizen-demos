@@ -1,7 +1,21 @@
 'use client';
 
-import { DndContext, KeyboardSensor, PointerSensor, closestCenter, useSensor, useSensors, type DragEndEvent } from '@dnd-kit/core';
-import { SortableContext, arrayMove, sortableKeyboardCoordinates, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import {
+  DndContext,
+  KeyboardSensor,
+  PointerSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+  type DragEndEvent,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  arrayMove,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { AreaTexto, Boton, Entrada, Etiqueta, NOMBRES_ICONOS, Selector, cn } from '@kaizen/ui';
 import { ChevronDown, GripVertical, Plus, Trash2, Upload } from 'lucide-react';
@@ -52,30 +66,78 @@ const idDe = (ruta: string) => `campo-${ruta.replace(/\./g, '-')}`;
 const errorDe = (errores: ErrorValidacion[], ruta: string) => errores.find((e) => e.ruta === ruta)?.mensaje;
 
 /** Envoltorio común: etiqueta, ayuda, contador y error accesibles. */
-export function Envoltorio({ campo, ruta, errores, children, contador }: { campo: Campo; ruta: string; errores: ErrorValidacion[]; children: React.ReactNode; contador?: string }) {
+export function Envoltorio({
+  campo,
+  ruta,
+  errores,
+  children,
+  contador,
+}: {
+  campo: Campo;
+  ruta: string;
+  errores: ErrorValidacion[];
+  children: React.ReactNode;
+  contador?: string;
+}) {
   const error = errorDe(errores, ruta);
   return (
     <div className="grid gap-1.5" data-ruta={ruta}>
       <div className="flex items-baseline justify-between gap-2">
         <Etiqueta htmlFor={idDe(ruta)}>
-          {campo.etiqueta} {campo.requerido && <span className="text-peligro" aria-hidden>*</span>}
-          {campo.rol === 'desarrollador' && <span className="ml-2 rounded bg-secundario px-1.5 py-0.5 text-[10px] uppercase text-secundario-texto">Dev</span>}
+          {campo.etiqueta}{' '}
+          {campo.requerido && (
+            <span className="text-peligro" aria-hidden>
+              *
+            </span>
+          )}
+          {campo.rol === 'desarrollador' && (
+            <span className="ml-2 rounded bg-secundario px-1.5 py-0.5 text-[10px] uppercase text-secundario-texto">
+              Dev
+            </span>
+          )}
         </Etiqueta>
         {contador && <span className="text-xs tabular-nums text-suave">{contador}</span>}
       </div>
       {children}
       {campo.ayuda && <p className="text-xs text-suave">{campo.ayuda}</p>}
-      {error && <p role="alert" className="text-xs font-medium text-peligro">{error}</p>}
+      {error && (
+        <p role="alert" className="text-xs font-medium text-peligro">
+          {error}
+        </p>
+      )}
     </div>
   );
 }
 
 function ControlTexto({ campo, valor, alCambiar, ruta, errores }: PropsControl<string>) {
   const v = typeof valor === 'string' ? valor : '';
-  const tipoInput = campo.tipo === 'correo' ? 'email' : campo.tipo === 'telefono' ? 'tel' : campo.tipo === 'enlace' ? 'url' : campo.tipo === 'fecha' ? 'date' : campo.tipo === 'hora' ? 'time' : 'text';
+  const tipoInput =
+    campo.tipo === 'correo'
+      ? 'email'
+      : campo.tipo === 'telefono'
+        ? 'tel'
+        : campo.tipo === 'enlace'
+          ? 'url'
+          : campo.tipo === 'fecha'
+            ? 'date'
+            : campo.tipo === 'hora'
+              ? 'time'
+              : 'text';
   return (
-    <Envoltorio campo={campo} ruta={ruta} errores={errores} contador={campo.max ? `${v.length}/${campo.max}` : undefined}>
-      <Entrada id={idDe(ruta)} type={tipoInput} value={v} placeholder={campo.placeholder} aria-invalid={!!errorDe(errores, ruta)} onChange={(e) => alCambiar(e.target.value)} />
+    <Envoltorio
+      campo={campo}
+      ruta={ruta}
+      errores={errores}
+      contador={campo.max ? `${v.length}/${campo.max}` : undefined}
+    >
+      <Entrada
+        id={idDe(ruta)}
+        type={tipoInput}
+        value={v}
+        placeholder={campo.placeholder}
+        aria-invalid={!!errorDe(errores, ruta)}
+        onChange={(e) => alCambiar(e.target.value)}
+      />
     </Envoltorio>
   );
 }
@@ -83,8 +145,20 @@ function ControlTexto({ campo, valor, alCambiar, ruta, errores }: PropsControl<s
 function ControlTextoLargo({ campo, valor, alCambiar, ruta, errores }: PropsControl<string>) {
   const v = typeof valor === 'string' ? valor : '';
   return (
-    <Envoltorio campo={campo} ruta={ruta} errores={errores} contador={campo.max ? `${v.length}/${campo.max}` : undefined}>
-      <AreaTexto id={idDe(ruta)} value={v} rows={4} placeholder={campo.placeholder} aria-invalid={!!errorDe(errores, ruta)} onChange={(e) => alCambiar(e.target.value)} />
+    <Envoltorio
+      campo={campo}
+      ruta={ruta}
+      errores={errores}
+      contador={campo.max ? `${v.length}/${campo.max}` : undefined}
+    >
+      <AreaTexto
+        id={idDe(ruta)}
+        value={v}
+        rows={4}
+        placeholder={campo.placeholder}
+        aria-invalid={!!errorDe(errores, ruta)}
+        onChange={(e) => alCambiar(e.target.value)}
+      />
     </Envoltorio>
   );
 }
@@ -120,9 +194,16 @@ function ControlBooleano({ campo, valor, alCambiar, ruta, errores }: PropsContro
   return (
     <div className="grid gap-1">
       <label className="flex items-center gap-3 text-sm font-medium">
-        <input type="checkbox" className="size-4 accent-[var(--k-primario)]" checked={!!valor} onChange={(e) => alCambiar(e.target.checked)} />
+        <input
+          type="checkbox"
+          className="size-4 accent-[var(--k-primario)]"
+          checked={!!valor}
+          onChange={(e) => alCambiar(e.target.checked)}
+        />
         {campo.etiqueta}
-        {campo.rol === 'desarrollador' && <span className="rounded bg-secundario px-1.5 py-0.5 text-[10px] uppercase text-secundario-texto">Dev</span>}
+        {campo.rol === 'desarrollador' && (
+          <span className="rounded bg-secundario px-1.5 py-0.5 text-[10px] uppercase text-secundario-texto">Dev</span>
+        )}
       </label>
       {campo.ayuda && <p className="pl-7 text-xs text-suave">{campo.ayuda}</p>}
       {errorDe(errores, ruta) && <p className="pl-7 text-xs text-peligro">{errorDe(errores, ruta)}</p>}
@@ -139,7 +220,11 @@ function ControlSeleccion({ campo, valor, alCambiar, ruta, errores, contexto }: 
     <Envoltorio campo={campo} ruta={ruta} errores={errores}>
       <Selector id={idDe(ruta)} value={valor ?? ''} onChange={(e) => alCambiar(e.target.value)}>
         {!campo.requerido && <option value="">—</option>}
-        {opciones.map((o) => <option key={o.valor} value={o.valor}>{o.etiqueta}</option>)}
+        {opciones.map((o) => (
+          <option key={o.valor} value={o.valor}>
+            {o.etiqueta}
+          </option>
+        ))}
       </Selector>
     </Envoltorio>
   );
@@ -160,7 +245,10 @@ function ControlMultiseleccion({ campo, valor, alCambiar, ruta, errores, context
               type="button"
               aria-pressed={activo}
               onClick={() => alCambiar(activo ? actual.filter((x) => x !== o.valor) : [...actual, o.valor])}
-              className={cn('rounded-full border px-3 py-1 text-xs', activo ? 'border-primario bg-primario text-primario-texto' : 'border-borde')}
+              className={cn(
+                'rounded-full border px-3 py-1 text-xs',
+                activo ? 'border-primario bg-primario text-primario-texto' : 'border-borde',
+              )}
             >
               {o.etiqueta}
             </button>
@@ -187,8 +275,20 @@ function ControlColor({ campo, valor, alCambiar, ruta, errores }: PropsControl<s
   return (
     <Envoltorio campo={campo} ruta={ruta} errores={errores}>
       <div className="flex items-center gap-2">
-        <input type="color" aria-label={`${campo.etiqueta} (selector)`} value={v} onChange={(e) => alCambiar(e.target.value)} className="h-10 w-12 cursor-pointer rounded border border-borde bg-transparent" />
-        <Entrada id={idDe(ruta)} value={valor ?? ''} onChange={(e) => alCambiar(e.target.value)} className="font-mono" maxLength={7} />
+        <input
+          type="color"
+          aria-label={`${campo.etiqueta} (selector)`}
+          value={v}
+          onChange={(e) => alCambiar(e.target.value)}
+          className="h-10 w-12 cursor-pointer rounded border border-borde bg-transparent"
+        />
+        <Entrada
+          id={idDe(ruta)}
+          value={valor ?? ''}
+          onChange={(e) => alCambiar(e.target.value)}
+          className="font-mono"
+          maxLength={7}
+        />
       </div>
     </Envoltorio>
   );
@@ -199,7 +299,11 @@ function ControlIcono({ campo, valor, alCambiar, ruta, errores }: PropsControl<s
     <Envoltorio campo={campo} ruta={ruta} errores={errores}>
       <Selector id={idDe(ruta)} value={valor ?? ''} onChange={(e) => alCambiar(e.target.value)}>
         <option value="">(por defecto)</option>
-        {NOMBRES_ICONOS.map((n) => <option key={n} value={n}>{n}</option>)}
+        {NOMBRES_ICONOS.map((n) => (
+          <option key={n} value={n}>
+            {n}
+          </option>
+        ))}
       </Selector>
     </Envoltorio>
   );
@@ -210,14 +314,20 @@ export function ControlArchivo({ campo, valor, alCambiar, ruta, errores, context
   const [subiendo, setSubiendo] = React.useState(false);
   const [fallo, setFallo] = React.useState<string | null>(null);
   const esImagen = campo.tipo === 'imagen';
-  const aceptar = campo.formatos?.length ? campo.formatos.map((f) => `.${f}`).join(',') : esImagen ? 'image/*' : '.glb,.gltf';
+  const aceptar = campo.formatos?.length
+    ? campo.formatos.map((f) => `.${f}`).join(',')
+    : esImagen
+      ? 'image/*'
+      : '.glb,.gltf';
 
   async function elegir(e: React.ChangeEvent<HTMLInputElement>) {
     const archivo = e.target.files?.[0];
     e.target.value = '';
     if (!archivo) return;
     if (campo.maxBytes && archivo.size > campo.maxBytes) {
-      setFallo(`El archivo pesa ${(archivo.size / 1e6).toFixed(1)} MB; el máximo es ${(campo.maxBytes / 1e6).toFixed(1)} MB.`);
+      setFallo(
+        `El archivo pesa ${(archivo.size / 1e6).toFixed(1)} MB; el máximo es ${(campo.maxBytes / 1e6).toFixed(1)} MB.`,
+      );
       return;
     }
     setFallo(null);
@@ -235,33 +345,80 @@ export function ControlArchivo({ campo, valor, alCambiar, ruta, errores, context
   return (
     <Envoltorio campo={campo} ruta={ruta} errores={errores}>
       <div className="grid gap-2 rounded-md border border-dashed border-borde p-3">
-        {valor?.url && esImagen && <img src={valor.url} alt={valor.alt ?? ''} className="max-h-36 w-full rounded object-contain" />}
+        {valor?.url && esImagen && (
+          <img src={valor.url} alt={valor.alt ?? ''} className="max-h-36 w-full rounded object-contain" />
+        )}
         {valor?.url && !esImagen && <p className="truncate text-xs text-suave">{valor.ruta ?? valor.url}</p>}
         <div className="flex flex-wrap items-center gap-2">
-          <label className={cn('inline-flex cursor-pointer items-center gap-2 rounded-md border border-borde px-3 py-1.5 text-sm hover:bg-superficie', subiendo && 'opacity-50')}>
+          <label
+            className={cn(
+              'inline-flex cursor-pointer items-center gap-2 rounded-md border border-borde px-3 py-1.5 text-sm hover:bg-superficie',
+              subiendo && 'opacity-50',
+            )}
+          >
             <Upload className="size-4" aria-hidden />
             {subiendo ? 'Subiendo…' : valor?.url ? 'Cambiar archivo' : 'Subir archivo'}
-            <input id={idDe(ruta)} type="file" accept={aceptar} className="sr-only" disabled={subiendo} onChange={elegir} />
+            <input
+              id={idDe(ruta)}
+              type="file"
+              accept={aceptar}
+              className="sr-only"
+              disabled={subiendo}
+              onChange={elegir}
+            />
           </label>
-          {valor?.url && <Boton variante="fantasma" tamano="sm" onClick={() => alCambiar(null)}>Quitar</Boton>}
+          {valor?.url && (
+            <Boton variante="fantasma" tamano="sm" onClick={() => alCambiar(null)}>
+              Quitar
+            </Boton>
+          )}
         </div>
         {esImagen && valor?.url && (
           <div className="grid gap-1">
-            <Etiqueta htmlFor={`${idDe(ruta)}-alt`} className="text-xs">Texto alternativo (describe la imagen)</Etiqueta>
-            <Entrada id={`${idDe(ruta)}-alt`} value={valor.alt ?? ''} onChange={(e) => alCambiar({ ...valor, alt: e.target.value })} aria-invalid={!!errorDe(errores, `${ruta}.alt`)} />
-            {errorDe(errores, `${ruta}.alt`) && <p className="text-xs text-peligro">{errorDe(errores, `${ruta}.alt`)}</p>}
+            <Etiqueta htmlFor={`${idDe(ruta)}-alt`} className="text-xs">
+              Texto alternativo (describe la imagen)
+            </Etiqueta>
+            <Entrada
+              id={`${idDe(ruta)}-alt`}
+              value={valor.alt ?? ''}
+              onChange={(e) => alCambiar({ ...valor, alt: e.target.value })}
+              aria-invalid={!!errorDe(errores, `${ruta}.alt`)}
+            />
+            {errorDe(errores, `${ruta}.alt`) && (
+              <p className="text-xs text-peligro">{errorDe(errores, `${ruta}.alt`)}</p>
+            )}
           </div>
         )}
-        {fallo && <p role="alert" className="text-xs text-peligro">{fallo}</p>}
-        {campo.maxBytes && <p className="text-[11px] text-suave">Máximo {(campo.maxBytes / 1e6).toFixed(1)} MB{campo.formatos ? ` · ${campo.formatos.join(', ')}` : ''}</p>}
+        {fallo && (
+          <p role="alert" className="text-xs text-peligro">
+            {fallo}
+          </p>
+        )}
+        {campo.maxBytes && (
+          <p className="text-[11px] text-suave">
+            Máximo {(campo.maxBytes / 1e6).toFixed(1)} MB{campo.formatos ? ` · ${campo.formatos.join(', ')}` : ''}
+          </p>
+        )}
       </div>
     </Envoltorio>
   );
 }
 
 /** Formulario de un conjunto de campos (sección, grupo o elemento de lista). */
-export function CamposAnidados({ campos, valor, alCambiar, ruta, errores, contexto }: {
-  campos: Campo[]; valor: Record<string, unknown>; alCambiar: (v: Record<string, unknown>) => void; ruta: string; errores: ErrorValidacion[]; contexto: ContextoEditor;
+export function CamposAnidados({
+  campos,
+  valor,
+  alCambiar,
+  ruta,
+  errores,
+  contexto,
+}: {
+  campos: Campo[];
+  valor: Record<string, unknown>;
+  alCambiar: (v: Record<string, unknown>) => void;
+  ruta: string;
+  errores: ErrorValidacion[];
+  contexto: ContextoEditor;
 }) {
   return (
     <div className="grid gap-4">
@@ -288,20 +445,48 @@ function ControlGrupo({ campo, valor, alCambiar, ruta, errores, contexto }: Prop
     <fieldset className="grid gap-3 rounded-md border border-borde p-3">
       <legend className="px-1 text-sm font-semibold">{campo.etiqueta}</legend>
       {campo.ayuda && <p className="text-xs text-suave">{campo.ayuda}</p>}
-      <CamposAnidados campos={campo.campos ?? []} valor={valor ?? {}} alCambiar={alCambiar} ruta={ruta} errores={errores} contexto={contexto} />
+      <CamposAnidados
+        campos={campo.campos ?? []}
+        valor={valor ?? {}}
+        alCambiar={alCambiar}
+        ruta={ruta}
+        errores={errores}
+        contexto={contexto}
+      />
     </fieldset>
   );
 }
 
-function ElementoOrdenable({ id, children, ordenable }: { id: string; ordenable: boolean; children: (asa: React.ReactNode) => React.ReactNode }) {
-  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({ id, disabled: !ordenable });
+function ElementoOrdenable({
+  id,
+  children,
+  ordenable,
+}: {
+  id: string;
+  ordenable: boolean;
+  children: (asa: React.ReactNode) => React.ReactNode;
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id,
+    disabled: !ordenable,
+  });
   const asa = ordenable ? (
-    <button type="button" className="cursor-grab touch-none rounded p-1 text-suave hover:bg-superficie" aria-label="Arrastrar para reordenar" {...attributes} {...listeners}>
+    <button
+      type="button"
+      className="cursor-grab touch-none rounded p-1 text-suave hover:bg-superficie"
+      aria-label="Arrastrar para reordenar"
+      {...attributes}
+      {...listeners}
+    >
       <GripVertical className="size-4" />
     </button>
   ) : null;
   return (
-    <li ref={setNodeRef} style={{ transform: CSS.Transform.toString(transform), transition }} className={cn('rounded-md border border-borde bg-fondo', isDragging && 'z-10 shadow-lg')}>
+    <li
+      ref={setNodeRef}
+      style={{ transform: CSS.Transform.toString(transform), transition }}
+      className={cn('rounded-md border border-borde bg-fondo', isDragging && 'z-10 shadow-lg')}
+    >
       {children(asa)}
     </li>
   );
@@ -312,7 +497,10 @@ function ControlLista({ campo, valor, alCambiar, ruta, errores, contexto }: Prop
   const items = Array.isArray(valor) ? valor : [];
   const [abierto, setAbierto] = React.useState<number | null>(null);
   const ordenable = campo.ordenable !== false;
-  const sensores = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 4 } }), useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }));
+  const sensores = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
+  );
   // Clave estable para dnd-kit: id del elemento si existe, si no su posición.
   const claves = items.map((it, i) => String(it?.id ?? `#${i}`));
   const tieneId = campo.campos?.some((c) => c.id === 'id');
@@ -340,11 +528,23 @@ function ControlLista({ campo, valor, alCambiar, ruta, errores, contexto }: Prop
   return (
     <div className="grid gap-2" data-ruta={ruta}>
       <div className="flex items-center justify-between">
-        <span className="text-sm font-medium">{campo.etiqueta} <span className="text-suave">({items.length}{campo.maxItems ? `/${campo.maxItems}` : ''})</span></span>
-        <Boton variante="borde" tamano="sm" onClick={agregar} disabled={limite}><Plus aria-hidden /> Agregar {campo.nombreItem ?? ''}</Boton>
+        <span className="text-sm font-medium">
+          {campo.etiqueta}{' '}
+          <span className="text-suave">
+            ({items.length}
+            {campo.maxItems ? `/${campo.maxItems}` : ''})
+          </span>
+        </span>
+        <Boton variante="borde" tamano="sm" onClick={agregar} disabled={limite}>
+          <Plus aria-hidden /> Agregar {campo.nombreItem ?? ''}
+        </Boton>
       </div>
       {campo.ayuda && <p className="text-xs text-suave">{campo.ayuda}</p>}
-      {errorLista && <p role="alert" className="text-xs text-peligro">{errorLista}</p>}
+      {errorLista && (
+        <p role="alert" className="text-xs text-peligro">
+          {errorLista}
+        </p>
+      )}
       <DndContext sensors={sensores} collisionDetection={closestCenter} onDragEnd={alSoltar}>
         <SortableContext items={claves} strategy={verticalListSortingStrategy}>
           <ul className="grid gap-2">
@@ -356,12 +556,22 @@ function ControlLista({ campo, valor, alCambiar, ruta, errores, contexto }: Prop
                     <>
                       <div className="flex items-center gap-1 px-2 py-1.5">
                         {asa}
-                        <button type="button" className="flex flex-1 items-center gap-2 truncate text-left text-sm" aria-expanded={abierto === i} onClick={() => setAbierto(abierto === i ? null : i)}>
+                        <button
+                          type="button"
+                          className="flex flex-1 items-center gap-2 truncate text-left text-sm"
+                          aria-expanded={abierto === i}
+                          onClick={() => setAbierto(abierto === i ? null : i)}
+                        >
                           <ChevronDown aria-hidden className={cn('size-4 transition', abierto === i && 'rotate-180')} />
                           <span className="truncate">{titulo(it, i)}</span>
                           {conError && <span className="size-2 rounded-full bg-peligro" aria-label="Tiene errores" />}
                         </button>
-                        <Boton variante="fantasma" tamano="icono" aria-label={`Quitar ${titulo(it, i)}`} onClick={() => alCambiar(items.filter((_, j) => j !== i))}>
+                        <Boton
+                          variante="fantasma"
+                          tamano="icono"
+                          aria-label={`Quitar ${titulo(it, i)}`}
+                          onClick={() => alCambiar(items.filter((_, j) => j !== i))}
+                        >
                           <Trash2 />
                         </Boton>
                       </div>

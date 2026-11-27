@@ -12,7 +12,11 @@ export const GET = manejar(async (req: Request) => {
   const fecha = q.get('fecha') ?? '';
   const { datos, sitioId } = await plantilla.obtenerContenido();
   try {
-    const huecos = await huecosDisponibles(await plantilla.capa(), sitioId, datos, { servicioId, profesionalId, fecha });
+    const huecos = await huecosDisponibles(await plantilla.capa(), sitioId, datos, {
+      servicioId,
+      profesionalId,
+      fecha,
+    });
     return json({ huecos });
   } catch (e) {
     if (e instanceof ErrorAgenda) throw new ErrorEntrada(e.message, 422);

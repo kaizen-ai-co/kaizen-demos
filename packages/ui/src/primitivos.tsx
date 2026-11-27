@@ -32,34 +32,42 @@ export const variantesBoton = cva(
   },
 );
 
-export interface PropsBoton extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof variantesBoton> {}
+export interface PropsBoton
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof variantesBoton> {}
 
-export const Boton = React.forwardRef<HTMLButtonElement, PropsBoton>(({ className, variante, tamano, type = 'button', ...props }, ref) => (
-  <button ref={ref} type={type} className={cn(variantesBoton({ variante, tamano }), className)} {...props} />
-));
+export const Boton = React.forwardRef<HTMLButtonElement, PropsBoton>(
+  ({ className, variante, tamano, type = 'button', ...props }, ref) => (
+    <button ref={ref} type={type} className={cn(variantesBoton({ variante, tamano }), className)} {...props} />
+  ),
+);
 Boton.displayName = 'Boton';
 
 /** Enlace con apariencia de botón. */
-export function BotonEnlace({ className, variante, tamano, ...props }: React.AnchorHTMLAttributes<HTMLAnchorElement> & VariantProps<typeof variantesBoton>) {
+export function BotonEnlace({
+  className,
+  variante,
+  tamano,
+  ...props
+}: React.AnchorHTMLAttributes<HTMLAnchorElement> & VariantProps<typeof variantesBoton>) {
   return <a className={cn(variantesBoton({ variante, tamano }), className)} {...props} />;
 }
 
 const claseCampo =
   'flex w-full rounded-md border border-borde bg-fondo px-3 py-2 text-sm text-texto placeholder:text-suave focus-visible:outline-2 focus-visible:outline-foco disabled:opacity-50 aria-[invalid=true]:border-peligro';
 
-export const Entrada = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(({ className, ...props }, ref) => (
-  <input ref={ref} className={cn(claseCampo, 'h-10', className)} {...props} />
-));
+export const Entrada = React.forwardRef<HTMLInputElement, React.InputHTMLAttributes<HTMLInputElement>>(
+  ({ className, ...props }, ref) => <input ref={ref} className={cn(claseCampo, 'h-10', className)} {...props} />,
+);
 Entrada.displayName = 'Entrada';
 
-export const AreaTexto = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(({ className, ...props }, ref) => (
-  <textarea ref={ref} className={cn(claseCampo, 'min-h-24', className)} {...props} />
-));
+export const AreaTexto = React.forwardRef<HTMLTextAreaElement, React.TextareaHTMLAttributes<HTMLTextAreaElement>>(
+  ({ className, ...props }, ref) => <textarea ref={ref} className={cn(claseCampo, 'min-h-24', className)} {...props} />,
+);
 AreaTexto.displayName = 'AreaTexto';
 
-export const Selector = React.forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement>>(({ className, ...props }, ref) => (
-  <select ref={ref} className={cn(claseCampo, 'h-10', className)} {...props} />
-));
+export const Selector = React.forwardRef<HTMLSelectElement, React.SelectHTMLAttributes<HTMLSelectElement>>(
+  ({ className, ...props }, ref) => <select ref={ref} className={cn(claseCampo, 'h-10', className)} {...props} />,
+);
 Selector.displayName = 'Selector';
 
 export function Etiqueta({ className, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
@@ -83,30 +91,61 @@ const variantesInsignia = cva('inline-flex items-center gap-1 rounded-full px-2.
   defaultVariants: { tono: 'neutro' },
 });
 
-export function Insignia({ className, tono, ...props }: React.HTMLAttributes<HTMLSpanElement> & VariantProps<typeof variantesInsignia>) {
+export function Insignia({
+  className,
+  tono,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement> & VariantProps<typeof variantesInsignia>) {
   return <span className={cn(variantesInsignia({ tono }), className)} {...props} />;
 }
 
-export function Aviso({ className, tono = 'neutro', ...props }: React.HTMLAttributes<HTMLDivElement> & { tono?: 'neutro' | 'exito' | 'aviso' | 'peligro' }) {
+export function Aviso({
+  className,
+  tono = 'neutro',
+  ...props
+}: React.HTMLAttributes<HTMLDivElement> & { tono?: 'neutro' | 'exito' | 'aviso' | 'peligro' }) {
   const tonos = {
     neutro: 'border-borde bg-superficie',
     exito: 'border-exito/40 bg-exito/10',
     aviso: 'border-aviso/40 bg-aviso/10',
     peligro: 'border-peligro/40 bg-peligro/10',
   };
-  return <div role={tono === 'peligro' ? 'alert' : 'status'} className={cn('rounded-md border p-4 text-sm', tonos[tono], className)} {...props} />;
+  return (
+    <div
+      role={tono === 'peligro' ? 'alert' : 'status'}
+      className={cn('rounded-md border p-4 text-sm', tonos[tono], className)}
+      {...props}
+    />
+  );
 }
 
 /** Campo con etiqueta, ayuda y error conectados por aria. */
 export function CampoFormulario({
-  id, etiqueta, ayuda, error, requerido, children,
-}: { id: string; etiqueta: string; ayuda?: string; error?: string; requerido?: boolean; children: React.ReactElement<Record<string, unknown>> }) {
+  id,
+  etiqueta,
+  ayuda,
+  error,
+  requerido,
+  children,
+}: {
+  id: string;
+  etiqueta: string;
+  ayuda?: string;
+  error?: string;
+  requerido?: boolean;
+  children: React.ReactElement<Record<string, unknown>>;
+}) {
   const idAyuda = ayuda ? `${id}-ayuda` : undefined;
   const idError = error ? `${id}-error` : undefined;
   return (
     <div className="grid gap-1.5">
       <Etiqueta htmlFor={id}>
-        {etiqueta} {requerido && <span aria-hidden className="text-peligro">*</span>}
+        {etiqueta}{' '}
+        {requerido && (
+          <span aria-hidden className="text-peligro">
+            *
+          </span>
+        )}
       </Etiqueta>
       {React.cloneElement(children, {
         id,
@@ -114,8 +153,16 @@ export function CampoFormulario({
         'aria-describedby': [idAyuda, idError].filter(Boolean).join(' ') || undefined,
         required: requerido,
       })}
-      {ayuda && <p id={idAyuda} className="text-xs text-suave">{ayuda}</p>}
-      {error && <p id={idError} className="text-xs font-medium text-peligro">{error}</p>}
+      {ayuda && (
+        <p id={idAyuda} className="text-xs text-suave">
+          {ayuda}
+        </p>
+      )}
+      {error && (
+        <p id={idError} className="text-xs font-medium text-peligro">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

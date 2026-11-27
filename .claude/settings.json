@@ -18,12 +18,7 @@
       "Bash(git diff*)",
       "Bash(git log*)"
     ],
-    "deny": [
-      "Read(./.env)",
-      "Read(./.env.*)",
-      "Read(**/cuenta-servicio*.json)",
-      "Bash(npm run usuario*)"
-    ]
+    "deny": ["Read(./.env)", "Read(./.env.*)", "Read(**/cuenta-servicio*.json)", "Bash(npm run usuario*)"]
   },
   "hooks": {
     "PostToolUse": [

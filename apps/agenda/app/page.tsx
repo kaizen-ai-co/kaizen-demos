@@ -14,7 +14,9 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   return (
     <>
       <AvisoDemo />
-      {estado === 'borrador' && <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>}
+      {estado === 'borrador' && (
+        <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
+      )}
       <main className="mx-auto w-full max-w-2xl px-4 py-8">
         <header className="mb-6">
           <p className="text-sm font-semibold text-primario">{texto(e.marca, 'Marca')}</p>
@@ -24,7 +26,13 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
         </header>
         <Reserva
           servicios={serviciosDe(datos)}
-          profesionales={profesionalesDe(datos).map((p) => ({ id: p.id, nombre: p.nombre, cargo: p.cargo, foto: p.foto?.url ?? null, servicios: p.servicios ?? [] }))}
+          profesionales={profesionalesDe(datos).map((p) => ({
+            id: p.id,
+            nombre: p.nombre,
+            cargo: p.cargo,
+            foto: p.foto?.url ?? null,
+            servicios: p.servicios ?? [],
+          }))}
           diasAdelante={Math.min(reglas.diasAdelante, 21)}
           textos={{
             textoBoton: texto(m.textoBoton, 'Confirmar reserva'),
@@ -34,7 +42,12 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
             politicaCancelacion: texto((datos.reglas as Record<string, unknown>)?.politicaCancelacion),
           }}
         />
-        <p className="mt-8 text-center text-xs text-suave">¿Eres del equipo? <a className="underline" href="/calendario">Abrir el calendario</a></p>
+        <p className="mt-8 text-center text-xs text-suave">
+          ¿Eres del equipo?{' '}
+          <a className="underline" href="/calendario">
+            Abrir el calendario
+          </a>
+        </p>
       </main>
       <TablaEstados funciones={plantilla.config.funciones ?? []} />
     </>

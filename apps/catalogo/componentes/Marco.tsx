@@ -4,13 +4,23 @@ import type { ReactNode } from 'react';
 import { EnlaceCotizacion } from './Interactivos';
 
 /** Encabezado + pie comunes a las páginas del catálogo, con textos del contenido. */
-export function Marco({ datos, estado, children }: { datos: Record<string, unknown>; estado?: string; children: ReactNode }) {
+export function Marco({
+  datos,
+  estado,
+  children,
+}: {
+  datos: Record<string, unknown>;
+  estado?: string;
+  children: ReactNode;
+}) {
   const enc = (datos.encabezado ?? {}) as Record<string, unknown>;
   const logo = img(enc.logo, texto(enc.marca));
   return (
     <>
       <AvisoDemo />
-      {estado === 'borrador' && <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>}
+      {estado === 'borrador' && (
+        <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
+      )}
       <header className="sticky top-0 z-40 border-b border-borde bg-fondo/90 backdrop-blur">
         <div className="k-contenedor flex h-16 items-center justify-between gap-4">
           <a href="/" className="flex items-center gap-2 font-bold">

@@ -10,13 +10,18 @@
     "nombreProducto": "Silla Andes",
     "descripcion": "Objeto de demostración con tres partes configurables.",
     "archivo": null,
-    "imagenReserva": { "url": "/semillas/reserva.svg", "alt": "Ilustración de una silla de madera con asiento de color" }
+    "imagenReserva": {
+      "url": "/semillas/reserva.svg",
+      "alt": "Ilustración de una silla de madera con asiento de color"
+    }
   },
   "camara": { "camaraInicial": { "posicion": [2.2, 1.5, 2.4], "objetivo": [0, 0.55, 0], "fov": 40 } },
   "partes": {
     "partes": [
       {
-        "id": "asiento", "nombre": "Asiento", "malla": "asiento",
+        "id": "asiento",
+        "nombre": "Asiento",
+        "malla": "asiento",
         "opciones": [
           { "id": "arcilla", "nombre": "Arcilla", "color": "#c2410c", "rugosidad": 0.8, "metalicidad": 0 },
           { "id": "oliva", "nombre": "Oliva", "color": "#4d7c0f", "rugosidad": 0.8, "metalicidad": 0 },
@@ -24,7 +29,9 @@
         ]
       },
       {
-        "id": "respaldo", "nombre": "Respaldo", "malla": "respaldo",
+        "id": "respaldo",
+        "nombre": "Respaldo",
+        "malla": "respaldo",
         "opciones": [
           { "id": "roble", "nombre": "Roble", "color": "#b07a45", "rugosidad": 0.55, "metalicidad": 0 },
           { "id": "nogal", "nombre": "Nogal", "color": "#5b3a24", "rugosidad": 0.5, "metalicidad": 0 },
@@ -32,7 +39,9 @@
         ]
       },
       {
-        "id": "patas", "nombre": "Patas", "malla": "patas",
+        "id": "patas",
+        "nombre": "Patas",
+        "malla": "patas",
         "opciones": [
           { "id": "madera", "nombre": "Madera", "color": "#8b5a2b", "rugosidad": 0.6, "metalicidad": 0 },
           { "id": "acero", "nombre": "Acero", "color": "#9ca3af", "rugosidad": 0.3, "metalicidad": 0.9 },

@@ -7,14 +7,16 @@ model: sonnet
 
 # Ingeniero del motor de edición
 
-Basado en los agentes populares *react-specialist*, *typescript-pro* y *api-designer*.
+Basado en los agentes populares _react-specialist_, _typescript-pro_ y _api-designer_.
 
 ## Lee primero
+
 `docs/motor-edicion.md`, `packages/editor/src/{esquema,validar}.ts`,
 `packages/editor/src/react/{Editor,controles}.tsx`, `packages/editor/esquema.meta.json`,
 y el esquema de referencia `apps/comercial/contenido.schema.json`.
 
 ## Cómo diseñas un esquema
+
 1. Una **sección** por bloque visible. El `id` de la sección = clave del bloque en `BLOQUES`
    (`packages/ui/src/bloques/index.tsx`) o en el mapa propio de la app.
 2. Los **ids de campo** coinciden con lo que lee el bloque (cada bloque documenta sus campos).
@@ -29,22 +31,28 @@ y el esquema de referencia `apps/comercial/contenido.schema.json`.
    `"props": { "opcionesDesde": "seccion.lista.campoEtiqueta" }`.
 
 ## Control propio (receta)
+
 ```tsx
 // apps/<x>/app/editar/EditorApp.tsx
 'use client';
 import { Editor, registrarControl, Envoltorio, type PropsControl } from '@kaizen/editor/react';
-function ControlHorario(p: PropsControl<Horario>) { /* … */ }
+function ControlHorario(p: PropsControl<Horario>) {
+  /* … */
+}
 registrarControl('horarioSemanal', ControlHorario);
 export default Editor; // se pasa a <PaginaEditar editor={EditorApp} />
 ```
+
 Si el tipo propio necesita validación, `registrarValidador('horarioSemanal', fn)` en un módulo
 importado por servidor y cliente, y súmalo a `TIPOS_PROPIOS` en `scripts/validar-esquemas.ts`.
 
 ## Hecho cuando
+
 - `npm run validar:esquemas` pasa (estructura + semilla válida contra su esquema).
 - `npm test -- packages/editor` pasa; si tocaste validación, agregaste un caso.
 - En `/editar` con la cuenta Administrador no aparecen los campos de Desarrollador.
 
 ## Devuelve
+
 Contrato de entrega con el esquema final y la tabla «campo → rol». Siguiente: `redactor-demos`
 (semilla) y `desarrollador-frontend` (bloques).

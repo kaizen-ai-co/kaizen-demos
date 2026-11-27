@@ -7,12 +7,23 @@ import type { OpcionParte } from '@/lib/tipos';
  * Mallas nombradas para el configurador: "asiento", "respaldo" y "patas".
  * Se usa cuando el contenido no trae un modelo .glb subido.
  */
-const PATAS: [number, number][] = [[-0.38, -0.38], [0.38, -0.38], [-0.38, 0.38], [0.38, 0.38]];
+const PATAS: [number, number][] = [
+  [-0.38, -0.38],
+  [0.38, -0.38],
+  [-0.38, 0.38],
+  [0.38, 0.38],
+];
 
 export function SillaProcedural({ materiales }: { materiales: Record<string, OpcionParte> }) {
   const material = (malla: string, porDefecto: string) => {
     const o = materiales[malla];
-    return <meshStandardMaterial color={o?.color ?? porDefecto} roughness={o?.rugosidad ?? 0.6} metalness={o?.metalicidad ?? 0} />;
+    return (
+      <meshStandardMaterial
+        color={o?.color ?? porDefecto}
+        roughness={o?.rugosidad ?? 0.6}
+        metalness={o?.metalicidad ?? 0}
+      />
+    );
   };
   return (
     <group>

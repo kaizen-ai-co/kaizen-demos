@@ -1,7 +1,20 @@
 import type { ComponentType } from 'react';
 import {
-  Cifras, ComoTrabajamos, Contacto, Encabezado, Equipo, Logos, Pie, Portada, Precios, PreguntasFrecuentes,
-  Problema, QuienesSomos, Servicios, Testimonios, type PropsBloque,
+  Cifras,
+  ComoTrabajamos,
+  Contacto,
+  Encabezado,
+  Equipo,
+  Logos,
+  Pie,
+  Portada,
+  Precios,
+  PreguntasFrecuentes,
+  Problema,
+  QuienesSomos,
+  Servicios,
+  Testimonios,
+  type PropsBloque,
 } from './comunes';
 
 export * from './comunes';

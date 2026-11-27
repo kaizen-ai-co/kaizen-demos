@@ -24,13 +24,24 @@ export const plantilla = definirPlantilla({
   async sembrarDatos(capa, sitioId) {
     const hoy = fechaBogota(Date.now());
     const servicios = serviciosDe(semilla);
-    for (const c of citasDemo as { servicioId: string; profesionalId: string; diasDesdeHoy: number; hora: string; estado: EstadoCita; visitante: { nombre: string; telefono?: string; correo?: string } }[]) {
+    for (const c of citasDemo as {
+      servicioId: string;
+      profesionalId: string;
+      diasDesdeHoy: number;
+      hora: string;
+      estado: EstadoCita;
+      visitante: { nombre: string; telefono?: string; correo?: string };
+    }[]) {
       const duracion = servicios.find((s) => s.id === c.servicioId)?.duracionMin ?? 30;
       const [h, m] = c.hora.split(':').map(Number);
       const inicioMs = instanteBogota(sumarDias(hoy, c.diasDesdeHoy), h! * 60 + m!);
       const r = await capa.citas.reservar({
-        sitioId, servicioId: c.servicioId, profesionalId: c.profesionalId,
-        inicio: isoBogota(inicioMs), fin: isoBogota(inicioMs + duracion * 60_000), visitante: c.visitante,
+        sitioId,
+        servicioId: c.servicioId,
+        profesionalId: c.profesionalId,
+        inicio: isoBogota(inicioMs),
+        fin: isoBogota(inicioMs + duracion * 60_000),
+        visitante: c.visitante,
       });
       if (r.ok && c.estado !== 'pendiente') await capa.citas.cambiarEstado(sitioId, r.cita.id, c.estado);
     }

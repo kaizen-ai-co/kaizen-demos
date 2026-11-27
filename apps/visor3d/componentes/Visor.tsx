@@ -1,6 +1,15 @@
 'use client';
 
-import { Center, ContactShadows, Environment, Html, Lightformer, OrbitControls, useGLTF, useProgress } from '@react-three/drei';
+import {
+  Center,
+  ContactShadows,
+  Environment,
+  Html,
+  Lightformer,
+  OrbitControls,
+  useGLTF,
+  useProgress,
+} from '@react-three/drei';
 import { Canvas, useThree } from '@react-three/fiber';
 import { cn } from '@kaizen/ui';
 import { RotateCcw } from 'lucide-react';
@@ -41,7 +50,10 @@ function Cargando() {
   const { progress } = useProgress();
   return (
     <Html center>
-      <div role="status" className="whitespace-nowrap rounded-md bg-fondo px-3 py-1.5 text-xs font-medium text-texto shadow-md">
+      <div
+        role="status"
+        className="whitespace-nowrap rounded-md bg-fondo px-3 py-1.5 text-xs font-medium text-texto shadow-md"
+      >
         Cargando modelo… {Math.round(progress)} %
       </div>
     </Html>
@@ -79,7 +91,16 @@ function Controles({ vista, alListo }: { vista: VistaCamara; alListo?: (api: Api
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [clave, camera, invalidate]);
 
-  return <OrbitControls ref={controles} makeDefault enableDamping={false} minDistance={0.8} maxDistance={8} maxPolarAngle={Math.PI / 2.02} />;
+  return (
+    <OrbitControls
+      ref={controles}
+      makeDefault
+      enableDamping={false}
+      minDistance={0.8}
+      maxDistance={8}
+      maxPolarAngle={Math.PI / 2.02}
+    />
+  );
 }
 
 function ModeloGLB({ url, materiales }: { url: string; materiales: ReturnType<typeof materialesPorMalla> }) {
@@ -137,7 +158,18 @@ function Entorno({ preset }: { preset: string }) {
   return <Environment preset={preset as 'studio'} />;
 }
 
-export default function Visor({ modeloUrl, partes, seleccion, vista, escena, imagenReserva, etiqueta, textoReiniciar = 'Reiniciar vista', className, alListo }: PropsVisor) {
+export default function Visor({
+  modeloUrl,
+  partes,
+  seleccion,
+  vista,
+  escena,
+  imagenReserva,
+  etiqueta,
+  textoReiniciar = 'Reiniciar vista',
+  className,
+  alListo,
+}: PropsVisor) {
   const [webgl, setWebgl] = useState<boolean | null>(null);
   const api = useRef<ApiVisor | null>(null);
   const materiales = useMemo(() => materialesPorMalla(partes, seleccion), [partes, seleccion]);
@@ -154,15 +186,23 @@ export default function Visor({ modeloUrl, partes, seleccion, vista, escena, ima
   if (webgl === false) {
     return (
       <div className={cn('relative overflow-hidden rounded-xl border border-borde bg-superficie', className)}>
-        {imagenReserva && <img src={imagenReserva.src} alt={imagenReserva.alt} className="h-full w-full object-contain" />}
-        <p className="absolute inset-x-0 bottom-0 bg-fondo/90 p-2 text-center text-xs text-suave">Tu dispositivo no admite 3D; te mostramos una imagen.</p>
+        {imagenReserva && (
+          <img src={imagenReserva.src} alt={imagenReserva.alt} className="h-full w-full object-contain" />
+        )}
+        <p className="absolute inset-x-0 bottom-0 bg-fondo/90 p-2 text-center text-xs text-suave">
+          Tu dispositivo no admite 3D; te mostramos una imagen.
+        </p>
       </div>
     );
   }
 
   return (
     <div
-      className={cn('relative overflow-hidden rounded-xl border border-borde', !escena.fondo && 'bg-superficie', className)}
+      className={cn(
+        'relative overflow-hidden rounded-xl border border-borde',
+        !escena.fondo && 'bg-superficie',
+        className,
+      )}
       style={escena.fondo ? { background: escena.fondo } : undefined}
     >
       {webgl && (
@@ -177,7 +217,11 @@ export default function Visor({ modeloUrl, partes, seleccion, vista, escena, ima
           <ambientLight intensity={0.35 * escena.iluminacion} />
           <directionalLight position={[3, 5, 2]} intensity={escena.iluminacion} />
           <Suspense fallback={<Cargando />}>
-            {modeloUrl ? <ModeloGLB url={modeloUrl} materiales={materiales} /> : <SillaProcedural materiales={materiales} />}
+            {modeloUrl ? (
+              <ModeloGLB url={modeloUrl} materiales={materiales} />
+            ) : (
+              <SillaProcedural materiales={materiales} />
+            )}
             <ContactShadows position={[0, 0, 0]} opacity={0.45} scale={5} blur={2.2} far={1.6} frames={1} />
             <Entorno preset={escena.entorno} />
           </Suspense>

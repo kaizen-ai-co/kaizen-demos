@@ -1,7 +1,45 @@
 [
-  { "nombre": "Gabriela Ficticia", "contacto": { "telefono": "+57 300 000 0021", "correo": "gabriela@ejemplo.test" }, "origen": "formulario-movil", "etapa": "nuevo", "responsableId": "r-ana", "campos": { "interes": "Asesoría inicial" } },
-  { "nombre": "Héctor Demo", "contacto": { "telefono": "+57 300 000 0022" }, "origen": "whatsapp", "etapa": "contactado", "responsableId": "r-bruno", "campos": { "interes": "Plan mensual" }, "nota": "Pidió que lo llamen después de las 5 p. m." },
-  { "nombre": "Isabel Ejemplo", "contacto": { "correo": "isabel@ejemplo.test" }, "origen": "formulario-web", "etapa": "propuesta", "responsableId": "r-ana", "campos": {}, "nota": "Se envió propuesta ficticia por correo." },
-  { "nombre": "Jorge Inventado", "contacto": { "telefono": "+57 300 000 0024" }, "origen": "referido", "etapa": "ganado", "responsableId": "r-bruno", "campos": {} },
-  { "nombre": "Karen Prueba", "contacto": { "telefono": "+57 300 000 0025" }, "origen": "feria", "etapa": "perdido", "responsableId": "r-ana", "campos": {}, "nota": "Eligió otra opción por precio." }
+  {
+    "nombre": "Gabriela Ficticia",
+    "contacto": { "telefono": "+57 300 000 0021", "correo": "gabriela@ejemplo.test" },
+    "origen": "formulario-movil",
+    "etapa": "nuevo",
+    "responsableId": "r-ana",
+    "campos": { "interes": "Asesoría inicial" }
+  },
+  {
+    "nombre": "Héctor Demo",
+    "contacto": { "telefono": "+57 300 000 0022" },
+    "origen": "whatsapp",
+    "etapa": "contactado",
+    "responsableId": "r-bruno",
+    "campos": { "interes": "Plan mensual" },
+    "nota": "Pidió que lo llamen después de las 5 p. m."
+  },
+  {
+    "nombre": "Isabel Ejemplo",
+    "contacto": { "correo": "isabel@ejemplo.test" },
+    "origen": "formulario-web",
+    "etapa": "propuesta",
+    "responsableId": "r-ana",
+    "campos": {},
+    "nota": "Se envió propuesta ficticia por correo."
+  },
+  {
+    "nombre": "Jorge Inventado",
+    "contacto": { "telefono": "+57 300 000 0024" },
+    "origen": "referido",
+    "etapa": "ganado",
+    "responsableId": "r-bruno",
+    "campos": {}
+  },
+  {
+    "nombre": "Karen Prueba",
+    "contacto": { "telefono": "+57 300 000 0025" },
+    "origen": "feria",
+    "etapa": "perdido",
+    "responsableId": "r-ana",
+    "campos": {},
+    "nota": "Eligió otra opción por precio."
+  }
 ]

@@ -9,13 +9,17 @@ export default async function FormularioMovil({ searchParams }: { searchParams: 
   const f = (datos.formulario ?? {}) as Record<string, unknown>;
   const campos = lista<CampoLead & { opciones?: unknown }>(f.camposFormulario).map((c) => ({
     ...c,
-    opciones: Array.isArray(c.opciones) ? (c.opciones as { texto?: string }[]).map((o) => (typeof o === 'string' ? o : o?.texto ?? '')) : undefined,
+    opciones: Array.isArray(c.opciones)
+      ? (c.opciones as { texto?: string }[]).map((o) => (typeof o === 'string' ? o : (o?.texto ?? '')))
+      : undefined,
   }));
 
   return (
     <>
       <AvisoDemo />
-      {estado === 'borrador' && <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>}
+      {estado === 'borrador' && (
+        <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
+      )}
       <main className="mx-auto flex min-h-[80dvh] w-full max-w-md flex-col gap-6 px-4 py-8">
         <header>
           <p className="text-sm font-semibold text-primario">{texto(f.marca, 'Marca')}</p>
@@ -31,7 +35,10 @@ export default async function FormularioMovil({ searchParams }: { searchParams: 
           />
         </Tarjeta>
         <p className="text-center text-xs text-suave">
-          ¿Eres del equipo? <a className="underline" href="/panel">Abrir el panel</a>
+          ¿Eres del equipo?{' '}
+          <a className="underline" href="/panel">
+            Abrir el panel
+          </a>
         </p>
       </main>
       <TablaEstados funciones={plantilla.config.funciones ?? []} />

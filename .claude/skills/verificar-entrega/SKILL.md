@@ -9,16 +9,19 @@ argument-hint: <plantilla> [sitio]
 Objetivo: **$ARGUMENTS**. Reporta con evidencia; si algo falla, dilo con la salida exacta.
 
 ## Automático
+
 ```bash
 npm run validar                                   # esquemas, contraste, licencias, tipos, pruebas
 npm run build -w @kaizen/app-<p>
 ```
 
 ## Recorrido y acceso (servidor local en memoria)
+
 ```bash
 DATOS_PROVEEDOR=memoria ENTRAR_COMO_PRUEBA=1 npm run build -w @kaizen/app-<p>
 DATOS_PROVEEDOR=memoria ENTRAR_COMO_PRUEBA=1 npm run start -w @kaizen/app-<p>
 ```
+
 - Recorrido del paso «Probar» de `docs/plantillas/0N-<p>.md` en 375×812 y 1280×800 (capturas).
 - `curl` a las API protegidas: sin sesión 401, cuenta no autorizada 403.
 - Administrador: un PUT con `_estructura` cambiado no lo cambia (el servidor lo revierte).
@@ -26,10 +29,12 @@ DATOS_PROVEEDOR=memoria ENTRAR_COMO_PRUEBA=1 npm run start -w @kaizen/app-<p>
 - Si existe `pruebas/e2e/<p>.spec.ts`: `npx playwright test pruebas/e2e/<p>.spec.ts`.
 
 ## Rendimiento y accesibilidad
+
 Delegar en `auditor-calidad` (Lighthouse móvil/escritorio, axe). Umbrales en `docs/calidad.md`;
 si no hay meta, registrar la línea base.
 
 ## Salida
+
 ```
 | Regla | Resultado | Evidencia |
 |---|---|---|

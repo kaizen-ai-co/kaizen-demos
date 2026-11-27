@@ -12,12 +12,22 @@ const formateadores = new Map<string, Intl.NumberFormat>();
 export function formatearPrecio(valor: number, moneda = 'COP', locale = 'es-CO') {
   const clave = `${locale}|${moneda}`;
   if (!formateadores.has(clave)) {
-    formateadores.set(clave, new Intl.NumberFormat(locale, { style: 'currency', currency: moneda, maximumFractionDigits: moneda === 'COP' ? 0 : 2 }));
+    formateadores.set(
+      clave,
+      new Intl.NumberFormat(locale, {
+        style: 'currency',
+        currency: moneda,
+        maximumFractionDigits: moneda === 'COP' ? 0 : 2,
+      }),
+    );
   }
   return formateadores.get(clave)!.format(valor);
 }
 
-export function formatearFecha(iso: string, opciones: Intl.DateTimeFormatOptions = { dateStyle: 'medium', timeStyle: 'short' }) {
+export function formatearFecha(
+  iso: string,
+  opciones: Intl.DateTimeFormatOptions = { dateStyle: 'medium', timeStyle: 'short' },
+) {
   return new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', ...opciones }).format(new Date(iso));
 }
 

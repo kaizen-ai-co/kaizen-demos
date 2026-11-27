@@ -64,10 +64,15 @@ export function FormularioLead({
     for (const c of campos) {
       const v = (datos[c.id] ?? '').trim();
       if (c.requerido && !v) nuevosErrores[c.id] = 'Este campo es obligatorio.';
-      else if (v && c.tipo === 'correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) nuevosErrores[c.id] = 'Revisa el correo.';
+      else if (v && c.tipo === 'correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
+        nuevosErrores[c.id] = 'Revisa el correo.';
       else if (v && c.tipo === 'telefono' && !/^[+()\d\s-]{7,20}$/.test(v)) nuevosErrores[c.id] = 'Revisa el teléfono.';
     }
-    if (!datos.correo?.trim() && !datos.telefono?.trim() && campos.some((c) => c.id === 'correo' || c.id === 'telefono')) {
+    if (
+      !datos.correo?.trim() &&
+      !datos.telefono?.trim() &&
+      campos.some((c) => c.id === 'correo' || c.id === 'telefono')
+    ) {
       nuevosErrores[campos.find((c) => c.id === 'correo')?.id ?? 'telefono'] = 'Deja un correo o un teléfono.';
     }
     setErrores(nuevosErrores);
@@ -106,17 +111,26 @@ export function FormularioLead({
         const id = `${idBase}-${c.id}`;
         const comun = { name: c.id, placeholder: c.placeholder };
         const control =
-          c.tipo === 'textoLargo' ? <AreaTexto {...comun} rows={4} /> :
-          c.tipo === 'seleccion' ? (
+          c.tipo === 'textoLargo' ? (
+            <AreaTexto {...comun} rows={4} />
+          ) : c.tipo === 'seleccion' ? (
             <Selector {...comun} defaultValue="">
-              <option value="" disabled>Elige una opción</option>
-              {(c.opciones ?? []).map((o) => <option key={o} value={o}>{o}</option>)}
+              <option value="" disabled>
+                Elige una opción
+              </option>
+              {(c.opciones ?? []).map((o) => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
             </Selector>
           ) : (
             <Entrada
               {...comun}
               type={c.tipo === 'correo' ? 'email' : c.tipo === 'telefono' ? 'tel' : 'text'}
-              autoComplete={c.id === 'nombre' ? 'name' : c.tipo === 'correo' ? 'email' : c.tipo === 'telefono' ? 'tel' : 'off'}
+              autoComplete={
+                c.id === 'nombre' ? 'name' : c.tipo === 'correo' ? 'email' : c.tipo === 'telefono' ? 'tel' : 'off'
+              }
               inputMode={c.tipo === 'telefono' ? 'tel' : undefined}
             />
           );
@@ -128,7 +142,10 @@ export function FormularioLead({
       })}
 
       {/* Campo trampa: invisible para personas; si llega lleno, el servidor descarta el envío. */}
-      <div aria-hidden="true" style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}>
+      <div
+        aria-hidden="true"
+        style={{ position: 'absolute', left: '-10000px', width: 1, height: 1, overflow: 'hidden' }}
+      >
         <label>
           No llenar
           <input type="text" name="_trampa" tabIndex={-1} autoComplete="off" />

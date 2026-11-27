@@ -10,7 +10,10 @@ const limitador = crearLimitador();
  * El servidor toma los precios y condiciones del contenido PUBLICADO y recalcula los totales.
  */
 export const POST = manejar(async (req: Request) => {
-  const cuerpo = await leerJson<{ items?: LineaPedido[]; cliente?: Record<string, unknown>; _trampa?: string }>(req, 30_000);
+  const cuerpo = await leerJson<{ items?: LineaPedido[]; cliente?: Record<string, unknown>; _trampa?: string }>(
+    req,
+    30_000,
+  );
   if (limpiar(cuerpo._trampa)) return json({ ok: true, id: 'descartado' });
   const permitido = limitador.permitir(`cot:${ipDe(req)}`);
   if (!permitido.ok) throw new ErrorEntrada('Demasiadas cotizaciones seguidas. Intenta más tarde.', 429);
@@ -41,7 +44,10 @@ export const POST = manejar(async (req: Request) => {
     cliente: { nombre, empresa: empresa || undefined, correo: correo || undefined, telefono: telefono || undefined },
     ...armada,
   });
-  return json({ ok: true, id: cot.id, numero: cot.numero, items: cot.items, totales: cot.totales, condiciones: cot.condiciones }, 201);
+  return json(
+    { ok: true, id: cot.id, numero: cot.numero, items: cot.items, totales: cot.totales, condiciones: cot.condiciones },
+    201,
+  );
 });
 
 /** GET protegido: lista de cotizaciones recibidas. */

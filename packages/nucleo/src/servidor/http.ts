@@ -10,7 +10,8 @@ export function manejar<A extends unknown[]>(fn: (...args: A) => Promise<Respons
     try {
       return await fn(...args);
     } catch (e) {
-      if (e instanceof ErrorAcceso) return json({ error: e.estado === 401 ? 'Inicia sesión.' : 'Sin acceso.', motivo: e.motivo }, e.estado);
+      if (e instanceof ErrorAcceso)
+        return json({ error: e.estado === 401 ? 'Inicia sesión.' : 'Sin acceso.', motivo: e.motivo }, e.estado);
       if (e instanceof ErrorEntrada) return json({ error: e.message, detalles: e.detalles }, e.estado);
       console.error('[kaizen] error en ruta', e);
       return json({ error: 'Error interno.' }, 500);
@@ -19,7 +20,11 @@ export function manejar<A extends unknown[]>(fn: (...args: A) => Promise<Respons
 }
 
 export class ErrorEntrada extends Error {
-  constructor(mensaje: string, public estado: 400 | 404 | 409 | 422 | 429 = 400, public detalles?: unknown) {
+  constructor(
+    mensaje: string,
+    public estado: 400 | 404 | 409 | 422 | 429 = 400,
+    public detalles?: unknown,
+  ) {
     super(mensaje);
   }
 }
@@ -42,5 +47,10 @@ export async function leerJson<T = Record<string, unknown>>(req: Request, maxByt
 
 /** Limpia texto libre de un visitante. */
 export function limpiar(v: unknown, max = 500): string {
-  return typeof v === 'string' ? v.replace(/[\u0000-\u001f\u007f]/g, ' ').trim().slice(0, max) : '';
+  return typeof v === 'string'
+    ? v
+        .replace(/[\u0000-\u001f\u007f]/g, ' ')
+        .trim()
+        .slice(0, max)
+    : '';
 }

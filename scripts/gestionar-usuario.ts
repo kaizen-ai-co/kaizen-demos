@@ -23,7 +23,9 @@ const { values } = parseArgs({
 const roles: Rol[] = ['desarrollador', 'administrador', 'cliente'];
 const correo = values.correo?.toLowerCase();
 if (!correo || (!values.revocar && !roles.includes(values.rol as Rol))) {
-  console.error('Uso: --correo <correo> --rol <desarrollador|administrador|cliente> [--sitio <id> --dias <n>] | --revocar');
+  console.error(
+    'Uso: --correo <correo> --rol <desarrollador|administrador|cliente> [--sitio <id> --dias <n>] | --revocar',
+  );
   process.exit(1);
 }
 if (!process.env.FIREBASE_SERVICE_ACCOUNT) {
@@ -41,7 +43,15 @@ if (values.revocar) {
     process.exit(1);
   }
   const venceEl = rol === 'cliente' ? new Date(Date.now() + Number(values.dias) * 864e5).toISOString() : undefined;
-  const r = await asignarRol(correo, { rol, activo: true, sitioId: rol === 'cliente' ? values.sitio : undefined, venceEl });
+  const r = await asignarRol(correo, {
+    rol,
+    activo: true,
+    sitioId: rol === 'cliente' ? values.sitio : undefined,
+    venceEl,
+  });
   console.log(`✓ ${correo} → ${rol}${venceEl ? ` en ${values.sitio} hasta ${venceEl}` : ''}.`);
-  if (!r.existeEnAuth) console.log('  (Aún no ha entrado con Google: los claims se aplicarán cuando corras este comando de nuevo tras su primer ingreso.)');
+  if (!r.existeEnAuth)
+    console.log(
+      '  (Aún no ha entrado con Google: los claims se aplicarán cuando corras este comando de nuevo tras su primer ingreso.)',
+    );
 }

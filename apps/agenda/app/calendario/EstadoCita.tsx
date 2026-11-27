@@ -19,7 +19,11 @@ export function EstadoCita({ id, estado }: { id: string; estado: string }) {
         onChange={async (e) => {
           setGuardando(true);
           setError(false);
-          const r = await fetch(`/api/citas/${id}`, { method: 'PATCH', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ estado: e.target.value }) });
+          const r = await fetch(`/api/citas/${id}`, {
+            method: 'PATCH',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({ estado: e.target.value }),
+          });
           setGuardando(false);
           if (!r.ok) setError(true);
           router.refresh();
@@ -29,7 +33,11 @@ export function EstadoCita({ id, estado }: { id: string; estado: string }) {
         <option value="confirmada">Confirmada</option>
         <option value="cancelada">Cancelada</option>
       </select>
-      {error && <span role="alert" className="text-peligro">No se pudo cambiar.</span>}
+      {error && (
+        <span role="alert" className="text-peligro">
+          No se pudo cambiar.
+        </span>
+      )}
     </label>
   );
 }

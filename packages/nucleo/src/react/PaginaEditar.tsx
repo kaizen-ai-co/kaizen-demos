@@ -41,7 +41,10 @@ export async function PaginaEditar({
   await plantilla.asegurarSemilla(c, id);
   const borrador = await c.contenido.leerBorrador(id);
   const publicado = await c.contenido.leerPublicado(id);
-  const inicial = completarContenido(plantilla.config.esquema, ((borrador ?? publicado)?.datos as Contenido) ?? plantilla.config.semilla);
+  const inicial = completarContenido(
+    plantilla.config.esquema,
+    ((borrador ?? publicado)?.datos as Contenido) ?? plantilla.config.semilla,
+  );
   const esquemaRol = filtrarPorRol(plantilla.config.esquema, rolDeEdicion(usuario.rol));
 
   return (

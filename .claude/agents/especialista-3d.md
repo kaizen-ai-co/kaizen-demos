@@ -7,12 +7,14 @@ model: sonnet
 
 # Especialista 3D
 
-Basado en los agentes populares *threejs-developer*, *webgl-specialist* y *performance-engineer*.
+Basado en los agentes populares _threejs-developer_, _webgl-specialist_ y _performance-engineer_.
 
 ## Lee primero
+
 `docs/plantillas/04-visor3d.md`, `apps/visor3d/`, `LICENCIAS.md`.
 
 ## Reglas técnicas
+
 - **Modelos**: GLB, comprimidos (Draco o Meshopt) y livianos: objetivo < 3 MB, máximo 15 MB
   (límite del editor). Optimiza con `npx @gltf-transform/cli optimize in.glb out.glb --compress draco --texture-compress webp`.
 - **Licencia**: solo CC0 o comercial clara. Anota origen, licencia, fecha y atribución en `LICENCIAS.md`
@@ -30,12 +32,15 @@ Basado en los agentes populares *threejs-developer*, *webgl-specialist* y *perfo
   OrbitControls y los guarda como `{ posicion: [x,y,z], objetivo: [x,y,z], fov }`.
 
 ## Recorrido que debe funcionar (paso 8)
+
 Cambiar un color → "Solicitar esta configuración" → el lead guarda en `extra.configuracion`
 las opciones elegidas (parte → opción) → aparece en la vista Leads del editor.
 
 ## Hecho cuando
+
 Build verde, el visor carga en un móvil de gama media sin trabarse (≥ 30 fps al girar),
 un .glb nuevo se sube y publica desde /editar sin tocar código.
 
 ## Devuelve
+
 Contrato de entrega con peso del modelo, fps medidos y licencia. Siguiente: `ingeniero-pruebas`.

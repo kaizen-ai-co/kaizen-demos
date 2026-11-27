@@ -20,9 +20,14 @@ process.stdin.on('end', () => {
   if (!esEsquema && !esSemilla) process.exit(0);
   const plantilla = (esEsquema ?? esSemilla)[1];
   try {
-    execFileSync('npx', ['tsx', 'scripts/validar-esquemas.ts', plantilla], { stdio: 'pipe', shell: process.platform === 'win32' });
+    execFileSync('npx', ['tsx', 'scripts/validar-esquemas.ts', plantilla], {
+      stdio: 'pipe',
+      shell: process.platform === 'win32',
+    });
   } catch (e) {
-    process.stderr.write(`Validación de esquema/semilla de "${plantilla}" falló:\n${e.stderr?.toString() ?? e.message}`);
+    process.stderr.write(
+      `Validación de esquema/semilla de "${plantilla}" falló:\n${e.stderr?.toString() ?? e.message}`,
+    );
     process.exit(2);
   }
 });

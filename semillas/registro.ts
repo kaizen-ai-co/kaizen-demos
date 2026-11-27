@@ -17,4 +17,11 @@ export interface SemillasPlantilla {
   demos: Record<string, Semilla>;
 }
 
-export const REGISTRO: Record<string, SemillasPlantilla> = { comercial, presentacion, catalogo, visor3d, panel, agenda };
+export const REGISTRO: Record<string, SemillasPlantilla> = {
+  comercial,
+  presentacion,
+  catalogo,
+  visor3d,
+  panel,
+  agenda,
+};

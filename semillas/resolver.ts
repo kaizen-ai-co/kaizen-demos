@@ -35,7 +35,8 @@ export function resolverSemilla(
   const r = REGISTRO[plantilla];
   if (!r) throw new Error(`No hay semillas registradas para la plantilla "${plantilla}".`);
   const sector = opciones.sector ? r.sectores[opciones.sector] : undefined;
-  if (opciones.sector && !sector) console.warn(`[semillas] Sector "${opciones.sector}" no existe para ${plantilla}; se usa la base.`);
+  if (opciones.sector && !sector)
+    console.warn(`[semillas] Sector "${opciones.sector}" no existe para ${plantilla}; se usa la base.`);
   const demo = opciones.sitioId ? r.demos[opciones.sitioId] : undefined;
   return mezclar(r.base, sector, demo);
 }

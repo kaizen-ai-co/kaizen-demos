@@ -29,7 +29,9 @@ describe('cotización del catálogo (plantilla 3)', () => {
   });
 
   it('usa precios del catálogo aunque el navegador mande otros', () => {
-    const c = armarCotizacion(productos, condiciones, [{ productoId: 'carpeta-az', cantidad: 1, precioUnitario: 1 } as never]);
+    const c = armarCotizacion(productos, condiciones, [
+      { productoId: 'carpeta-az', cantidad: 1, precioUnitario: 1 } as never,
+    ]);
     expect(c.items[0]!.precioUnitario).toBe(9500);
   });
 
@@ -40,13 +42,17 @@ describe('cotización del catálogo (plantilla 3)', () => {
     ]);
     expect(c.items).toHaveLength(1);
     expect(c.items[0]!.cantidad).toBe(3);
-    expect(c.totales).toEqual(calcularTotales([{ precioUnitario: 9500, cantidad: 3 }], { tasaImpuesto: 0.19, descuentoPorcentaje: 0.1 }));
+    expect(c.totales).toEqual(
+      calcularTotales([{ precioUnitario: 9500, cantidad: 3 }], { tasaImpuesto: 0.19, descuentoPorcentaje: 0.1 }),
+    );
   });
 
   it('rechaza vacíos, inexistentes, no disponibles y cantidades inválidas', () => {
     expect(() => armarCotizacion(productos, condiciones, [])).toThrow();
     expect(() => armarCotizacion(productos, condiciones, [{ productoId: 'no-existe', cantidad: 1 }])).toThrow();
-    expect(() => armarCotizacion(productos, condiciones, [{ productoId: 'toallas-papel', cantidad: 1 }])).toThrow(/no está disponible/);
+    expect(() => armarCotizacion(productos, condiciones, [{ productoId: 'toallas-papel', cantidad: 1 }])).toThrow(
+      /no está disponible/,
+    );
     expect(() => armarCotizacion(productos, condiciones, [{ productoId: 'resma-carta', cantidad: 0 }])).toThrow();
     expect(() => armarCotizacion(productos, condiciones, [{ productoId: 'resma-carta', cantidad: 1.5 }])).toThrow();
   });
@@ -54,7 +60,15 @@ describe('cotización del catálogo (plantilla 3)', () => {
   it('genera un PDF válido con los mismos totales', async () => {
     const c = armarCotizacion(productos as Producto[], condiciones, [{ productoId: 'resma-carta', cantidad: 2 }]);
     const bytes = await generarPdfCotizacion({
-      cotizacion: { ...c, id: 'c1', sitioId: 's', numero: 'COT-2026-000001', cliente: { nombre: 'Empresa Ficticia' }, estado: 'recibida', creadoEl: '2026-11-26T15:00:00.000Z' },
+      cotizacion: {
+        ...c,
+        id: 'c1',
+        sitioId: 's',
+        numero: 'COT-2026-000001',
+        cliente: { nombre: 'Empresa Ficticia' },
+        estado: 'recibida',
+        creadoEl: '2026-11-26T15:00:00.000Z',
+      },
       marca: 'Distribuidora Ejemplo',
       condiciones,
     });

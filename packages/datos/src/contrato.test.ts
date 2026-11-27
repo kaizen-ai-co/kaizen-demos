@@ -47,9 +47,20 @@ for (const [nombre, fabrica] of Object.entries(PROVEEDORES)) {
     });
 
     it('leads: crear, filtrar y registrar historial de etapa y responsable', async () => {
-      const l = await capa.leads.crear({ sitioId: 's1', nombre: 'Ana Ficticia', contacto: { correo: 'ana@ejemplo.test' }, origen: 'formulario-movil', responsableId: 'r1' });
+      const l = await capa.leads.crear({
+        sitioId: 's1',
+        nombre: 'Ana Ficticia',
+        contacto: { correo: 'ana@ejemplo.test' },
+        origen: 'formulario-movil',
+        responsableId: 'r1',
+      });
       expect(l.etapa).toBe('nuevo');
-      const act = await capa.leads.actualizar('s1', l.id, { etapa: 'contactado', responsableId: 'r2', nota: 'Llamar el lunes' }, 'admin');
+      const act = await capa.leads.actualizar(
+        's1',
+        l.id,
+        { etapa: 'contactado', responsableId: 'r2', nota: 'Llamar el lunes' },
+        'admin',
+      );
       expect(act.historial.map((h) => h.tipo)).toEqual(['creado', 'responsable', 'etapa', 'responsable', 'nota']);
       expect(await capa.leads.listar('s1', { etapa: 'contactado' })).toHaveLength(1);
       expect(await capa.leads.listar('s1', { texto: 'ana' })).toHaveLength(1);
@@ -57,21 +68,45 @@ for (const [nombre, fabrica] of Object.entries(PROVEEDORES)) {
     });
 
     it('citas: no permite doble reserva del mismo hueco', async () => {
-      const base = { sitioId: 's1', servicioId: 'sv', profesionalId: 'p1', visitante: { nombre: 'Visitante Ficticio' } };
-      const a = await capa.citas.reservar({ ...base, inicio: '2026-12-01T09:00:00-05:00', fin: '2026-12-01T09:30:00-05:00' });
-      const b = await capa.citas.reservar({ ...base, inicio: '2026-12-01T09:15:00-05:00', fin: '2026-12-01T09:45:00-05:00' });
-      const c = await capa.citas.reservar({ ...base, profesionalId: 'p2', inicio: '2026-12-01T09:15:00-05:00', fin: '2026-12-01T09:45:00-05:00' });
+      const base = {
+        sitioId: 's1',
+        servicioId: 'sv',
+        profesionalId: 'p1',
+        visitante: { nombre: 'Visitante Ficticio' },
+      };
+      const a = await capa.citas.reservar({
+        ...base,
+        inicio: '2026-12-01T09:00:00-05:00',
+        fin: '2026-12-01T09:30:00-05:00',
+      });
+      const b = await capa.citas.reservar({
+        ...base,
+        inicio: '2026-12-01T09:15:00-05:00',
+        fin: '2026-12-01T09:45:00-05:00',
+      });
+      const c = await capa.citas.reservar({
+        ...base,
+        profesionalId: 'p2',
+        inicio: '2026-12-01T09:15:00-05:00',
+        fin: '2026-12-01T09:45:00-05:00',
+      });
       expect(a.ok).toBe(true);
       expect(b).toEqual({ ok: false, motivo: 'ocupado' });
       expect(c.ok).toBe(true);
       if (a.ok) await capa.citas.cambiarEstado('s1', a.cita.id, 'cancelada');
-      const d = await capa.citas.reservar({ ...base, inicio: '2026-12-01T09:15:00-05:00', fin: '2026-12-01T09:45:00-05:00' });
+      const d = await capa.citas.reservar({
+        ...base,
+        inicio: '2026-12-01T09:15:00-05:00',
+        fin: '2026-12-01T09:45:00-05:00',
+      });
       expect(d.ok).toBe(true); // un hueco cancelado vuelve a estar libre
     });
 
     it('cotizaciones: numeración consecutiva por sitio', async () => {
       const base = {
-        sitioId: 's1', cliente: { nombre: 'Empresa Ficticia' }, items: [],
+        sitioId: 's1',
+        cliente: { nombre: 'Empresa Ficticia' },
+        items: [],
         totales: { subtotal: 0, descuento: 0, baseImpuesto: 0, impuesto: 0, total: 0 },
         condiciones: { validezDias: 15, tasaImpuesto: 0.19, descuentoPorcentaje: 0, entrega: '5 días' },
       };
@@ -84,11 +119,21 @@ for (const [nombre, fabrica] of Object.entries(PROVEEDORES)) {
 }
 
 describe('acceso del rol Cliente', () => {
-  const cliente = { uid: 'c', correo: 'c@x.test', rol: 'cliente' as const, activo: true, sitioId: 'mi-sitio', venceEl: '2026-12-10T00:00:00Z' };
+  const cliente = {
+    uid: 'c',
+    correo: 'c@x.test',
+    rol: 'cliente' as const,
+    activo: true,
+    sitioId: 'mi-sitio',
+    venceEl: '2026-12-10T00:00:00Z',
+  };
   it('solo entra a su sitio y durante el periodo de prueba', () => {
     const hoy = new Date('2026-12-01T00:00:00Z');
     expect(evaluarAcceso(cliente, 'mi-sitio', hoy).ok).toBe(true);
     expect(evaluarAcceso(cliente, 'otro', hoy)).toMatchObject({ ok: false, motivo: 'otro-sitio' });
-    expect(evaluarAcceso(cliente, 'mi-sitio', new Date('2026-12-11T00:00:00Z'))).toMatchObject({ ok: false, motivo: 'vencido' });
+    expect(evaluarAcceso(cliente, 'mi-sitio', new Date('2026-12-11T00:00:00Z'))).toMatchObject({
+      ok: false,
+      motivo: 'vencido',
+    });
   });
 });

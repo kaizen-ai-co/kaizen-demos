@@ -13,10 +13,46 @@
       { "id": "tornilleria", "nombre": "Tornillería" }
     ],
     "productos": [
-      { "id": "taladro-12v", "nombre": "Taladro inalámbrico 12 V", "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de una herramienta" }, "descripcion": "Con batería y cargador.", "precio": 189000, "unidad": "unidad", "categoria": "herramientas", "disponible": true },
-      { "id": "martillo", "nombre": "Martillo de uña 16 oz", "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de un martillo" }, "descripcion": "Mango de fibra de vidrio.", "precio": 27500, "unidad": "unidad", "categoria": "herramientas", "disponible": true },
-      { "id": "pintura-galon", "nombre": "Pintura vinilo blanca", "foto": { "url": "/semillas/producto-aseo.svg", "alt": "Ilustración de un galón de pintura" }, "descripcion": "Galón tipo 1 para interiores.", "precio": 64900, "unidad": "galón", "categoria": "pinturas", "disponible": true },
-      { "id": "tornillos-caja", "nombre": "Tornillos drywall 1\"", "foto": { "url": "/semillas/producto-papel.svg", "alt": "Ilustración de una caja de tornillos" }, "descripcion": "Caja por 500 unidades.", "precio": 18200, "unidad": "caja", "categoria": "tornilleria", "disponible": true }
+      {
+        "id": "taladro-12v",
+        "nombre": "Taladro inalámbrico 12 V",
+        "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de una herramienta" },
+        "descripcion": "Con batería y cargador.",
+        "precio": 189000,
+        "unidad": "unidad",
+        "categoria": "herramientas",
+        "disponible": true
+      },
+      {
+        "id": "martillo",
+        "nombre": "Martillo de uña 16 oz",
+        "foto": { "url": "/semillas/producto-carpeta.svg", "alt": "Ilustración de un martillo" },
+        "descripcion": "Mango de fibra de vidrio.",
+        "precio": 27500,
+        "unidad": "unidad",
+        "categoria": "herramientas",
+        "disponible": true
+      },
+      {
+        "id": "pintura-galon",
+        "nombre": "Pintura vinilo blanca",
+        "foto": { "url": "/semillas/producto-aseo.svg", "alt": "Ilustración de un galón de pintura" },
+        "descripcion": "Galón tipo 1 para interiores.",
+        "precio": 64900,
+        "unidad": "galón",
+        "categoria": "pinturas",
+        "disponible": true
+      },
+      {
+        "id": "tornillos-caja",
+        "nombre": "Tornillos drywall 1\"",
+        "foto": { "url": "/semillas/producto-papel.svg", "alt": "Ilustración de una caja de tornillos" },
+        "descripcion": "Caja por 500 unidades.",
+        "precio": 18200,
+        "unidad": "caja",
+        "categoria": "tornilleria",
+        "disponible": true
+      }
     ]
   },
   "condiciones": { "entrega": "Entrega en obra en 48 horas dentro de la ciudad." },

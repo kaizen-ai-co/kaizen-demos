@@ -7,7 +7,10 @@ export interface LimitadorEnvios {
   permitir(clave: string): { ok: boolean; reintentarEnSeg?: number };
 }
 
-export function crearLimitador(maximo = Number(process.env.LIMITE_ENVIOS_POR_HORA ?? 5), ventanaMs = 3_600_000): LimitadorEnvios {
+export function crearLimitador(
+  maximo = Number(process.env.LIMITE_ENVIOS_POR_HORA ?? 5),
+  ventanaMs = 3_600_000,
+): LimitadorEnvios {
   const registros = new Map<string, number[]>();
   return {
     permitir(clave) {

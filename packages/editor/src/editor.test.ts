@@ -32,7 +32,10 @@ const esquema: EsquemaContenido = {
       activable: true,
       campos: [
         {
-          id: 'planes', etiqueta: 'Planes', tipo: 'lista', minItems: 1,
+          id: 'planes',
+          etiqueta: 'Planes',
+          tipo: 'lista',
+          minItems: 1,
           campos: [
             { id: 'id', etiqueta: 'Id', tipo: 'texto' },
             { id: 'nombre', etiqueta: 'Nombre', tipo: 'texto', requerido: true },
@@ -42,7 +45,12 @@ const esquema: EsquemaContenido = {
         },
       ],
     },
-    { id: 'reglas', titulo: 'Reglas', rol: 'desarrollador', campos: [{ id: 'iva', etiqueta: 'IVA', tipo: 'porcentaje', max: 1 }] },
+    {
+      id: 'reglas',
+      titulo: 'Reglas',
+      rol: 'desarrollador',
+      campos: [{ id: 'iva', etiqueta: 'IVA', tipo: 'porcentaje', max: 1 }],
+    },
   ],
 };
 
@@ -88,7 +96,7 @@ describe('motor de edición', () => {
     const despues = structuredClone(antes);
     (despues.portada as Record<string, unknown>).titulo = 'Nuevo';
     (despues.portada as Record<string, unknown>).animacion = true;
-    ((despues.precios as { planes: Record<string, unknown>[] }).planes[0]!).destacado = true;
+    (despues.precios as { planes: Record<string, unknown>[] }).planes[0]!.destacado = true;
     (despues.reglas as Record<string, unknown>).iva = 0.5;
     despues._estructura!.ocultas = ['portada'];
 
@@ -110,7 +118,11 @@ describe('motor de edición', () => {
 
   it('devuelve secciones visibles en orden con su variante', () => {
     const c = contenidoInicial(esquema);
-    c._estructura = { orden: ['precios', 'portada', 'reglas'], ocultas: ['reglas'], variantes: { portada: 'dividida' } };
+    c._estructura = {
+      orden: ['precios', 'portada', 'reglas'],
+      ocultas: ['reglas'],
+      variantes: { portada: 'dividida' },
+    };
     expect(seccionesVisibles(esquema, c).map((s) => [s.id, s.variante])).toEqual([
       ['precios', undefined],
       ['portada', 'dividida'],
@@ -119,6 +131,11 @@ describe('motor de edición', () => {
 
   it('revisa el propio esquema', () => {
     expect(revisarEsquema(esquema)).toEqual([]);
-    expect(revisarEsquema({ ...esquema, secciones: [{ id: 'x', titulo: 'X', campos: [{ id: 'a b', etiqueta: '', tipo: 'raro' }] }] })).toHaveLength(3);
+    expect(
+      revisarEsquema({
+        ...esquema,
+        secciones: [{ id: 'x', titulo: 'X', campos: [{ id: 'a b', etiqueta: '', tipo: 'raro' }] }],
+      }),
+    ).toHaveLength(3);
   });
 });

@@ -1,5 +1,10 @@
 import type { CapaDatos, Lead, NuevoLead } from '@kaizen/datos';
-import { asignarResponsable, type EstadoAsignacion, type ReglaAsignacion, type Responsable } from '@kaizen/modulos/asignacion';
+import {
+  asignarResponsable,
+  type EstadoAsignacion,
+  type ReglaAsignacion,
+  type Responsable,
+} from '@kaizen/modulos/asignacion';
 
 /**
  * Lógica del CRM de la plantilla 5, sin dependencias de Next (se prueba con Vitest).
@@ -39,7 +44,8 @@ export const CLAVE_ESTADO = { coleccion: 'sistema', id: 'asignacion' } as const;
 export async function asignarAlCrear(lead: NuevoLead, capa: CapaDatos, contenido: Contenido): Promise<NuevoLead> {
   const etapas = etapasDe(contenido);
   const regla = reglaDe(contenido);
-  const estado = ((await capa.colecciones.leer(lead.sitioId, CLAVE_ESTADO.coleccion, CLAVE_ESTADO.id)) ?? {}) as EstadoAsignacion;
+  const estado = ((await capa.colecciones.leer(lead.sitioId, CLAVE_ESTADO.coleccion, CLAVE_ESTADO.id)) ??
+    {}) as EstadoAsignacion;
 
   if (regla.modo === 'carga') {
     const cerradas = new Set(etapas.filter((e) => e.cerrada).map((e) => e.id));
@@ -51,7 +57,9 @@ export async function asignarAlCrear(lead: NuevoLead, capa: CapaDatos, contenido
   }
 
   const decision = asignarResponsable(lead, responsablesDe(contenido), regla, estado);
-  await capa.colecciones.guardar(lead.sitioId, CLAVE_ESTADO.coleccion, CLAVE_ESTADO.id, { ultimoId: decision.siguienteEstado.ultimoId ?? null });
+  await capa.colecciones.guardar(lead.sitioId, CLAVE_ESTADO.coleccion, CLAVE_ESTADO.id, {
+    ultimoId: decision.siguienteEstado.ultimoId ?? null,
+  });
   return {
     ...lead,
     etapa: lead.etapa ?? etapas[0]!.id,
@@ -69,13 +77,22 @@ export interface Metricas {
 export function calcularMetricas(leads: Lead[], contenido: Contenido): Metricas {
   const etapas = etapasDe(contenido);
   const responsables = responsablesDe(contenido);
-  const porEtapa = etapas.map((e) => ({ id: e.id, nombre: e.nombre, color: e.color, cantidad: leads.filter((l) => l.etapa === e.id).length }));
+  const porEtapa = etapas.map((e) => ({
+    id: e.id,
+    nombre: e.nombre,
+    color: e.color,
+    cantidad: leads.filter((l) => l.etapa === e.id).length,
+  }));
   const otras = leads.filter((l) => !etapas.some((e) => e.id === l.etapa)).length;
   if (otras) porEtapa.push({ id: '_otra', nombre: 'Otra etapa', color: 'neutro', cantidad: otras });
   return {
     total: leads.length,
     porEtapa,
-    porResponsable: responsables.map((r) => ({ id: r.id, nombre: r.nombre, cantidad: leads.filter((l) => l.responsableId === r.id).length })),
+    porResponsable: responsables.map((r) => ({
+      id: r.id,
+      nombre: r.nombre,
+      cantidad: leads.filter((l) => l.responsableId === r.id).length,
+    })),
     sinAsignar: leads.filter((l) => !l.responsableId).length,
   };
 }
@@ -83,7 +100,8 @@ export function calcularMetricas(leads: Lead[], contenido: Contenido): Metricas 
 export const nombreResponsable = (contenido: Contenido, id?: string) =>
   (id && responsablesDe(contenido).find((r) => r.id === id)?.nombre) || (id ? id : 'Sin asignar');
 
-export const nombreEtapa = (contenido: Contenido, id: string) => etapasDe(contenido).find((e) => e.id === id)?.nombre ?? id;
+export const nombreEtapa = (contenido: Contenido, id: string) =>
+  etapasDe(contenido).find((e) => e.id === id)?.nombre ?? id;
 
 /** Clases de tono por token del tema (nunca colores sueltos). */
 export const TONOS: Record<string, string> = {

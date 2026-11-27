@@ -103,7 +103,14 @@ export function crearCapaFirebase(): CapaDatos {
         return s.exists ? (s.data() as never) : null;
       },
       async guardarBorrador(sitioId, datos, autor) {
-        const v: VersionContenido = { id: 'borrador', sitioId, estado: 'borrador', datos, actualizadoPor: autor, actualizadoEl: ahoraISO() };
+        const v: VersionContenido = {
+          id: 'borrador',
+          sitioId,
+          estado: 'borrador',
+          datos,
+          actualizadoPor: autor,
+          actualizadoEl: ahoraISO(),
+        };
         await sitio(db, sitioId).collection('contenido').doc('borrador').set(quitarIndefinidos(v));
         return v as never;
       },
@@ -118,7 +125,13 @@ export function crearCapaFirebase(): CapaDatos {
             const id = `v_${Date.parse(anterior.publicadoEl ?? fecha)}_${nuevoId().slice(0, 4)}`;
             tx.set(col.doc(id), { ...anterior, id, estado: 'archivado' });
           }
-          const publicado: VersionContenido = { ...(b.data() as VersionContenido), id: 'publicado', estado: 'publicado', publicadoPor: autor, publicadoEl: fecha };
+          const publicado: VersionContenido = {
+            ...(b.data() as VersionContenido),
+            id: 'publicado',
+            estado: 'publicado',
+            publicadoPor: autor,
+            publicadoEl: fecha,
+          };
           tx.set(col.doc('publicado'), quitarIndefinidos(publicado));
           return publicado;
         });
@@ -136,15 +149,30 @@ export function crearCapaFirebase(): CapaDatos {
             tx.set(col.doc(id), { ...(actual.data() as VersionContenido), id, estado: 'archivado' });
           }
           const previa = previaDoc.data() as VersionContenido;
-          const restaurada: VersionContenido = { ...previa, id: 'publicado', estado: 'publicado', publicadoPor: autor, publicadoEl: fecha };
+          const restaurada: VersionContenido = {
+            ...previa,
+            id: 'publicado',
+            estado: 'publicado',
+            publicadoPor: autor,
+            publicadoEl: fecha,
+          };
           tx.set(col.doc('publicado'), restaurada);
-          tx.set(col.doc('borrador'), { ...restaurada, id: 'borrador', estado: 'borrador', actualizadoPor: autor, actualizadoEl: fecha });
+          tx.set(col.doc('borrador'), {
+            ...restaurada,
+            id: 'borrador',
+            estado: 'borrador',
+            actualizadoPor: autor,
+            actualizadoEl: fecha,
+          });
           tx.delete(previaDoc.ref);
           return restaurada;
         });
       },
       async historial(sitioId, limite = 20) {
-        const q = await sitio(db, sitioId).collection('contenido').where('estado', 'in', ['publicado', 'archivado']).get();
+        const q = await sitio(db, sitioId)
+          .collection('contenido')
+          .where('estado', 'in', ['publicado', 'archivado'])
+          .get();
         return q.docs
           .map((d) => d.data() as VersionContenido)
           .sort((x, y) => (y.publicadoEl ?? '').localeCompare(x.publicadoEl ?? ''))
@@ -157,12 +185,22 @@ export function crearCapaFirebase(): CapaDatos {
         const fecha = ahoraISO();
         const ref = sitio(db, nuevo.sitioId).collection('leads').doc();
         const lead: Lead = {
-          id: ref.id, sitioId: nuevo.sitioId, nombre: nuevo.nombre, contacto: nuevo.contacto, origen: nuevo.origen,
-          etapa: nuevo.etapa ?? 'nuevo', responsableId: nuevo.responsableId, notas: [], campos: nuevo.campos ?? {},
-          extra: nuevo.extra, historial: [{ tipo: 'creado', fecha, autor: 'sistema', detalle: nuevo.origen }],
-          creadoEl: fecha, actualizadoEl: fecha,
+          id: ref.id,
+          sitioId: nuevo.sitioId,
+          nombre: nuevo.nombre,
+          contacto: nuevo.contacto,
+          origen: nuevo.origen,
+          etapa: nuevo.etapa ?? 'nuevo',
+          responsableId: nuevo.responsableId,
+          notas: [],
+          campos: nuevo.campos ?? {},
+          extra: nuevo.extra,
+          historial: [{ tipo: 'creado', fecha, autor: 'sistema', detalle: nuevo.origen }],
+          creadoEl: fecha,
+          actualizadoEl: fecha,
         };
-        if (nuevo.responsableId) lead.historial.push({ tipo: 'responsable', fecha, autor: 'sistema', a: nuevo.responsableId });
+        if (nuevo.responsableId)
+          lead.historial.push({ tipo: 'responsable', fecha, autor: 'sistema', a: nuevo.responsableId });
         await ref.set(quitarIndefinidos(lead));
         return lead;
       },
@@ -170,9 +208,14 @@ export function crearCapaFirebase(): CapaDatos {
         let q: FirebaseFirestore.Query = sitio(db, sitioId).collection('leads');
         if (filtro.etapa) q = q.where('etapa', '==', filtro.etapa);
         if (filtro.responsableId) q = q.where('responsableId', '==', filtro.responsableId);
-        const snap = await q.orderBy('creadoEl', 'desc').limit(filtro.limite ?? 500).get();
+        const snap = await q
+          .orderBy('creadoEl', 'desc')
+          .limit(filtro.limite ?? 500)
+          .get();
         // El texto libre y el origen se filtran en memoria (volumen de demo).
-        return snap.docs.map((d) => d.data() as Lead).filter((l) => coincideFiltro(l, { origen: filtro.origen, texto: filtro.texto }));
+        return snap.docs
+          .map((d) => d.data() as Lead)
+          .filter((l) => coincideFiltro(l, { origen: filtro.origen, texto: filtro.texto }));
       },
       async obtener(sitioId, id) {
         const s = await sitio(db, sitioId).collection('leads').doc(id).get();
@@ -198,7 +241,13 @@ export function crearCapaFirebase(): CapaDatos {
           const actual = await tx.get(contador);
           const sec = ((actual.data()?.valor as number | undefined) ?? 0) + 1;
           const ref = s.collection('cotizaciones').doc();
-          const c: Cotizacion = { ...nueva, id: ref.id, numero: numeroCotizacion(sec), estado: 'recibida', creadoEl: ahoraISO() };
+          const c: Cotizacion = {
+            ...nueva,
+            id: ref.id,
+            numero: numeroCotizacion(sec),
+            estado: 'recibida',
+            creadoEl: ahoraISO(),
+          };
           tx.set(contador, { valor: sec });
           tx.set(ref, quitarIndefinidos(c));
           return c;
@@ -227,7 +276,8 @@ export function crearCapaFirebase(): CapaDatos {
           await tx.get(candado);
           const finDelDia = new Date(Date.parse(nueva.fin) + 864e5).toISOString();
           const inicioDelDia = new Date(Date.parse(nueva.inicio) - 864e5).toISOString();
-          const q = s.collection('citas')
+          const q = s
+            .collection('citas')
             .where('profesionalId', '==', nueva.profesionalId)
             .where('inicio', '>=', inicioDelDia)
             .where('inicio', '<', finDelDia);
@@ -256,7 +306,11 @@ export function crearCapaFirebase(): CapaDatos {
     archivos: {
       async subir(ruta, datos, tipo) {
         const archivo = bucket.file(ruta);
-        await archivo.save(Buffer.from(datos), { contentType: tipo, resumable: false, metadata: { cacheControl: 'public, max-age=31536000' } });
+        await archivo.save(Buffer.from(datos), {
+          contentType: tipo,
+          resumable: false,
+          metadata: { cacheControl: 'public, max-age=31536000' },
+        });
         const url = `https://firebasestorage.googleapis.com/v0/b/${bucket.name}/o/${encodeURIComponent(ruta)}?alt=media`;
         return { ruta, url, tipo, bytes: datos.byteLength };
       },
@@ -292,6 +346,9 @@ export async function asignarRol(correo: string, datos: Omit<Usuario, 'uid' | 'c
     await a.setCustomUserClaims(usuario.uid, claims);
     await a.revokeRefreshTokens(usuario.uid); // obliga a renovar el token con el rol nuevo
   }
-  await db.collection('usuarios').doc(correo.toLowerCase()).set(quitarIndefinidos({ correo: correo.toLowerCase(), ...datos }));
+  await db
+    .collection('usuarios')
+    .doc(correo.toLowerCase())
+    .set(quitarIndefinidos({ correo: correo.toLowerCase(), ...datos }));
   return { existeEnAuth: !!usuario };
 }

@@ -7,7 +7,10 @@
   "required": ["plantilla", "version", "titulo", "secciones"],
   "properties": {
     "$schema": { "type": "string" },
-    "plantilla": { "type": "string", "description": "Id de la plantilla: comercial, presentacion, catalogo, visor3d, panel, agenda." },
+    "plantilla": {
+      "type": "string",
+      "description": "Id de la plantilla: comercial, presentacion, catalogo, visor3d, panel, agenda."
+    },
     "version": { "type": "integer", "minimum": 1 },
     "titulo": { "type": "string" },
     "vistas": {
@@ -31,7 +34,11 @@
         "titulo": { "type": "string" },
         "descripcion": { "type": "string" },
         "activable": { "type": "boolean", "description": "El Desarrollador puede mostrarla u ocultarla." },
-        "variantes": { "type": "array", "items": { "type": "string" }, "description": "Variantes visuales del bloque." },
+        "variantes": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Variantes visuales del bloque."
+        },
         "rol": { "$ref": "#/$defs/rol" },
         "campos": { "type": "array", "items": { "$ref": "#/$defs/campo" } }
       }
@@ -45,7 +52,27 @@
         "tipo": {
           "type": "string",
           "description": "Tipos base o uno propio registrado con registrarControl().",
-          "examples": ["texto", "textoLargo", "numero", "precio", "porcentaje", "booleano", "imagen", "modelo3d", "color", "seleccion", "multiseleccion", "enlace", "correo", "telefono", "icono", "fecha", "hora", "lista", "grupo"]
+          "examples": [
+            "texto",
+            "textoLargo",
+            "numero",
+            "precio",
+            "porcentaje",
+            "booleano",
+            "imagen",
+            "modelo3d",
+            "color",
+            "seleccion",
+            "multiseleccion",
+            "enlace",
+            "correo",
+            "telefono",
+            "icono",
+            "fecha",
+            "hora",
+            "lista",
+            "grupo"
+          ]
         },
         "ayuda": { "type": "string" },
         "placeholder": { "type": "string" },
@@ -63,7 +90,11 @@
           "items": {
             "oneOf": [
               { "type": "string" },
-              { "type": "object", "required": ["valor", "etiqueta"], "properties": { "valor": { "type": "string" }, "etiqueta": { "type": "string" } } }
+              {
+                "type": "object",
+                "required": ["valor", "etiqueta"],
+                "properties": { "valor": { "type": "string" }, "etiqueta": { "type": "string" } }
+              }
             ]
           }
         },

@@ -27,7 +27,12 @@ export const MAPEO_PROPIO: MapeoCampos = {
 export const MAPEO_JERICO: MapeoCampos = { ...MAPEO_PROPIO };
 
 function leerRuta(obj: unknown, ruta: string): unknown {
-  return ruta.split('.').reduce<unknown>((acc, k) => (acc && typeof acc === 'object' ? (acc as Record<string, unknown>)[k] : undefined), obj);
+  return ruta
+    .split('.')
+    .reduce<unknown>(
+      (acc, k) => (acc && typeof acc === 'object' ? (acc as Record<string, unknown>)[k] : undefined),
+      obj,
+    );
 }
 
 /** Convierte un Lead al formato plano del destino. Los campos del formulario van en `campos`. */

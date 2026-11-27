@@ -36,7 +36,8 @@ export type Seleccion = Record<string, string>;
 
 export const VISTA_POR_DEFECTO: VistaCamara = { posicion: [2.2, 1.5, 2.4], objetivo: [0, 0.55, 0], fov: 40 };
 
-const esV3 = (v: unknown): v is V3 => Array.isArray(v) && v.length === 3 && v.every((n) => typeof n === 'number' && Number.isFinite(n));
+const esV3 = (v: unknown): v is V3 =>
+  Array.isArray(v) && v.length === 3 && v.every((n) => typeof n === 'number' && Number.isFinite(n));
 
 export function normalizarVista(v: unknown): VistaCamara {
   const x = (v ?? {}) as Partial<VistaCamara>;

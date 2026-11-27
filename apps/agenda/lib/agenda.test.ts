@@ -20,28 +20,53 @@ describe('agenda (plantilla 6)', () => {
     const elegido = antes.find((h) => h.inicio === '2026-12-01T09:00:00-05:00');
     expect(elegido).toBeDefined();
 
-    const r1 = await reservarCita(capa, SITIO, semilla, { servicioId: 's-valoracion', profesionalId: 'p-laura', inicio: elegido!.inicio, visitante }, ahora);
+    const r1 = await reservarCita(
+      capa,
+      SITIO,
+      semilla,
+      { servicioId: 's-valoracion', profesionalId: 'p-laura', inicio: elegido!.inicio, visitante },
+      ahora,
+    );
     expect(r1.ok).toBe(true);
 
     const despues = await huecosDisponibles(capa, SITIO, semilla, consulta);
     expect(despues.map((h) => h.inicio)).not.toContain(elegido!.inicio);
     expect(despues.length).toBe(antes.length - 1);
 
-    const r2 = await reservarCita(capa, SITIO, semilla, { servicioId: 's-valoracion', profesionalId: 'p-laura', inicio: elegido!.inicio, visitante }, ahora);
+    const r2 = await reservarCita(
+      capa,
+      SITIO,
+      semilla,
+      { servicioId: 's-valoracion', profesionalId: 'p-laura', inicio: elegido!.inicio, visitante },
+      ahora,
+    );
     expect(r2).toMatchObject({ ok: false, motivo: 'ocupado' });
     if (!r2.ok) expect(r2.alternativas.length).toBeGreaterThan(0);
   });
 
   it('la capa de datos rechaza la doble reserva directa (operación atómica)', async () => {
     const capa = crearCapaMemoria();
-    const cita = { sitioId: SITIO, servicioId: 's-valoracion', profesionalId: 'p-laura', inicio: '2026-12-01T09:00:00-05:00', fin: '2026-12-01T09:30:00-05:00', visitante };
+    const cita = {
+      sitioId: SITIO,
+      servicioId: 's-valoracion',
+      profesionalId: 'p-laura',
+      inicio: '2026-12-01T09:00:00-05:00',
+      fin: '2026-12-01T09:30:00-05:00',
+      visitante,
+    };
     expect((await capa.citas.reservar(cita)).ok).toBe(true);
     expect(await capa.citas.reservar(cita)).toEqual({ ok: false, motivo: 'ocupado' });
   });
 
   it('rechaza horas fuera del horario y festivos', async () => {
     const capa = crearCapaMemoria();
-    const fuera = await reservarCita(capa, SITIO, semilla, { servicioId: 's-valoracion', profesionalId: 'p-laura', inicio: '2026-12-01T12:30:00-05:00', visitante }, ahora);
+    const fuera = await reservarCita(
+      capa,
+      SITIO,
+      semilla,
+      { servicioId: 's-valoracion', profesionalId: 'p-laura', inicio: '2026-12-01T12:30:00-05:00', visitante },
+      ahora,
+    );
     expect(fuera).toMatchObject({ ok: false, motivo: 'no-disponible' });
     expect(await huecosDisponibles(capa, SITIO, semilla, { ...consulta, fecha: '2026-12-08' })).toEqual([]);
   });
@@ -51,7 +76,11 @@ describe('agenda (plantilla 6)', () => {
     const h = await huecosDisponibles(capa, SITIO, semilla, { ...consulta, profesionalId: 'cualquiera' });
     expect(new Set(h.map((x) => x.profesionalId))).toEqual(new Set(['p-laura', 'p-mateo']));
     // Mateo no atiende la sesión completa
-    const s = await huecosDisponibles(capa, SITIO, semilla, { ...consulta, servicioId: 's-sesion', profesionalId: 'cualquiera' });
+    const s = await huecosDisponibles(capa, SITIO, semilla, {
+      ...consulta,
+      servicioId: 's-sesion',
+      profesionalId: 'cualquiera',
+    });
     expect(new Set(s.map((x) => x.profesionalId))).toEqual(new Set(['p-laura']));
   });
 

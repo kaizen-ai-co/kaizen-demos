@@ -15,11 +15,20 @@ for (const f of revisarContraste(undefined, MINIMO)) {
   console.error(`✗ tema.json (${f.modo}): ${f.par[0]} sobre ${f.par[1]} = ${f.valor}:1`);
 }
 
-const PARES: [string, string][] = [['primarioTexto', 'primario'], ['acentoTexto', 'acento'], ['texto', 'fondo']];
+const PARES: [string, string][] = [
+  ['primarioTexto', 'primario'],
+  ['acentoTexto', 'acento'],
+  ['texto', 'fondo'],
+];
 for (const plantilla of readdirSync(path.join(raiz, 'semillas'))) {
   const carpeta = path.join(raiz, 'semillas', plantilla);
   if (!existsSync(path.join(carpeta, 'contenido.json'))) continue;
-  const archivos = ['contenido.json', ...['sectores', 'demos'].flatMap((s) => (existsSync(path.join(carpeta, s)) ? readdirSync(path.join(carpeta, s)).map((x) => `${s}/${x}`) : []))];
+  const archivos = [
+    'contenido.json',
+    ...['sectores', 'demos'].flatMap((s) =>
+      existsSync(path.join(carpeta, s)) ? readdirSync(path.join(carpeta, s)).map((x) => `${s}/${x}`) : [],
+    ),
+  ];
   for (const a of archivos.filter((x) => x.endsWith('.json'))) {
     const colores = JSON.parse(readFileSync(path.join(carpeta, a), 'utf8'))?._estructura?.tema?.colores;
     if (!colores) continue;

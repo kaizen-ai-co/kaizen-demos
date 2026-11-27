@@ -18,7 +18,9 @@ export default function Editar() {
             titulo: `Leads (${leads.length})`,
             contenido: (
               <div className="grid gap-3">
-                <a href="/panel" className="text-sm font-semibold text-primario underline">Abrir el panel completo →</a>
+                <a href="/panel" className="text-sm font-semibold text-primario underline">
+                  Abrir el panel completo →
+                </a>
                 <VistaLeads leads={leads} />
               </div>
             ),

@@ -25,7 +25,9 @@ export default async function LayoutPanel({ children }: { children: ReactNode })
           <strong className="mr-2">{titulo}</strong>
           <nav aria-label="Panel" className="flex flex-wrap gap-1 text-sm">
             {ENLACES.map((e) => (
-              <a key={e.href} href={e.href} className="rounded-md px-3 py-1.5 hover:bg-superficie">{e.texto}</a>
+              <a key={e.href} href={e.href} className="rounded-md px-3 py-1.5 hover:bg-superficie">
+                {e.texto}
+              </a>
             ))}
           </nav>
           <span className="ml-auto flex items-center gap-2 text-xs text-suave">

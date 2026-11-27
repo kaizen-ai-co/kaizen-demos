@@ -70,7 +70,11 @@ export async function generarPdfCotizacion({
   const ancho = pagina.getWidth() - margen * 2;
   let y = pagina.getHeight() - margen;
   const gris = rgb(0.4, 0.45, 0.5);
-  const texto = (t: string, x: number, opciones: { f?: PDFFont; s?: number; c?: ReturnType<typeof rgb>; derecha?: boolean } = {}) => {
+  const texto = (
+    t: string,
+    x: number,
+    opciones: { f?: PDFFont; s?: number; c?: ReturnType<typeof rgb>; derecha?: boolean } = {},
+  ) => {
     const f = opciones.f ?? normal;
     const s = opciones.s ?? 10;
     const t2 = limpio(t);
@@ -85,7 +89,13 @@ export async function generarPdfCotizacion({
   };
 
   // Aviso de demo
-  pagina.drawRectangle({ x: 0, y: pagina.getHeight() - 22, width: pagina.getWidth(), height: 22, color: rgb(0.98, 0.93, 0.83) });
+  pagina.drawRectangle({
+    x: 0,
+    y: pagina.getHeight() - 22,
+    width: pagina.getWidth(),
+    height: 22,
+    color: rgb(0.98, 0.93, 0.83),
+  });
   y = pagina.getHeight() - 15;
   texto('DEMO CON DATOS FICTICIOS - no es una oferta comercial', margen, { s: 8, f: negrita });
   y = pagina.getHeight() - margen - 10;
@@ -93,7 +103,9 @@ export async function generarPdfCotizacion({
   texto(marca, margen, { f: negrita, s: 18 });
   texto(`Cotización ${cotizacion.numero}`, margen + ancho, { f: negrita, s: 12, derecha: true });
   y -= 18;
-  const fecha = new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', dateStyle: 'long' }).format(new Date(cotizacion.creadoEl));
+  const fecha = new Intl.DateTimeFormat('es-CO', { timeZone: 'America/Bogota', dateStyle: 'long' }).format(
+    new Date(cotizacion.creadoEl),
+  );
   texto(`Fecha: ${fecha}`, margen + ancho, { s: 9, c: gris, derecha: true });
   y -= 12;
   texto(`Válida por ${cotizacion.condiciones.validezDias} días`, margen + ancho, { s: 9, c: gris, derecha: true });
@@ -109,7 +121,12 @@ export async function generarPdfCotizacion({
 
   // Tabla
   y -= 14;
-  const col = { producto: margen, cantidad: margen + ancho * 0.58, unitario: margen + ancho * 0.8, total: margen + ancho };
+  const col = {
+    producto: margen,
+    cantidad: margen + ancho * 0.58,
+    unitario: margen + ancho * 0.8,
+    total: margen + ancho,
+  };
   pagina.drawRectangle({ x: margen - 6, y: y - 6, width: ancho + 12, height: 20, color: rgb(0.93, 0.95, 0.98) });
   texto('Producto', col.producto, { f: negrita, s: 9 });
   texto('Cantidad', col.cantidad, { f: negrita, s: 9, derecha: true });
@@ -129,7 +146,12 @@ export async function generarPdfCotizacion({
     texto(formatoMoneda(it.precioUnitario, moneda), col.unitario, { s: 9.5, derecha: true });
     texto(formatoMoneda(it.precioUnitario * it.cantidad, moneda), col.total, { s: 9.5, derecha: true });
     y -= lineas.length * 12 + 6;
-    pagina.drawLine({ start: { x: margen - 6, y: y + 3 }, end: { x: margen + ancho + 6, y: y + 3 }, thickness: 0.5, color: rgb(0.88, 0.9, 0.93) });
+    pagina.drawLine({
+      start: { x: margen - 6, y: y + 3 },
+      end: { x: margen + ancho + 6, y: y + 3 },
+      thickness: 0.5,
+      color: rgb(0.88, 0.9, 0.93),
+    });
     y -= 8;
   }
 
@@ -137,18 +159,31 @@ export async function generarPdfCotizacion({
   nuevaPaginaSiHaceFalta(110);
   y -= 6;
   const filas: [string, number, boolean?][] = [['Subtotal', totales.subtotal]];
-  if (totales.descuento > 0) filas.push([`Descuento (${Math.round((cotizacion.condiciones.descuentoPorcentaje ?? 0) * 100)} %)`, -totales.descuento]);
-  filas.push([`${condiciones.nombreImpuesto ?? 'Impuesto'} (${Math.round(cotizacion.condiciones.tasaImpuesto * 1000) / 10} %)`, totales.impuesto]);
+  if (totales.descuento > 0)
+    filas.push([
+      `Descuento (${Math.round((cotizacion.condiciones.descuentoPorcentaje ?? 0) * 100)} %)`,
+      -totales.descuento,
+    ]);
+  filas.push([
+    `${condiciones.nombreImpuesto ?? 'Impuesto'} (${Math.round(cotizacion.condiciones.tasaImpuesto * 1000) / 10} %)`,
+    totales.impuesto,
+  ]);
   filas.push(['Total', totales.total, true]);
   for (const [etiqueta, valor, fuerte] of filas) {
     texto(etiqueta, col.unitario, { f: fuerte ? negrita : normal, s: fuerte ? 12 : 10, derecha: true });
-    texto(formatoMoneda(valor, moneda), col.total, { f: fuerte ? negrita : normal, s: fuerte ? 12 : 10, derecha: true });
+    texto(formatoMoneda(valor, moneda), col.total, {
+      f: fuerte ? negrita : normal,
+      s: fuerte ? 12 : 10,
+      derecha: true,
+    });
     y -= fuerte ? 18 : 14;
   }
 
   // Condiciones y texto al pie
   y -= 16;
-  const pie = [`Entrega: ${cotizacion.condiciones.entrega}`, condiciones.textoCotizacion ?? ''].filter(Boolean).join('\n');
+  const pie = [`Entrega: ${cotizacion.condiciones.entrega}`, condiciones.textoCotizacion ?? '']
+    .filter(Boolean)
+    .join('\n');
   for (const l of partirLineas(pie, normal, 9, ancho)) {
     nuevaPaginaSiHaceFalta(12);
     texto(l, margen, { s: 9, c: gris });

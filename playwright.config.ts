@@ -6,7 +6,14 @@ import { defineConfig, devices } from '@playwright/test';
  *   APP=comercial npx playwright test
  */
 const APP = process.env.APP ?? 'comercial';
-const PUERTOS: Record<string, number> = { comercial: 3001, presentacion: 3002, catalogo: 3003, visor3d: 3004, panel: 3005, agenda: 3006 };
+const PUERTOS: Record<string, number> = {
+  comercial: 3001,
+  presentacion: 3002,
+  catalogo: 3003,
+  visor3d: 3004,
+  panel: 3005,
+  agenda: 3006,
+};
 const puerto = PUERTOS[APP] ?? 3001;
 
 export default defineConfig({

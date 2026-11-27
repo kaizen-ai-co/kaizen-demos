@@ -37,7 +37,8 @@ export function obtenerCapaDatos(): Promise<CapaDatos> {
   if (!cache) {
     const nombre = process.env.DATOS_PROVEEDOR ?? 'memoria';
     const fabrica = FABRICAS[nombre];
-    if (!fabrica) throw new Error(`DATOS_PROVEEDOR desconocido: "${nombre}". Opciones: ${Object.keys(FABRICAS).join(', ')}`);
+    if (!fabrica)
+      throw new Error(`DATOS_PROVEEDOR desconocido: "${nombre}". Opciones: ${Object.keys(FABRICAS).join(', ')}`);
     cache = Promise.resolve(fabrica()).then((capa) => ({ ...capa, ...sustitutos }));
   }
   return cache;

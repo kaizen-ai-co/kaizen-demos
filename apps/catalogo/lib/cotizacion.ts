@@ -65,7 +65,10 @@ export function leerCatalogo(datos: Record<string, unknown>) {
 
 export const decimalesDe = (moneda?: string) => (moneda === 'COP' || !moneda ? 0 : 2);
 
-export function totalesDe(items: Pick<ItemCotizacion, 'precioUnitario' | 'cantidad'>[], condiciones: Condiciones): Totales {
+export function totalesDe(
+  items: Pick<ItemCotizacion, 'precioUnitario' | 'cantidad'>[],
+  condiciones: Condiciones,
+): Totales {
   return calcularTotales(items, {
     tasaImpuesto: condiciones.tasaImpuesto,
     descuentoPorcentaje: condiciones.descuentoPorcentaje,
@@ -85,7 +88,8 @@ export function armarCotizacion(productos: Producto[], condiciones: Condiciones,
   const cantidades = new Map<string, number>();
   for (const l of pedido) {
     const cantidad = Number(l?.cantidad);
-    if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > MAX_CANTIDAD) throw new ErrorPedido('Revisa las cantidades.');
+    if (!Number.isInteger(cantidad) || cantidad < 1 || cantidad > MAX_CANTIDAD)
+      throw new ErrorPedido('Revisa las cantidades.');
     const id = String(l?.productoId ?? '');
     cantidades.set(id, (cantidades.get(id) ?? 0) + cantidad);
   }

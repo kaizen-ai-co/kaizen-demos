@@ -4,7 +4,12 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import semilla from '../../../semillas/panel/contenido.json';
 import { asignarAlCrear, calcularMetricas } from './crm';
 
-const base = { sitioId: 's-panel', nombre: 'Lead Ficticio', contacto: { telefono: '+57 300 000 0099' }, origen: 'formulario-movil' };
+const base = {
+  sitioId: 's-panel',
+  nombre: 'Lead Ficticio',
+  contacto: { telefono: '+57 300 000 0099' },
+  origen: 'formulario-movil',
+};
 
 describe('asignación al crear lead (plantilla 5)', () => {
   beforeEach(() => reiniciarMemoria());
@@ -25,7 +30,10 @@ describe('asignación al crear lead (plantilla 5)', () => {
 
   it('por origen, con respaldo en turnos', async () => {
     const capa = crearCapaMemoria();
-    const contenido = { ...semilla, asignacion: { modo: 'origen', porOrigen: [{ origen: 'whatsapp', responsableId: 'r-bruno' }] } };
+    const contenido = {
+      ...semilla,
+      asignacion: { modo: 'origen', porOrigen: [{ origen: 'whatsapp', responsableId: 'r-bruno' }] },
+    };
     expect((await asignarAlCrear({ ...base, origen: 'whatsapp' }, capa, contenido)).responsableId).toBe('r-bruno');
     expect((await asignarAlCrear({ ...base }, capa, contenido)).responsableId).toBe('r-ana');
   });

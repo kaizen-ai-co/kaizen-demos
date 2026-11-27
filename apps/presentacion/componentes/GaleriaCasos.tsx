@@ -30,7 +30,9 @@ export function GaleriaCasos({ id = 'casos', datos }: PropsBloque) {
     <section id={id} aria-labelledby={`${id}-titulo`} className="k-seccion bg-superficie">
       <div className="k-contenedor">
         <Aparecer className="mx-auto mb-8 max-w-2xl text-center">
-          <h2 id={`${id}-titulo`} className="text-3xl md:text-4xl">{texto(datos.titulo, 'Casos')}</h2>
+          <h2 id={`${id}-titulo`} className="text-3xl md:text-4xl">
+            {texto(datos.titulo, 'Casos')}
+          </h2>
           {texto(datos.subtitulo) && <p className="mt-3 text-lg text-suave">{texto(datos.subtitulo)}</p>}
         </Aparecer>
 
@@ -44,7 +46,9 @@ export function GaleriaCasos({ id = 'casos', datos }: PropsBloque) {
                 onClick={() => setFiltro(s)}
                 className={cn(
                   'min-h-10 rounded-full border px-4 text-sm font-medium transition-colors',
-                  filtro === s ? 'border-primario bg-primario text-primario-texto' : 'border-borde bg-fondo hover:bg-secundario',
+                  filtro === s
+                    ? 'border-primario bg-primario text-primario-texto'
+                    : 'border-borde bg-fondo hover:bg-secundario',
                 )}
               >
                 {s ?? texto(datos.textoTodos, 'Todos')}
@@ -58,8 +62,17 @@ export function GaleriaCasos({ id = 'casos', datos }: PropsBloque) {
             const im = img(c.imagen, c.titulo);
             return (
               <li key={c.id}>
-                <a href={`/casos/${c.id}`} className="group flex h-full flex-col overflow-hidden rounded-lg border border-borde bg-fondo shadow-sm transition-shadow hover:shadow-md">
-                  {im && <img src={im.src} alt={im.alt} className="aspect-[16/10] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transform-none" />}
+                <a
+                  href={`/casos/${c.id}`}
+                  className="group flex h-full flex-col overflow-hidden rounded-lg border border-borde bg-fondo shadow-sm transition-shadow hover:shadow-md"
+                >
+                  {im && (
+                    <img
+                      src={im.src}
+                      alt={im.alt}
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transform-none"
+                    />
+                  )}
                   <div className="flex flex-1 flex-col p-5">
                     <Insignia className="self-start">{c.sector}</Insignia>
                     <h3 className="mt-3 text-lg">{c.titulo}</h3>

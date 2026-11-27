@@ -10,9 +10,20 @@
       "titulo": "Encabezado",
       "campos": [
         { "id": "marca", "etiqueta": "Nombre de la marca", "tipo": "texto", "requerido": true, "max": 40 },
-        { "id": "logo", "etiqueta": "Logo", "tipo": "imagen", "maxBytes": 500000, "ayuda": "PNG o WEBP con fondo transparente, máximo 500 KB." },
         {
-          "id": "enlaces", "etiqueta": "Enlaces del menú", "tipo": "lista", "maxItems": 6, "nombreItem": "enlace", "campoTitulo": "texto",
+          "id": "logo",
+          "etiqueta": "Logo",
+          "tipo": "imagen",
+          "maxBytes": 500000,
+          "ayuda": "PNG o WEBP con fondo transparente, máximo 500 KB."
+        },
+        {
+          "id": "enlaces",
+          "etiqueta": "Enlaces del menú",
+          "tipo": "lista",
+          "maxItems": 6,
+          "nombreItem": "enlace",
+          "campoTitulo": "texto",
           "campos": [
             { "id": "texto", "etiqueta": "Texto", "tipo": "texto", "requerido": true, "max": 24 },
             { "id": "destino", "etiqueta": "Destino", "tipo": "enlace", "requerido": true, "placeholder": "#servicios" }
@@ -28,12 +39,30 @@
       "variantes": ["centrada", "dividida", "fondo"],
       "campos": [
         { "id": "etiqueta", "etiqueta": "Etiqueta superior", "tipo": "texto", "max": 40 },
-        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "min": 10, "max": 90, "ayuda": "La promesa principal, en palabras del cliente." },
+        {
+          "id": "titulo",
+          "etiqueta": "Título",
+          "tipo": "texto",
+          "requerido": true,
+          "min": 10,
+          "max": 90,
+          "ayuda": "La promesa principal, en palabras del cliente."
+        },
         { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 220 },
         { "id": "textoBoton", "etiqueta": "Botón principal", "tipo": "texto", "requerido": true, "max": 28 },
-        { "id": "destinoBoton", "etiqueta": "Destino del botón principal", "tipo": "enlace", "porDefecto": "#contacto" },
+        {
+          "id": "destinoBoton",
+          "etiqueta": "Destino del botón principal",
+          "tipo": "enlace",
+          "porDefecto": "#contacto"
+        },
         { "id": "textoBoton2", "etiqueta": "Botón secundario", "tipo": "texto", "max": 28 },
-        { "id": "destinoBoton2", "etiqueta": "Destino del botón secundario", "tipo": "enlace", "porDefecto": "#servicios" },
+        {
+          "id": "destinoBoton2",
+          "etiqueta": "Destino del botón secundario",
+          "tipo": "enlace",
+          "porDefecto": "#servicios"
+        },
         { "id": "imagen", "etiqueta": "Imagen", "tipo": "imagen", "maxBytes": 1500000 }
       ]
     },
@@ -45,7 +74,12 @@
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 80 },
         { "id": "descripcion", "etiqueta": "Descripción", "tipo": "textoLargo", "max": 260 },
         {
-          "id": "dolores", "etiqueta": "Frases del cliente", "tipo": "lista", "minItems": 1, "maxItems": 5, "nombreItem": "frase",
+          "id": "dolores",
+          "etiqueta": "Frases del cliente",
+          "tipo": "lista",
+          "minItems": 1,
+          "maxItems": 5,
+          "nombreItem": "frase",
           "ayuda": "Cómo describe el cliente su problema, con sus palabras.",
           "campos": [{ "id": "texto", "etiqueta": "Frase", "tipo": "texto", "requerido": true, "max": 140 }]
         }
@@ -58,7 +92,13 @@
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
         { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 200 },
         {
-          "id": "items", "etiqueta": "Servicios", "tipo": "lista", "minItems": 1, "maxItems": 9, "nombreItem": "servicio", "campoTitulo": "titulo",
+          "id": "items",
+          "etiqueta": "Servicios",
+          "tipo": "lista",
+          "minItems": 1,
+          "maxItems": 9,
+          "nombreItem": "servicio",
+          "campoTitulo": "titulo",
           "campos": [
             { "id": "icono", "etiqueta": "Ícono", "tipo": "icono" },
             { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 50 },
@@ -75,7 +115,13 @@
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
         { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
         {
-          "id": "pasos", "etiqueta": "Pasos", "tipo": "lista", "minItems": 2, "maxItems": 6, "nombreItem": "paso", "campoTitulo": "titulo",
+          "id": "pasos",
+          "etiqueta": "Pasos",
+          "tipo": "lista",
+          "minItems": 2,
+          "maxItems": 6,
+          "nombreItem": "paso",
+          "campoTitulo": "titulo",
           "campos": [
             { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 40 },
             { "id": "descripcion", "etiqueta": "Descripción", "tipo": "textoLargo", "max": 160 }
@@ -91,7 +137,12 @@
       "campos": [
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "max": 60 },
         {
-          "id": "items", "etiqueta": "Testimonios", "tipo": "lista", "maxItems": 6, "nombreItem": "testimonio", "campoTitulo": "nombre",
+          "id": "items",
+          "etiqueta": "Testimonios",
+          "tipo": "lista",
+          "maxItems": 6,
+          "nombreItem": "testimonio",
+          "campoTitulo": "nombre",
           "campos": [
             { "id": "texto", "etiqueta": "Testimonio", "tipo": "textoLargo", "requerido": true, "max": 280 },
             { "id": "nombre", "etiqueta": "Nombre (ficticio)", "tipo": "texto", "requerido": true, "max": 50 },
@@ -109,9 +160,21 @@
       "campos": [
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
         { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
-        { "id": "moneda", "etiqueta": "Moneda", "tipo": "seleccion", "opciones": ["COP", "USD"], "rol": "desarrollador" },
         {
-          "id": "planes", "etiqueta": "Planes", "tipo": "lista", "minItems": 1, "maxItems": 4, "nombreItem": "plan", "campoTitulo": "nombre",
+          "id": "moneda",
+          "etiqueta": "Moneda",
+          "tipo": "seleccion",
+          "opciones": ["COP", "USD"],
+          "rol": "desarrollador"
+        },
+        {
+          "id": "planes",
+          "etiqueta": "Planes",
+          "tipo": "lista",
+          "minItems": 1,
+          "maxItems": 4,
+          "nombreItem": "plan",
+          "campoTitulo": "nombre",
           "campos": [
             { "id": "id", "etiqueta": "Id", "tipo": "texto" },
             { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 30 },
@@ -119,7 +182,11 @@
             { "id": "periodo", "etiqueta": "Periodo", "tipo": "texto", "max": 12, "placeholder": "mes" },
             { "id": "descripcion", "etiqueta": "Descripción", "tipo": "texto", "max": 100 },
             {
-              "id": "beneficios", "etiqueta": "Beneficios", "tipo": "lista", "maxItems": 8, "nombreItem": "beneficio",
+              "id": "beneficios",
+              "etiqueta": "Beneficios",
+              "tipo": "lista",
+              "maxItems": 8,
+              "nombreItem": "beneficio",
               "campos": [{ "id": "texto", "etiqueta": "Beneficio", "tipo": "texto", "requerido": true, "max": 70 }]
             },
             { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "max": 24 },
@@ -135,7 +202,12 @@
       "campos": [
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "max": 60 },
         {
-          "id": "preguntas", "etiqueta": "Preguntas", "tipo": "lista", "maxItems": 10, "nombreItem": "pregunta", "campoTitulo": "pregunta",
+          "id": "preguntas",
+          "etiqueta": "Preguntas",
+          "tipo": "lista",
+          "maxItems": 10,
+          "nombreItem": "pregunta",
+          "campoTitulo": "pregunta",
           "campos": [
             { "id": "pregunta", "etiqueta": "Pregunta", "tipo": "texto", "requerido": true, "max": 120 },
             { "id": "respuesta", "etiqueta": "Respuesta", "tipo": "textoLargo", "requerido": true, "max": 500 }
@@ -150,21 +222,48 @@
         { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
         { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
         {
-          "id": "camposFormulario", "etiqueta": "Campos del formulario", "tipo": "lista", "minItems": 2, "maxItems": 8, "nombreItem": "campo", "campoTitulo": "etiqueta",
+          "id": "camposFormulario",
+          "etiqueta": "Campos del formulario",
+          "tipo": "lista",
+          "minItems": 2,
+          "maxItems": 8,
+          "nombreItem": "campo",
+          "campoTitulo": "etiqueta",
           "ayuda": "Ids reservados: nombre, correo y telefono. Debe existir al menos nombre y un medio de contacto.",
           "campos": [
-            { "id": "id", "etiqueta": "Id interno", "tipo": "texto", "requerido": true, "patron": "^[a-zA-Z][a-zA-Z0-9]*$" },
+            {
+              "id": "id",
+              "etiqueta": "Id interno",
+              "tipo": "texto",
+              "requerido": true,
+              "patron": "^[a-zA-Z][a-zA-Z0-9]*$"
+            },
             { "id": "etiqueta", "etiqueta": "Etiqueta", "tipo": "texto", "requerido": true, "max": 40 },
-            { "id": "tipo", "etiqueta": "Tipo", "tipo": "seleccion", "opciones": ["texto", "correo", "telefono", "textoLargo", "seleccion"] },
+            {
+              "id": "tipo",
+              "etiqueta": "Tipo",
+              "tipo": "seleccion",
+              "opciones": ["texto", "correo", "telefono", "textoLargo", "seleccion"]
+            },
             { "id": "requerido", "etiqueta": "Obligatorio", "tipo": "booleano" },
             {
-              "id": "opciones", "etiqueta": "Opciones (si es selección)", "tipo": "lista", "maxItems": 10, "nombreItem": "opción",
+              "id": "opciones",
+              "etiqueta": "Opciones (si es selección)",
+              "tipo": "lista",
+              "maxItems": 10,
+              "nombreItem": "opción",
               "campos": [{ "id": "texto", "etiqueta": "Opción", "tipo": "texto", "requerido": true, "max": 40 }]
             }
           ]
         },
         { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "requerido": true, "max": 24 },
-        { "id": "mensajeExito", "etiqueta": "Mensaje de confirmación", "tipo": "textoLargo", "requerido": true, "max": 200 },
+        {
+          "id": "mensajeExito",
+          "etiqueta": "Mensaje de confirmación",
+          "tipo": "textoLargo",
+          "requerido": true,
+          "max": 200
+        },
         { "id": "correo", "etiqueta": "Correo de contacto (ficticio)", "tipo": "correo" },
         { "id": "telefono", "etiqueta": "Teléfono (ficticio)", "tipo": "telefono" },
         { "id": "direccion", "etiqueta": "Dirección", "tipo": "texto", "max": 120 },
@@ -177,7 +276,12 @@
       "campos": [
         { "id": "texto", "etiqueta": "Texto", "tipo": "texto", "max": 120 },
         {
-          "id": "redes", "etiqueta": "Redes", "tipo": "lista", "maxItems": 6, "nombreItem": "red", "campoTitulo": "texto",
+          "id": "redes",
+          "etiqueta": "Redes",
+          "tipo": "lista",
+          "maxItems": 6,
+          "nombreItem": "red",
+          "campoTitulo": "texto",
           "campos": [
             { "id": "texto", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 20 },
             { "id": "destino", "etiqueta": "Enlace", "tipo": "enlace", "requerido": true }

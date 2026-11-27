@@ -18,22 +18,42 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   return (
     <>
       <AvisoDemo />
-      {estado === 'borrador' && <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>}
+      {estado === 'borrador' && (
+        <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
+      )}
       {visibles.has('encabezado') && <Encabezado datos={datos.encabezado ?? {}} />}
       <main>
         <section className="k-contenedor py-10 md:py-14">
-          {texto(portada?.etiqueta) && <Insignia tono="primario" className="mb-3">{texto(portada?.etiqueta)}</Insignia>}
-          <h1 className="max-w-3xl text-3xl tracking-tight md:text-5xl">{texto(portada?.titulo, 'Personaliza tu producto')}</h1>
-          {texto(portada?.subtitulo) && <p className="mt-4 max-w-2xl text-lg text-suave">{texto(portada?.subtitulo)}</p>}
+          {texto(portada?.etiqueta) && (
+            <Insignia tono="primario" className="mb-3">
+              {texto(portada?.etiqueta)}
+            </Insignia>
+          )}
+          <h1 className="max-w-3xl text-3xl tracking-tight md:text-5xl">
+            {texto(portada?.titulo, 'Personaliza tu producto')}
+          </h1>
+          {texto(portada?.subtitulo) && (
+            <p className="mt-4 max-w-2xl text-lg text-suave">{texto(portada?.subtitulo)}</p>
+          )}
         </section>
         <Configurador
-          producto={{ nombre: texto(modelo?.nombreProducto, 'Producto'), descripcion: texto(modelo?.descripcion) || undefined }}
+          producto={{
+            nombre: texto(modelo?.nombreProducto, 'Producto'),
+            descripcion: texto(modelo?.descripcion) || undefined,
+          }}
           modeloUrl={archivo?.url || undefined}
           partes={normalizarPartes(datos.partes?.partes)}
           vista={normalizarVista(datos.camara?.camaraInicial)}
           escena={normalizarEscena(datos.escena)}
           imagenReserva={img(modelo?.imagenReserva, 'Imagen del producto')}
-          ayuda={visibles.has('ayuda') ? { instrucciones: texto(ayuda?.instrucciones), consejos: lista<{ texto: string }>(ayuda?.consejos).map((c) => c.texto) } : null}
+          ayuda={
+            visibles.has('ayuda')
+              ? {
+                  instrucciones: texto(ayuda?.instrucciones),
+                  consejos: lista<{ texto: string }>(ayuda?.consejos).map((c) => c.texto),
+                }
+              : null
+          }
           solicitud={{
             titulo: texto(solicitud?.titulo, 'Solicitar esta configuración'),
             subtitulo: texto(solicitud?.subtitulo) || undefined,

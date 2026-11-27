@@ -119,13 +119,24 @@ export const normalizarOpciones = (ops: Campo['opciones'] = []): Opcion[] =>
 export function valorPorDefecto(campo: Campo): unknown {
   if (campo.porDefecto !== undefined) return structuredClone(campo.porDefecto);
   switch (campo.tipo) {
-    case 'booleano': return false;
-    case 'numero': case 'precio': case 'porcentaje': return campo.min ?? 0;
-    case 'lista': case 'multiseleccion': return [];
-    case 'grupo': return objetoPorDefecto(campo.campos ?? []);
-    case 'imagen': case 'modelo3d': return null;
-    case 'seleccion': return normalizarOpciones(campo.opciones)[0]?.valor ?? '';
-    default: return '';
+    case 'booleano':
+      return false;
+    case 'numero':
+    case 'precio':
+    case 'porcentaje':
+      return campo.min ?? 0;
+    case 'lista':
+    case 'multiseleccion':
+      return [];
+    case 'grupo':
+      return objetoPorDefecto(campo.campos ?? []);
+    case 'imagen':
+    case 'modelo3d':
+      return null;
+    case 'seleccion':
+      return normalizarOpciones(campo.opciones)[0]?.valor ?? '';
+    default:
+      return '';
   }
 }
 
@@ -137,7 +148,9 @@ export function estructuraPorDefecto(esquema: EsquemaContenido): Estructura {
   return {
     orden: esquema.secciones.map((s) => s.id),
     ocultas: [],
-    variantes: Object.fromEntries(esquema.secciones.filter((s) => s.variantes?.length).map((s) => [s.id, s.variantes![0]!])),
+    variantes: Object.fromEntries(
+      esquema.secciones.filter((s) => s.variantes?.length).map((s) => [s.id, s.variantes![0]!]),
+    ),
   };
 }
 
@@ -171,7 +184,11 @@ export function seccionesVisibles(esquema: EsquemaContenido, datos: Contenido) {
     .filter((id) => !est.ocultas.includes(id))
     .map((id) => esquema.secciones.find((s) => s.id === id))
     .filter((s): s is Seccion => !!s)
-    .map((s) => ({ id: s.id, variante: est.variantes[s.id] ?? s.variantes?.[0], datos: (datos[s.id] ?? {}) as Record<string, unknown> }));
+    .map((s) => ({
+      id: s.id,
+      variante: est.variantes[s.id] ?? s.variantes?.[0],
+      datos: (datos[s.id] ?? {}) as Record<string, unknown>,
+    }));
 }
 
 export function slug(texto: string): string {

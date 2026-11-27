@@ -33,7 +33,14 @@ export const POST = manejar(async (req: Request) => {
       visitante: { nombre, telefono: telefono || undefined, correo: correo || undefined },
     });
     if (!r.ok) {
-      return json({ error: r.motivo === 'ocupado' ? 'Ese horario se acaba de ocupar.' : 'Ese horario no está disponible.', motivo: r.motivo, alternativas: r.alternativas }, 409);
+      return json(
+        {
+          error: r.motivo === 'ocupado' ? 'Ese horario se acaba de ocupar.' : 'Ese horario no está disponible.',
+          motivo: r.motivo,
+          alternativas: r.alternativas,
+        },
+        409,
+      );
     }
     return json({ ok: true, id: r.cita.id, inicio: r.cita.inicio, fin: r.cita.fin }, 201);
   } catch (e) {
@@ -48,7 +55,10 @@ export const GET = manejar(async (req: Request) => {
   const q = new URL(req.url).searchParams;
   const desde = q.get('desde');
   const hasta = q.get('hasta');
-  if (!desde || !hasta || Number.isNaN(Date.parse(desde)) || Number.isNaN(Date.parse(hasta))) throw new ErrorEntrada('Indica desde y hasta en ISO 8601.');
-  const citas = await (await plantilla.capa()).citas.listarRango(plantilla.sitioId(), desde, hasta, q.get('profesional') ?? undefined);
+  if (!desde || !hasta || Number.isNaN(Date.parse(desde)) || Number.isNaN(Date.parse(hasta)))
+    throw new ErrorEntrada('Indica desde y hasta en ISO 8601.');
+  const citas = await (
+    await plantilla.capa()
+  ).citas.listarRango(plantilla.sitioId(), desde, hasta, q.get('profesional') ?? undefined);
   return json(citas);
 });

@@ -6,7 +6,13 @@
  */
 import { existsSync, readFileSync, readdirSync } from 'node:fs';
 import path from 'node:path';
-import { completarContenido, revisarEsquema, validarContenido, type Contenido, type EsquemaContenido } from '../packages/editor/src/index';
+import {
+  completarContenido,
+  revisarEsquema,
+  validarContenido,
+  type Contenido,
+  type EsquemaContenido,
+} from '../packages/editor/src/index';
 import { mezclar } from '../semillas/resolver';
 
 /** Tipos de campo propios registrados por las apps con registrarControl(). */
@@ -45,11 +51,15 @@ for (const app of readdirSync(path.join(raiz, 'apps'))) {
   for (const sub of ['sectores', 'demos']) {
     const dir = path.join(carpeta, sub);
     if (!existsSync(dir)) continue;
-    for (const f of readdirSync(dir).filter((x) => x.endsWith('.json'))) capas.push([`${sub}/${f}`, mezclar(base, leer(path.join(dir, f)))]);
+    for (const f of readdirSync(dir).filter((x) => x.endsWith('.json')))
+      capas.push([`${sub}/${f}`, mezclar(base, leer(path.join(dir, f)))]);
   }
   for (const [nombre, datos] of capas) {
     const errores = validarContenido(esquema, completarContenido(esquema, datos as Contenido));
-    reportar(`semillas/${esquema.plantilla}/${nombre}`, errores.map((e) => `${e.ruta}: ${e.mensaje}`));
+    reportar(
+      `semillas/${esquema.plantilla}/${nombre}`,
+      errores.map((e) => `${e.ruta}: ${e.mensaje}`),
+    );
   }
   if (!problemas) console.log(`✓ ${app}: esquema y ${capas.length} semilla(s) válidos`);
 }

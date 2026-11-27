@@ -21,7 +21,11 @@ process.stdin.on('end', () => {
     if (rel.startsWith('..') || isAbsolute(rel) || /(^|[\\/])(node_modules|\.next)[\\/]/.test(rel)) process.exit(0);
     const prettier = resolve(raiz, 'node_modules', 'prettier', 'bin', 'prettier.cjs');
     if (!existsSync(prettier)) process.exit(0);
-    spawnSync(process.execPath, [prettier, '--write', '--ignore-unknown', rel], { cwd: raiz, stdio: 'ignore', timeout: 25000 });
+    spawnSync(process.execPath, [prettier, '--write', '--ignore-unknown', rel], {
+      cwd: raiz,
+      stdio: 'ignore',
+      timeout: 25000,
+    });
   } catch {
     /* nunca bloquear la edición */
   }

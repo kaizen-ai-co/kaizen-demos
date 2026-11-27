@@ -23,7 +23,10 @@ const RE_URL = /^(https?:\/\/|\/|#|mailto:|tel:)/i;
 
 /** Validadores extra que una plantilla registra para sus tipos propios. */
 const validadoresPropios = new Map<string, (campo: Campo, valor: unknown, ruta: string) => ErrorValidacion[]>();
-export function registrarValidador(tipo: string, fn: (campo: Campo, valor: unknown, ruta: string) => ErrorValidacion[]) {
+export function registrarValidador(
+  tipo: string,
+  fn: (campo: Campo, valor: unknown, ruta: string) => ErrorValidacion[],
+) {
   validadoresPropios.set(tipo, fn);
 }
 
@@ -33,23 +36,40 @@ function validarCampo(campo: Campo, valor: unknown, ruta: string): ErrorValidaci
 
   if (vacio(valor)) {
     if (campo.requerido) err(`«${campo.etiqueta}» es obligatorio.`);
-    else if (campo.tipo === 'lista' && (campo.minItems ?? 0) > 0) err(`«${campo.etiqueta}» necesita al menos ${campo.minItems}.`);
+    else if (campo.tipo === 'lista' && (campo.minItems ?? 0) > 0)
+      err(`«${campo.etiqueta}» necesita al menos ${campo.minItems}.`);
     return e;
   }
 
   switch (campo.tipo) {
-    case 'texto': case 'textoLargo': case 'enlace': case 'correo': case 'telefono': case 'icono': {
-      if (typeof valor !== 'string') { err(`«${campo.etiqueta}» debe ser texto.`); break; }
-      if (campo.min !== undefined && valor.length < campo.min) err(`«${campo.etiqueta}» debe tener al menos ${campo.min} caracteres.`);
-      if (campo.max !== undefined && valor.length > campo.max) err(`«${campo.etiqueta}» admite máximo ${campo.max} caracteres (tiene ${valor.length}).`);
-      if (campo.patron && !new RegExp(campo.patron).test(valor)) err(`«${campo.etiqueta}» no tiene el formato esperado.`);
+    case 'texto':
+    case 'textoLargo':
+    case 'enlace':
+    case 'correo':
+    case 'telefono':
+    case 'icono': {
+      if (typeof valor !== 'string') {
+        err(`«${campo.etiqueta}» debe ser texto.`);
+        break;
+      }
+      if (campo.min !== undefined && valor.length < campo.min)
+        err(`«${campo.etiqueta}» debe tener al menos ${campo.min} caracteres.`);
+      if (campo.max !== undefined && valor.length > campo.max)
+        err(`«${campo.etiqueta}» admite máximo ${campo.max} caracteres (tiene ${valor.length}).`);
+      if (campo.patron && !new RegExp(campo.patron).test(valor))
+        err(`«${campo.etiqueta}» no tiene el formato esperado.`);
       if (campo.tipo === 'correo' && !RE_CORREO.test(valor)) err(`«${campo.etiqueta}» no es un correo válido.`);
       if (campo.tipo === 'telefono' && !RE_TEL.test(valor)) err(`«${campo.etiqueta}» no es un teléfono válido.`);
       if (campo.tipo === 'enlace' && !RE_URL.test(valor)) err(`«${campo.etiqueta}» debe empezar por https://, / o #.`);
       break;
     }
-    case 'numero': case 'precio': case 'porcentaje': {
-      if (typeof valor !== 'number' || Number.isNaN(valor)) { err(`«${campo.etiqueta}» debe ser un número.`); break; }
+    case 'numero':
+    case 'precio':
+    case 'porcentaje': {
+      if (typeof valor !== 'number' || Number.isNaN(valor)) {
+        err(`«${campo.etiqueta}» debe ser un número.`);
+        break;
+      }
       if (campo.min !== undefined && valor < campo.min) err(`«${campo.etiqueta}» debe ser al menos ${campo.min}.`);
       if (campo.max !== undefined && valor > campo.max) err(`«${campo.etiqueta}» debe ser máximo ${campo.max}.`);
       if (campo.tipo === 'precio' && valor < 0) err(`«${campo.etiqueta}» no puede ser negativo.`);
@@ -59,7 +79,8 @@ function validarCampo(campo: Campo, valor: unknown, ruta: string): ErrorValidaci
       if (typeof valor !== 'boolean') err(`«${campo.etiqueta}» debe ser sí o no.`);
       break;
     case 'color':
-      if (typeof valor !== 'string' || !RE_COLOR.test(valor)) err(`«${campo.etiqueta}» debe ser un color hexadecimal (#1d4ed8).`);
+      if (typeof valor !== 'string' || !RE_COLOR.test(valor))
+        err(`«${campo.etiqueta}» debe ser un color hexadecimal (#1d4ed8).`);
       break;
     case 'seleccion': {
       const validas = normalizarOpciones(campo.opciones).map((o) => o.valor);
@@ -68,27 +89,43 @@ function validarCampo(campo: Campo, valor: unknown, ruta: string): ErrorValidaci
     }
     case 'multiseleccion': {
       const validas = normalizarOpciones(campo.opciones).map((o) => o.valor);
-      if (!Array.isArray(valor)) { err(`«${campo.etiqueta}» debe ser una lista.`); break; }
-      if (validas.length && valor.some((v) => !validas.includes(String(v)))) err(`«${campo.etiqueta}»: hay opciones no válidas.`);
+      if (!Array.isArray(valor)) {
+        err(`«${campo.etiqueta}» debe ser una lista.`);
+        break;
+      }
+      if (validas.length && valor.some((v) => !validas.includes(String(v))))
+        err(`«${campo.etiqueta}»: hay opciones no válidas.`);
       break;
     }
-    case 'imagen': case 'modelo3d': {
+    case 'imagen':
+    case 'modelo3d': {
       const img = valor as ValorImagen;
-      if (typeof img !== 'object' || !img?.url) { err(`«${campo.etiqueta}»: falta el archivo.`); break; }
+      if (typeof img !== 'object' || !img?.url) {
+        err(`«${campo.etiqueta}»: falta el archivo.`);
+        break;
+      }
       if (campo.maxBytes && img.bytes && img.bytes > campo.maxBytes) {
-        err(`«${campo.etiqueta}» pesa ${(img.bytes / 1e6).toFixed(1)} MB; el máximo es ${(campo.maxBytes / 1e6).toFixed(1)} MB.`);
+        err(
+          `«${campo.etiqueta}» pesa ${(img.bytes / 1e6).toFixed(1)} MB; el máximo es ${(campo.maxBytes / 1e6).toFixed(1)} MB.`,
+        );
       }
       if (campo.formatos?.length) {
         const ext = (img.ruta ?? img.url).split('?')[0]!.split('.').pop()?.toLowerCase();
         if (ext && !campo.formatos.includes(ext)) err(`«${campo.etiqueta}» debe ser ${campo.formatos.join(', ')}.`);
       }
-      if (campo.tipo === 'imagen' && !img.alt?.trim()) err(`«${campo.etiqueta}»: escribe el texto alternativo (accesibilidad).`, `${ruta}.alt`);
+      if (campo.tipo === 'imagen' && !img.alt?.trim())
+        err(`«${campo.etiqueta}»: escribe el texto alternativo (accesibilidad).`, `${ruta}.alt`);
       break;
     }
     case 'lista': {
-      if (!Array.isArray(valor)) { err(`«${campo.etiqueta}» debe ser una lista.`); break; }
-      if (campo.minItems !== undefined && valor.length < campo.minItems) err(`«${campo.etiqueta}» necesita al menos ${campo.minItems}.`);
-      if (campo.maxItems !== undefined && valor.length > campo.maxItems) err(`«${campo.etiqueta}» admite máximo ${campo.maxItems}.`);
+      if (!Array.isArray(valor)) {
+        err(`«${campo.etiqueta}» debe ser una lista.`);
+        break;
+      }
+      if (campo.minItems !== undefined && valor.length < campo.minItems)
+        err(`«${campo.etiqueta}» necesita al menos ${campo.minItems}.`);
+      if (campo.maxItems !== undefined && valor.length > campo.maxItems)
+        err(`«${campo.etiqueta}» admite máximo ${campo.maxItems}.`);
       valor.forEach((item, i) => {
         for (const sub of campo.campos ?? []) {
           e.push(...validarCampo(sub, (item as Record<string, unknown>)?.[sub.id], `${ruta}.${i}.${sub.id}`));
@@ -128,7 +165,8 @@ export function validarContenido(esquema: EsquemaContenido, datos: Contenido): E
 
 // ── Protección por rol ────────────────────────────────────────────────
 
-const puedeEditar = (rol: RolEdicion, requerido?: RolEdicion) => rol === 'desarrollador' || requerido !== 'desarrollador';
+const puedeEditar = (rol: RolEdicion, requerido?: RolEdicion) =>
+  rol === 'desarrollador' || requerido !== 'desarrollador';
 
 function filtrarCampos(campos: Campo[], rol: RolEdicion): Campo[] {
   return campos
@@ -157,7 +195,14 @@ function itemsPorClave(lista: unknown): Map<string, Record<string, unknown>> {
   return m;
 }
 
-function revisarCampos(campos: Campo[], rol: RolEdicion, antes: Record<string, unknown>, despues: Record<string, unknown>, ruta: string, salida: string[]) {
+function revisarCampos(
+  campos: Campo[],
+  rol: RolEdicion,
+  antes: Record<string, unknown>,
+  despues: Record<string, unknown>,
+  ruta: string,
+  salida: string[],
+) {
   for (const c of campos) {
     const r = `${ruta}.${c.id}`;
     if (!puedeEditar(rol, c.rol)) {
@@ -165,7 +210,14 @@ function revisarCampos(campos: Campo[], rol: RolEdicion, antes: Record<string, u
       continue;
     }
     if (c.tipo === 'grupo' && c.campos) {
-      revisarCampos(c.campos, rol, (antes?.[c.id] ?? {}) as Record<string, unknown>, (despues?.[c.id] ?? {}) as Record<string, unknown>, r, salida);
+      revisarCampos(
+        c.campos,
+        rol,
+        (antes?.[c.id] ?? {}) as Record<string, unknown>,
+        (despues?.[c.id] ?? {}) as Record<string, unknown>,
+        r,
+        salida,
+      );
     }
     if (c.tipo === 'lista' && c.campos?.some((s) => s.rol === 'desarrollador' || s.campos)) {
       const a = itemsPorClave(antes?.[c.id]);
@@ -177,7 +229,12 @@ function revisarCampos(campos: Campo[], rol: RolEdicion, antes: Record<string, u
 }
 
 /** Rutas que el rol cambió sin permiso. El servidor rechaza o restaura estos cambios. */
-export function cambiosProhibidos(esquema: EsquemaContenido, rol: RolEdicion, antes: Contenido, despues: Contenido): string[] {
+export function cambiosProhibidos(
+  esquema: EsquemaContenido,
+  rol: RolEdicion,
+  antes: Contenido,
+  despues: Contenido,
+): string[] {
   if (rol === 'desarrollador') return [];
   const salida: string[] = [];
   if (!igual(antes[CLAVE_ESTRUCTURA], despues[CLAVE_ESTRUCTURA])) salida.push(CLAVE_ESTRUCTURA);
@@ -198,7 +255,12 @@ export function cambiosProhibidos(esquema: EsquemaContenido, rol: RolEdicion, an
  * Así un Administrador nunca altera tema, orden, reglas o campos de Desarrollador,
  * aunque manipule la petición a mano.
  */
-export function fusionarSeguro(esquema: EsquemaContenido, rol: RolEdicion, antes: Contenido, despues: Contenido): Contenido {
+export function fusionarSeguro(
+  esquema: EsquemaContenido,
+  rol: RolEdicion,
+  antes: Contenido,
+  despues: Contenido,
+): Contenido {
   if (rol === 'desarrollador') return despues;
   const salida: Contenido = structuredClone(despues);
   if (antes[CLAVE_ESTRUCTURA] !== undefined) salida[CLAVE_ESTRUCTURA] = structuredClone(antes[CLAVE_ESTRUCTURA]);
@@ -241,20 +303,41 @@ export function fusionarSeguro(esquema: EsquemaContenido, rol: RolEdicion, antes
 export function revisarEsquema(esquema: EsquemaContenido, tiposPropios: string[] = []): string[] {
   const problemas: string[] = [];
   const conocidos = new Set([
-    'texto', 'textoLargo', 'numero', 'precio', 'porcentaje', 'booleano', 'imagen', 'modelo3d', 'color', 'seleccion',
-    'multiseleccion', 'enlace', 'correo', 'telefono', 'icono', 'fecha', 'hora', 'lista', 'grupo', ...tiposPropios,
+    'texto',
+    'textoLargo',
+    'numero',
+    'precio',
+    'porcentaje',
+    'booleano',
+    'imagen',
+    'modelo3d',
+    'color',
+    'seleccion',
+    'multiseleccion',
+    'enlace',
+    'correo',
+    'telefono',
+    'icono',
+    'fecha',
+    'hora',
+    'lista',
+    'grupo',
+    ...tiposPropios,
   ]);
   if (!esquema.plantilla) problemas.push('Falta "plantilla".');
   const idsSecciones = new Set<string>();
   const revisar = (campos: Campo[], ruta: string) => {
     const ids = new Set<string>();
     for (const c of campos) {
-      if (!c.id || !/^[a-zA-Z][a-zA-Z0-9]*$/.test(c.id)) problemas.push(`${ruta}: id inválido "${c.id}" (usa camelCase sin espacios).`);
+      if (!c.id || !/^[a-zA-Z][a-zA-Z0-9]*$/.test(c.id))
+        problemas.push(`${ruta}: id inválido "${c.id}" (usa camelCase sin espacios).`);
       if (ids.has(c.id)) problemas.push(`${ruta}: id repetido "${c.id}".`);
       ids.add(c.id);
       if (!c.etiqueta) problemas.push(`${ruta}.${c.id}: falta "etiqueta".`);
-      if (!conocidos.has(c.tipo)) problemas.push(`${ruta}.${c.id}: tipo desconocido "${c.tipo}". Regístralo con registrarControl o corrígelo.`);
-      if ((c.tipo === 'lista' || c.tipo === 'grupo') && !c.campos?.length) problemas.push(`${ruta}.${c.id}: una ${c.tipo} necesita "campos".`);
+      if (!conocidos.has(c.tipo))
+        problemas.push(`${ruta}.${c.id}: tipo desconocido "${c.tipo}". Regístralo con registrarControl o corrígelo.`);
+      if ((c.tipo === 'lista' || c.tipo === 'grupo') && !c.campos?.length)
+        problemas.push(`${ruta}.${c.id}: una ${c.tipo} necesita "campos".`);
       if ((c.tipo === 'seleccion' || c.tipo === 'multiseleccion') && !c.opciones?.length && !c.props?.opcionesDesde) {
         problemas.push(`${ruta}.${c.id}: una selección necesita "opciones".`);
       }
