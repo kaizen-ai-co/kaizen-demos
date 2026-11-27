@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Ilustración de un equipo reunido alrededor de una mesa">
+  <!-- Ilustración propia de Kaizen para demos (CC0). -->
+  <rect width="800" height="500" fill="#f0fdfa"/>
+  <rect x="180" y="300" width="440" height="40" rx="20" fill="#0f766e"/>
+  <circle cx="250" cy="200" r="44" fill="#0f766e"/>
+  <rect x="195" y="250" width="110" height="60" rx="30" fill="#0f766e"/>
+  <circle cx="400" cy="200" r="44" fill="#5eead4"/>
+  <rect x="345" y="250" width="110" height="60" rx="30" fill="#5eead4"/>
+  <circle cx="550" cy="200" r="44" fill="#0f766e"/>
+  <rect x="495" y="250" width="110" height="60" rx="30" fill="#0f766e"/>
+</svg>

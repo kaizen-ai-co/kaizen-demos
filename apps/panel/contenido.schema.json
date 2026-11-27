@@ -1,0 +1,115 @@
+{
+  "$schema": "../../packages/editor/esquema.meta.json",
+  "plantilla": "panel",
+  "version": 1,
+  "titulo": "Panel de administración y CRM",
+  "vistas": [{ "id": "leads", "titulo": "Leads", "permiso": "leads:leer" }],
+  "secciones": [
+    {
+      "id": "formulario",
+      "titulo": "Formulario móvil (página pública)",
+      "descripcion": "Lo que ve el visitante en el celular. Cada envío crea un lead y se asigna solo.",
+      "campos": [
+        { "id": "marca", "etiqueta": "Nombre de la marca", "tipo": "texto", "requerido": true, "max": 40 },
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "min": 6, "max": 70 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 200 },
+        {
+          "id": "camposFormulario", "etiqueta": "Campos del formulario", "tipo": "lista", "minItems": 2, "maxItems": 8, "nombreItem": "campo", "campoTitulo": "etiqueta",
+          "ayuda": "Ids reservados: nombre, correo y telefono. Debe existir nombre y al menos un medio de contacto.",
+          "campos": [
+            { "id": "id", "etiqueta": "Id interno", "tipo": "texto", "requerido": true, "patron": "^[a-zA-Z][a-zA-Z0-9]*$" },
+            { "id": "etiqueta", "etiqueta": "Etiqueta", "tipo": "texto", "requerido": true, "max": 40 },
+            { "id": "tipo", "etiqueta": "Tipo", "tipo": "seleccion", "opciones": ["texto", "correo", "telefono", "textoLargo", "seleccion"] },
+            { "id": "requerido", "etiqueta": "Obligatorio", "tipo": "booleano" },
+            {
+              "id": "opciones", "etiqueta": "Opciones (si es selección)", "tipo": "lista", "maxItems": 10, "nombreItem": "opción",
+              "campos": [{ "id": "texto", "etiqueta": "Opción", "tipo": "texto", "requerido": true, "max": 40 }]
+            }
+          ]
+        },
+        { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "requerido": true, "max": 24 },
+        { "id": "mensajeExito", "etiqueta": "Mensaje de confirmación", "tipo": "textoLargo", "requerido": true, "max": 200 }
+      ]
+    },
+    {
+      "id": "etapas",
+      "titulo": "Etapas del embudo",
+      "descripcion": "Columnas del tablero, en orden. El primer elemento es la etapa de entrada de los leads nuevos.",
+      "campos": [
+        {
+          "id": "lista", "etiqueta": "Etapas", "tipo": "lista", "minItems": 2, "maxItems": 8, "nombreItem": "etapa", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto" },
+            { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 24 },
+            { "id": "color", "etiqueta": "Color (tono del tema)", "tipo": "seleccion", "opciones": ["primario", "acento", "exito", "aviso", "peligro", "neutro"] },
+            { "id": "cerrada", "etiqueta": "Es una etapa de cierre (ganado o perdido)", "tipo": "booleano" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "responsables",
+      "titulo": "Responsables",
+      "descripcion": "Personas ficticias del equipo comercial. No son cuentas de Google.",
+      "campos": [
+        {
+          "id": "lista", "etiqueta": "Responsables", "tipo": "lista", "minItems": 1, "maxItems": 12, "nombreItem": "responsable", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto" },
+            { "id": "nombre", "etiqueta": "Nombre (ficticio)", "tipo": "texto", "requerido": true, "max": 40 },
+            { "id": "activo", "etiqueta": "Recibe leads nuevos", "tipo": "booleano", "porDefecto": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "panel",
+      "titulo": "Textos del panel",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título del panel", "tipo": "texto", "requerido": true, "max": 50 },
+        { "id": "mensajeVacio", "etiqueta": "Mensaje cuando no hay leads", "tipo": "texto", "max": 120 }
+      ]
+    },
+    {
+      "id": "ejemplos",
+      "titulo": "Datos de ejemplo",
+      "descripcion": "Leads ficticios que se cargan con el botón «Cargar datos de ejemplo» del panel.",
+      "campos": [
+        {
+          "id": "leads", "etiqueta": "Leads de ejemplo", "tipo": "lista", "maxItems": 20, "nombreItem": "lead", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "nombre", "etiqueta": "Nombre (ficticio)", "tipo": "texto", "requerido": true, "max": 60 },
+            { "id": "telefono", "etiqueta": "Teléfono (ficticio)", "tipo": "telefono" },
+            { "id": "correo", "etiqueta": "Correo (ficticio)", "tipo": "correo" },
+            { "id": "origen", "etiqueta": "Origen", "tipo": "seleccion", "opciones": ["formulario-movil", "formulario-web", "whatsapp", "referido", "feria"] },
+            { "id": "mensaje", "etiqueta": "Mensaje", "tipo": "texto", "max": 160 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "asignacion",
+      "titulo": "Regla de asignación",
+      "rol": "desarrollador",
+      "descripcion": "Cómo se elige el responsable de cada lead nuevo.",
+      "campos": [
+        {
+          "id": "modo", "etiqueta": "Modo", "tipo": "seleccion",
+          "opciones": [
+            { "valor": "turnos", "etiqueta": "Por turnos entre responsables activos" },
+            { "valor": "origen", "etiqueta": "Según el origen (si no hay regla, por turnos)" },
+            { "valor": "carga", "etiqueta": "Al responsable con menos leads abiertos" },
+            { "valor": "manual", "etiqueta": "Manual (sin asignar)" }
+          ]
+        },
+        {
+          "id": "porOrigen", "etiqueta": "Reglas por origen", "tipo": "lista", "maxItems": 10, "nombreItem": "regla", "campoTitulo": "origen",
+          "campos": [
+            { "id": "origen", "etiqueta": "Origen", "tipo": "texto", "requerido": true, "max": 40, "placeholder": "formulario-movil" },
+            { "id": "responsableId", "etiqueta": "Responsable", "tipo": "seleccion", "requerido": true, "props": { "opcionesDesde": "responsables.lista.nombre" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

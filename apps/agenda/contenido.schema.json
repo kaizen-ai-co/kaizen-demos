@@ -1,0 +1,97 @@
+{
+  "$schema": "../../packages/editor/esquema.meta.json",
+  "plantilla": "agenda",
+  "version": 1,
+  "titulo": "Agendamiento de citas",
+  "vistas": [{ "id": "citas", "titulo": "Citas", "permiso": "citas:gestionar" }],
+  "secciones": [
+    {
+      "id": "encabezado",
+      "titulo": "Encabezado",
+      "campos": [
+        { "id": "marca", "etiqueta": "Nombre de la marca", "tipo": "texto", "requerido": true, "max": 40 },
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "min": 6, "max": 70 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 200 },
+        { "id": "direccion", "etiqueta": "Dirección (ficticia)", "tipo": "texto", "max": 120 }
+      ]
+    },
+    {
+      "id": "servicios",
+      "titulo": "Servicios",
+      "campos": [
+        {
+          "id": "lista", "etiqueta": "Servicios", "tipo": "lista", "minItems": 1, "maxItems": 15, "nombreItem": "servicio", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto" },
+            { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 50 },
+            { "id": "descripcion", "etiqueta": "Descripción", "tipo": "texto", "max": 140 },
+            { "id": "duracionMin", "etiqueta": "Duración (minutos)", "tipo": "numero", "requerido": true, "min": 10, "max": 480, "paso": 5, "porDefecto": 30 },
+            { "id": "precio", "etiqueta": "Precio (ficticio)", "tipo": "precio", "min": 0 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "profesionales",
+      "titulo": "Profesionales y horarios",
+      "descripcion": "Personas ficticias. El horario semanal define qué huecos se ofrecen.",
+      "campos": [
+        {
+          "id": "lista", "etiqueta": "Profesionales", "tipo": "lista", "minItems": 1, "maxItems": 12, "nombreItem": "profesional", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto" },
+            { "id": "nombre", "etiqueta": "Nombre (ficticio)", "tipo": "texto", "requerido": true, "max": 50 },
+            { "id": "cargo", "etiqueta": "Cargo o especialidad", "tipo": "texto", "max": 60 },
+            { "id": "foto", "etiqueta": "Foto", "tipo": "imagen", "maxBytes": 400000 },
+            { "id": "servicios", "etiqueta": "Servicios que atiende", "tipo": "multiseleccion", "props": { "opcionesDesde": "servicios.lista.nombre" } },
+            { "id": "horario", "etiqueta": "Horario semanal", "tipo": "horarioSemanal", "ayuda": "Marca los días que atiende y agrega una o varias franjas por día." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "excepciones",
+      "titulo": "Festivos y ausencias",
+      "campos": [
+        {
+          "id": "lista", "etiqueta": "Excepciones", "tipo": "lista", "maxItems": 60, "nombreItem": "excepción", "campoTitulo": "motivo",
+          "ayuda": "Sin franjas = día completo bloqueado. Sin profesional = aplica a todos (festivo).",
+          "campos": [
+            { "id": "fecha", "etiqueta": "Fecha", "tipo": "fecha", "requerido": true },
+            { "id": "profesionalId", "etiqueta": "Profesional (opcional)", "tipo": "seleccion", "props": { "opcionesDesde": "profesionales.lista.nombre" } },
+            { "id": "motivo", "etiqueta": "Motivo", "tipo": "texto", "max": 60 },
+            {
+              "id": "franjas", "etiqueta": "Franjas bloqueadas (opcional)", "tipo": "lista", "maxItems": 6, "nombreItem": "franja",
+              "campos": [
+                { "id": "inicio", "etiqueta": "Desde", "tipo": "hora", "requerido": true },
+                { "id": "fin", "etiqueta": "Hasta", "tipo": "hora", "requerido": true }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mensajes",
+      "titulo": "Mensajes de la reserva",
+      "campos": [
+        { "id": "textoBoton", "etiqueta": "Botón de confirmar", "tipo": "texto", "requerido": true, "max": 28 },
+        { "id": "tituloConfirmacion", "etiqueta": "Título de la confirmación", "tipo": "texto", "requerido": true, "max": 60 },
+        { "id": "textoConfirmacion", "etiqueta": "Texto de la confirmación", "tipo": "textoLargo", "requerido": true, "max": 300 },
+        { "id": "textoOcupado", "etiqueta": "Mensaje si el hueco se ocupó", "tipo": "texto", "requerido": true, "max": 140 }
+      ]
+    },
+    {
+      "id": "reglas",
+      "titulo": "Reglas de huecos y cancelación",
+      "rol": "desarrollador",
+      "campos": [
+        { "id": "intervaloMin", "etiqueta": "Cada cuántos minutos empieza un hueco", "tipo": "numero", "requerido": true, "min": 5, "max": 120, "paso": 5 },
+        { "id": "colchonMin", "etiqueta": "Minutos libres entre citas", "tipo": "numero", "min": 0, "max": 120, "paso": 5 },
+        { "id": "anticipacionMin", "etiqueta": "Anticipación mínima (minutos)", "tipo": "numero", "min": 0, "max": 10080, "paso": 15 },
+        { "id": "diasAdelante", "etiqueta": "Días hacia adelante para reservar", "tipo": "numero", "requerido": true, "min": 1, "max": 120 },
+        { "id": "politicaCancelacion", "etiqueta": "Política de cancelación", "tipo": "textoLargo", "requerido": true, "max": 400 }
+      ]
+    }
+  ]
+}

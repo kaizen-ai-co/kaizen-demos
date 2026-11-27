@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Ilustración de un carrito de compras">
+  <!-- Ilustración propia de Kaizen para demos (CC0). -->
+  <rect width="800" height="500" fill="#fff7ed"/>
+  <path d="M180 140 L260 140 L310 330 L560 330 L610 190 L290 190" fill="none" stroke="#c2410c" stroke-width="18" stroke-linejoin="round" stroke-linecap="round"/>
+  <circle cx="340" cy="390" r="30" fill="#fdba74"/>
+  <circle cx="530" cy="390" r="30" fill="#fdba74"/>
+</svg>

@@ -1,0 +1,97 @@
+{
+  "$schema": "../../packages/editor/esquema.meta.json",
+  "plantilla": "catalogo",
+  "version": 1,
+  "titulo": "Catálogo y cotización",
+  "vistas": [
+    { "id": "cotizaciones", "titulo": "Cotizaciones", "permiso": "cotizaciones:leer" },
+    { "id": "importar", "titulo": "Importar CSV" }
+  ],
+  "secciones": [
+    {
+      "id": "encabezado",
+      "titulo": "Encabezado",
+      "campos": [
+        { "id": "marca", "etiqueta": "Nombre de la marca", "tipo": "texto", "requerido": true, "max": 40 },
+        { "id": "logo", "etiqueta": "Logo", "tipo": "imagen", "maxBytes": 500000 },
+        { "id": "textoCotizacion", "etiqueta": "Texto del enlace a la cotización", "tipo": "texto", "max": 24, "porDefecto": "Mi cotización" }
+      ]
+    },
+    {
+      "id": "portada",
+      "titulo": "Portada del catálogo",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "min": 10, "max": 90 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 220 }
+      ]
+    },
+    {
+      "id": "catalogo",
+      "titulo": "Productos y categorías",
+      "descripcion": "Todos los precios son ficticios. El id de un producto no debe cambiar después de publicar.",
+      "campos": [
+        { "id": "textoBuscar", "etiqueta": "Texto del buscador", "tipo": "texto", "max": 40, "porDefecto": "Buscar productos" },
+        { "id": "textoTodas", "etiqueta": "Texto del filtro «todas»", "tipo": "texto", "max": 20, "porDefecto": "Todas" },
+        { "id": "textoAgregar", "etiqueta": "Texto del botón agregar", "tipo": "texto", "max": 24, "porDefecto": "Agregar a la cotización" },
+        { "id": "textoAgotado", "etiqueta": "Texto de producto no disponible", "tipo": "texto", "max": 24, "porDefecto": "No disponible" },
+        {
+          "id": "categorias", "etiqueta": "Categorías", "tipo": "lista", "minItems": 1, "maxItems": 12, "nombreItem": "categoría", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto", "requerido": true, "patron": "^[a-z0-9-]+$" },
+            { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 30 }
+          ]
+        },
+        {
+          "id": "productos", "etiqueta": "Productos", "tipo": "lista", "minItems": 1, "maxItems": 200, "nombreItem": "producto", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto", "requerido": true, "patron": "^[a-z0-9-]+$", "max": 60 },
+            { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 70 },
+            { "id": "foto", "etiqueta": "Foto", "tipo": "imagen", "maxBytes": 800000 },
+            { "id": "descripcion", "etiqueta": "Descripción", "tipo": "textoLargo", "max": 400 },
+            { "id": "precio", "etiqueta": "Precio unitario (ficticio, antes de impuesto)", "tipo": "precio", "requerido": true, "min": 0 },
+            { "id": "unidad", "etiqueta": "Unidad", "tipo": "texto", "requerido": true, "max": 16, "placeholder": "unidad, caja, m²" },
+            { "id": "categoria", "etiqueta": "Categoría", "tipo": "seleccion", "requerido": true, "props": { "opcionesDesde": "catalogo.categorias.nombre" } },
+            { "id": "disponible", "etiqueta": "Disponible", "tipo": "booleano", "porDefecto": true }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "condiciones",
+      "titulo": "Condiciones comerciales",
+      "campos": [
+        { "id": "validezDias", "etiqueta": "Validez de la cotización (días)", "tipo": "numero", "requerido": true, "min": 1, "max": 90 },
+        { "id": "entrega", "etiqueta": "Condiciones de entrega", "tipo": "texto", "requerido": true, "max": 120 },
+        { "id": "textoCotizacion", "etiqueta": "Texto al pie de la cotización", "tipo": "textoLargo", "max": 600 },
+        { "id": "moneda", "etiqueta": "Moneda", "tipo": "seleccion", "opciones": ["COP", "USD"], "rol": "desarrollador" },
+        { "id": "nombreImpuesto", "etiqueta": "Nombre del impuesto", "tipo": "texto", "max": 12, "rol": "desarrollador", "porDefecto": "IVA" },
+        { "id": "tasaImpuesto", "etiqueta": "Tasa de impuesto", "tipo": "porcentaje", "min": 0, "max": 1, "rol": "desarrollador" },
+        { "id": "descuentoPorcentaje", "etiqueta": "Descuento general", "tipo": "porcentaje", "min": 0, "max": 0.5, "rol": "desarrollador", "ayuda": "Lo aprueba Santiago antes de usarlo con un cliente." }
+      ]
+    },
+    {
+      "id": "cotizacion",
+      "titulo": "Pantalla «Mi cotización»",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
+        { "id": "textoVacio", "etiqueta": "Texto cuando está vacía", "tipo": "texto", "max": 120 },
+        { "id": "textoBoton", "etiqueta": "Texto del botón enviar", "tipo": "texto", "requerido": true, "max": 28 },
+        { "id": "mensajeExito", "etiqueta": "Mensaje al recibir la cotización", "tipo": "textoLargo", "requerido": true, "max": 200 }
+      ]
+    },
+    {
+      "id": "pie",
+      "titulo": "Pie de página",
+      "campos": [
+        { "id": "texto", "etiqueta": "Texto", "tipo": "texto", "max": 120 },
+        {
+          "id": "redes", "etiqueta": "Enlaces", "tipo": "lista", "maxItems": 6, "nombreItem": "enlace", "campoTitulo": "texto",
+          "campos": [
+            { "id": "texto", "etiqueta": "Texto", "tipo": "texto", "requerido": true, "max": 20 },
+            { "id": "destino", "etiqueta": "Enlace", "tipo": "enlace", "requerido": true }
+          ]
+        }
+      ]
+    }
+  ]
+}

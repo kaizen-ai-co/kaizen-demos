@@ -1,0 +1,119 @@
+{
+  "$schema": "../../packages/editor/esquema.meta.json",
+  "plantilla": "visor3d",
+  "version": 1,
+  "titulo": "Visor 3D de objetos",
+  "vistas": [{ "id": "leads", "titulo": "Configuraciones pedidas", "permiso": "leads:leer" }],
+  "secciones": [
+    {
+      "id": "encabezado",
+      "titulo": "Encabezado",
+      "campos": [
+        { "id": "marca", "etiqueta": "Nombre de la marca", "tipo": "texto", "requerido": true, "max": 40 },
+        { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "max": 24 },
+        { "id": "destinoBoton", "etiqueta": "Destino del botón", "tipo": "enlace", "porDefecto": "#solicitar" }
+      ]
+    },
+    {
+      "id": "portada",
+      "titulo": "Presentación",
+      "campos": [
+        { "id": "etiqueta", "etiqueta": "Etiqueta superior", "tipo": "texto", "max": 40 },
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "min": 10, "max": 80 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 220 }
+      ]
+    },
+    {
+      "id": "modelo",
+      "titulo": "Modelo 3D",
+      "descripcion": "Si no subes un modelo, se muestra el objeto de demostración (silla procedural).",
+      "campos": [
+        { "id": "nombreProducto", "etiqueta": "Nombre del producto", "tipo": "texto", "requerido": true, "max": 50 },
+        { "id": "descripcion", "etiqueta": "Descripción corta", "tipo": "textoLargo", "max": 200 },
+        {
+          "id": "archivo", "etiqueta": "Modelo .glb", "tipo": "modelo3d", "maxBytes": 15000000, "formatos": ["glb", "gltf"],
+          "ayuda": "GLB comprimido (Draco), idealmente menos de 3 MB. Solo modelos CC0 o con licencia comercial clara: anótalo en LICENCIAS.md."
+        },
+        { "id": "imagenReserva", "etiqueta": "Imagen de reserva (sin WebGL)", "tipo": "imagen", "requerido": true, "maxBytes": 800000 }
+      ]
+    },
+    {
+      "id": "camara",
+      "titulo": "Cámara inicial",
+      "campos": [
+        { "id": "camaraInicial", "etiqueta": "Vista inicial", "tipo": "vistaCamara", "ayuda": "Gira y acerca el visor y pulsa «Guardar vista»." }
+      ]
+    },
+    {
+      "id": "partes",
+      "titulo": "Partes configurables",
+      "descripcion": "Cada parte cambia el material de las mallas (o materiales) con el nombre indicado en «Malla».",
+      "campos": [
+        {
+          "id": "partes", "etiqueta": "Partes", "tipo": "lista", "minItems": 1, "maxItems": 6, "nombreItem": "parte", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto" },
+            { "id": "nombre", "etiqueta": "Nombre visible", "tipo": "texto", "requerido": true, "max": 30 },
+            { "id": "malla", "etiqueta": "Malla o material del modelo", "tipo": "texto", "requerido": true, "max": 60, "ayuda": "Objeto de demostración: asiento, respaldo o patas." },
+            {
+              "id": "opciones", "etiqueta": "Opciones", "tipo": "lista", "minItems": 1, "maxItems": 8, "nombreItem": "opción", "campoTitulo": "nombre",
+              "campos": [
+                { "id": "id", "etiqueta": "Id", "tipo": "texto" },
+                { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 30 },
+                { "id": "color", "etiqueta": "Color", "tipo": "color", "requerido": true },
+                { "id": "rugosidad", "etiqueta": "Rugosidad (0 brillante – 1 mate)", "tipo": "numero", "min": 0, "max": 1, "paso": 0.05, "porDefecto": 0.6 },
+                { "id": "metalicidad", "etiqueta": "Metalicidad (0 – 1)", "tipo": "numero", "min": 0, "max": 1, "paso": 0.05, "porDefecto": 0 }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ayuda",
+      "titulo": "Textos de ayuda",
+      "activable": true,
+      "campos": [
+        { "id": "instrucciones", "etiqueta": "Instrucciones", "tipo": "texto", "requerido": true, "max": 120 },
+        {
+          "id": "consejos", "etiqueta": "Consejos", "tipo": "lista", "maxItems": 4, "nombreItem": "consejo",
+          "campos": [{ "id": "texto", "etiqueta": "Consejo", "tipo": "texto", "requerido": true, "max": 90 }]
+        }
+      ]
+    },
+    {
+      "id": "solicitud",
+      "titulo": "Solicitar configuración",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
+        { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "requerido": true, "max": 32 },
+        { "id": "mensajeExito", "etiqueta": "Mensaje de confirmación", "tipo": "textoLargo", "requerido": true, "max": 200 }
+      ]
+    },
+    {
+      "id": "escena",
+      "titulo": "Escena (iluminación y entorno)",
+      "rol": "desarrollador",
+      "campos": [
+        { "id": "iluminacion", "etiqueta": "Intensidad de luz", "tipo": "numero", "min": 0, "max": 3, "paso": 0.1, "porDefecto": 1.2 },
+        {
+          "id": "entorno", "etiqueta": "Entorno", "tipo": "seleccion",
+          "opciones": [
+            { "valor": "local", "etiqueta": "Estudio local (sin descargas)" },
+            { "valor": "studio", "etiqueta": "Studio (HDR externo)" },
+            { "valor": "city", "etiqueta": "City (HDR externo)" },
+            { "valor": "apartment", "etiqueta": "Apartment (HDR externo)" },
+            { "valor": "sunset", "etiqueta": "Sunset (HDR externo)" }
+          ]
+        },
+        { "id": "fondo", "etiqueta": "Color de fondo del visor", "tipo": "color", "ayuda": "Vacío = superficie del tema." }
+      ]
+    },
+    {
+      "id": "pie",
+      "titulo": "Pie de página",
+      "campos": [{ "id": "texto", "etiqueta": "Texto", "tipo": "texto", "max": 120 }]
+    }
+  ]
+}

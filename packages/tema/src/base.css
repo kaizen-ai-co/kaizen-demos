@@ -1,0 +1,70 @@
+/*
+ * Capa base compartida (Tailwind v4). Cada app la importa desde su globals.css:
+ *   @import "tailwindcss";
+ *   @import "@kaizen/tema/base.css";
+ *   @source "../../../packages";
+ * Los valores reales los inyecta el layout con temaACss(), así un sitio puede
+ * cambiar su paleta desde /editar sin recompilar.
+ */
+@theme inline {
+  --color-fondo: var(--k-fondo);
+  --color-superficie: var(--k-superficie);
+  --color-texto: var(--k-texto);
+  --color-suave: var(--k-suave);
+  --color-borde: var(--k-borde);
+  --color-primario: var(--k-primario);
+  --color-primario-texto: var(--k-primario-texto);
+  --color-secundario: var(--k-secundario);
+  --color-secundario-texto: var(--k-secundario-texto);
+  --color-acento: var(--k-acento);
+  --color-acento-texto: var(--k-acento-texto);
+  --color-exito: var(--k-exito);
+  --color-aviso: var(--k-aviso);
+  --color-peligro: var(--k-peligro);
+  --color-foco: var(--k-foco);
+  --font-titulos: var(--k-fuente-titulos);
+  --font-cuerpo: var(--k-fuente-cuerpo);
+  --font-mono: var(--k-fuente-mono);
+  --radius-sm: var(--k-radio-sm);
+  --radius-md: var(--k-radio-md);
+  --radius-lg: var(--k-radio-lg);
+  --radius-xl: var(--k-radio-xl);
+  --shadow-sm: var(--k-sombra-sm);
+  --shadow-md: var(--k-sombra-md);
+  --shadow-lg: var(--k-sombra-lg);
+  --container-contenedor: var(--k-espacio-contenedor);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--k-fondo);
+    color: var(--k-texto);
+    font-family: var(--k-fuente-cuerpo);
+    line-height: var(--k-fuente-altura-linea);
+  }
+  h1, h2, h3, h4 {
+    font-family: var(--k-fuente-titulos);
+    font-weight: var(--k-fuente-peso-titulos);
+    line-height: 1.15;
+  }
+  :focus-visible { outline: 2px solid var(--k-foco); outline-offset: 2px; }
+  img, video, canvas { max-width: 100%; }
+}
+
+@layer components {
+  .k-contenedor {
+    width: 100%;
+    max-width: var(--k-espacio-contenedor);
+    margin-inline: auto;
+    padding-inline: var(--k-espacio-gutter);
+  }
+  .k-seccion { padding-block: var(--k-espacio-seccion-movil); }
+  @media (min-width: 768px) { .k-seccion { padding-block: var(--k-espacio-seccion); } }
+}
+
+/* Animaciones sobrias al desplazarse; se apagan si el sistema pide reducir movimiento. */
+@media (prefers-reduced-motion: no-preference) {
+  .k-aparecer { opacity: 0; transform: translateY(12px); transition: opacity .5s ease, transform .5s ease; }
+  .k-aparecer[data-visible="true"] { opacity: 1; transform: none; }
+}

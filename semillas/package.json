@@ -1,0 +1,11 @@
+{
+  "name": "@kaizen/semillas",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Datos ficticios de las demos: contenido base por plantilla, capas por sector y demos de clientes.",
+  "exports": {
+    ".": "./resolver.ts",
+    "./*": "./*"
+  }
+}

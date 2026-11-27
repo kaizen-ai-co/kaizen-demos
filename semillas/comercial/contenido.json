@@ -1,0 +1,104 @@
+{
+  "$comentario": "Semilla base de la plantilla comercial. Todo es ficticio: marca, personas, precios y datos de contacto.",
+  "encabezado": {
+    "marca": "Servicios Andina",
+    "logo": null,
+    "enlaces": [
+      { "texto": "Servicios", "destino": "#servicios" },
+      { "texto": "Precios", "destino": "#precios" },
+      { "texto": "Preguntas", "destino": "#preguntas" }
+    ],
+    "textoBoton": "Pedir asesoría",
+    "destinoBoton": "#contacto"
+  },
+  "portada": {
+    "etiqueta": "Atención en menos de 24 horas",
+    "titulo": "Deja de perder clientes por responder tarde",
+    "subtitulo": "Organizamos tu atención para que cada solicitud llegue a la persona correcta y nadie quede sin respuesta.",
+    "textoBoton": "Quiero que me contacten",
+    "destinoBoton": "#contacto",
+    "textoBoton2": "Ver servicios",
+    "destinoBoton2": "#servicios",
+    "imagen": { "url": "/semillas/portada.svg", "alt": "Ilustración de un equipo atendiendo solicitudes" }
+  },
+  "problema": {
+    "titulo": "¿Te suena familiar?",
+    "descripcion": "Esto es lo que nos cuentan los dueños de negocio en la primera llamada.",
+    "dolores": [
+      { "texto": "Los mensajes llegan por todos lados y se nos pierden." },
+      { "texto": "No sé cuántos clientes nuevos me escribieron esta semana." },
+      { "texto": "Respondemos al otro día y el cliente ya compró en otra parte." }
+    ]
+  },
+  "servicios": {
+    "titulo": "Lo que hacemos por tu negocio",
+    "subtitulo": "Tres servicios que se pueden contratar por separado o juntos.",
+    "items": [
+      { "icono": "chat", "titulo": "Atención centralizada", "descripcion": "Todos tus canales en un solo lugar, con respuestas rápidas y seguimiento." },
+      { "icono": "analitica", "titulo": "Tablero de clientes", "descripcion": "Ves cada solicitud, quién la atiende y en qué va, desde el celular." },
+      { "icono": "rayo", "titulo": "Respuestas automáticas", "descripcion": "Las preguntas de siempre se responden solas, a cualquier hora." }
+    ]
+  },
+  "comoTrabajamos": {
+    "titulo": "Cómo trabajamos",
+    "subtitulo": "De la primera llamada al servicio funcionando en dos semanas.",
+    "pasos": [
+      { "titulo": "Diagnóstico", "descripcion": "Entendemos cómo atiendes hoy y dónde se pierden clientes." },
+      { "titulo": "Propuesta", "descripcion": "Te mostramos el plan, los tiempos y la inversión." },
+      { "titulo": "Montaje", "descripcion": "Configuramos todo con tu equipo y tus datos." },
+      { "titulo": "Acompañamiento", "descripcion": "Medimos resultados y ajustamos cada mes." }
+    ]
+  },
+  "testimonios": {
+    "titulo": "Lo que dicen nuestros clientes",
+    "items": [
+      { "texto": "Antes contestábamos al día siguiente. Ahora en menos de una hora, y se nota en las ventas.", "nombre": "Laura Ficticia", "cargo": "Tienda de ejemplo, Medellín", "foto": null },
+      { "texto": "Por fin sé cuántos clientes nuevos llegan y quién los está atendiendo.", "nombre": "Andrés Inventado", "cargo": "Taller de prueba, Bogotá", "foto": null },
+      { "texto": "El montaje fue rápido y el equipo lo aprendió a usar en una tarde.", "nombre": "Marcela Ejemplo", "cargo": "Consultorio demo, Cali", "foto": null }
+    ]
+  },
+  "precios": {
+    "titulo": "Planes",
+    "subtitulo": "Precios de demostración: no son una oferta real.",
+    "moneda": "COP",
+    "planes": [
+      { "id": "plan-basico", "nombre": "Básico", "precio": 290000, "periodo": "mes", "descripcion": "Para empezar a ordenar.", "beneficios": [{ "texto": "Un canal de atención" }, { "texto": "Tablero de clientes" }], "textoBoton": "Empezar", "destacado": false },
+      { "id": "plan-crecer", "nombre": "Crecer", "precio": 590000, "periodo": "mes", "descripcion": "El más elegido.", "beneficios": [{ "texto": "Tres canales" }, { "texto": "Respuestas automáticas" }, { "texto": "Reporte mensual" }], "textoBoton": "Quiero este", "destacado": true },
+      { "id": "plan-total", "nombre": "Total", "precio": 990000, "periodo": "mes", "descripcion": "Para equipos grandes.", "beneficios": [{ "texto": "Canales ilimitados" }, { "texto": "Acompañamiento semanal" }, { "texto": "Integraciones" }], "textoBoton": "Hablemos", "destacado": false }
+    ]
+  },
+  "preguntas": {
+    "titulo": "Preguntas frecuentes",
+    "preguntas": [
+      { "pregunta": "¿Cuánto se demora el montaje?", "respuesta": "Entre una y dos semanas, según los canales que tengas." },
+      { "pregunta": "¿Tengo que firmar permanencia?", "respuesta": "No. Puedes cancelar cuando quieras con un mes de aviso." },
+      { "pregunta": "¿Mis datos siguen siendo míos?", "respuesta": "Sí. Tus datos son tuyos y te los entregamos si decides irte." }
+    ]
+  },
+  "contacto": {
+    "titulo": "Hablemos",
+    "subtitulo": "Déjanos tus datos y te escribimos hoy mismo.",
+    "camposFormulario": [
+      { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "opciones": [] },
+      { "id": "telefono", "etiqueta": "WhatsApp", "tipo": "telefono", "requerido": false, "opciones": [] },
+      { "id": "correo", "etiqueta": "Correo", "tipo": "correo", "requerido": false, "opciones": [] },
+      { "id": "servicio", "etiqueta": "¿Qué te interesa?", "tipo": "seleccion", "requerido": false, "opciones": [{ "texto": "Atención centralizada" }, { "texto": "Tablero de clientes" }, { "texto": "Respuestas automáticas" }] },
+      { "id": "mensaje", "etiqueta": "Cuéntanos un poco", "tipo": "textoLargo", "requerido": false, "opciones": [] }
+    ],
+    "textoBoton": "Enviar",
+    "mensajeExito": "¡Listo! Recibimos tus datos y te escribimos en menos de 24 horas.",
+    "correo": "hola@ejemplo.test",
+    "telefono": "+57 300 000 0000",
+    "direccion": "Calle Ficticia 123, Medellín",
+    "horario": "Lunes a viernes, 8:00 a. m. a 6:00 p. m."
+  },
+  "pie": {
+    "texto": "© 2026 Servicios Andina (marca ficticia). Demo de Kaizen.",
+    "redes": [{ "texto": "Instagram", "destino": "#" }, { "texto": "LinkedIn", "destino": "#" }]
+  },
+  "_estructura": {
+    "orden": ["encabezado", "portada", "problema", "servicios", "comoTrabajamos", "testimonios", "precios", "preguntas", "contacto", "pie"],
+    "ocultas": [],
+    "variantes": { "portada": "dividida", "precios": "destacado" }
+  }
+}

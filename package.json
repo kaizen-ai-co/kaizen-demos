@@ -1,0 +1,42 @@
+{
+  "name": "kaizen-demos",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Monorepo de plantillas de demo de Kaizen: seis plantillas sobre una base común con editor propio e inicio de sesión con Google.",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "semillas"
+  ],
+  "engines": {
+    "node": ">=20.11"
+  },
+  "scripts": {
+    "dev:comercial": "npm run dev -w @kaizen/app-comercial",
+    "dev:presentacion": "npm run dev -w @kaizen/app-presentacion",
+    "dev:catalogo": "npm run dev -w @kaizen/app-catalogo",
+    "dev:visor3d": "npm run dev -w @kaizen/app-visor3d",
+    "dev:panel": "npm run dev -w @kaizen/app-panel",
+    "dev:agenda": "npm run dev -w @kaizen/app-agenda",
+    "build": "npm run build --workspaces --if-present",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit && npm run typecheck --workspaces --if-present",
+    "validar:esquemas": "tsx scripts/validar-esquemas.ts",
+    "validar:contraste": "tsx scripts/validar-contraste.ts",
+    "validar:licencias": "tsx scripts/validar-licencias.ts",
+    "validar": "npm run validar:esquemas && npm run validar:contraste && npm run validar:licencias && npm run typecheck && npm test",
+    "nueva-demo": "tsx scripts/nueva-demo.ts",
+    "usuario": "tsx scripts/gestionar-usuario.ts",
+    "e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "tsx": "^4.19.0",
+    "@playwright/test": "^1.49.0"
+  }
+}

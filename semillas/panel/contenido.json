@@ -1,0 +1,52 @@
+{
+  "$comentario": "Semilla base del panel CRM. Todo es ficticio: marca, responsables, leads y teléfonos.",
+  "formulario": {
+    "marca": "Asesorías Ejemplo",
+    "titulo": "Cuéntanos qué necesitas y te llamamos hoy",
+    "subtitulo": "Deja tus datos en menos de un minuto. Un asesor te contacta en horario hábil.",
+    "camposFormulario": [
+      { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "opciones": [] },
+      { "id": "telefono", "etiqueta": "WhatsApp", "tipo": "telefono", "requerido": true, "opciones": [] },
+      { "id": "correo", "etiqueta": "Correo (opcional)", "tipo": "correo", "requerido": false, "opciones": [] },
+      { "id": "interes", "etiqueta": "¿Qué te interesa?", "tipo": "seleccion", "requerido": false, "opciones": [{ "texto": "Asesoría inicial" }, { "texto": "Plan mensual" }, { "texto": "Otro" }] }
+    ],
+    "textoBoton": "Quiero que me llamen",
+    "mensajeExito": "¡Recibido! Un asesor te escribe por WhatsApp en menos de 2 horas hábiles."
+  },
+  "etapas": {
+    "lista": [
+      { "id": "nuevo", "nombre": "Nuevo", "color": "primario", "cerrada": false },
+      { "id": "contactado", "nombre": "Contactado", "color": "acento", "cerrada": false },
+      { "id": "propuesta", "nombre": "Propuesta", "color": "aviso", "cerrada": false },
+      { "id": "ganado", "nombre": "Ganado", "color": "exito", "cerrada": true },
+      { "id": "perdido", "nombre": "Perdido", "color": "peligro", "cerrada": true }
+    ]
+  },
+  "responsables": {
+    "lista": [
+      { "id": "r-ana", "nombre": "Ana Ficticia", "activo": true },
+      { "id": "r-bruno", "nombre": "Bruno Ejemplo", "activo": true },
+      { "id": "r-camila", "nombre": "Camila Demo", "activo": false }
+    ]
+  },
+  "panel": {
+    "titulo": "Panel comercial",
+    "mensajeVacio": "Todavía no hay leads. Envía el formulario móvil para probar el recorrido."
+  },
+  "ejemplos": {
+    "leads": [
+      { "nombre": "Daniela Prueba", "telefono": "+57 300 000 0011", "correo": "daniela@ejemplo.test", "origen": "whatsapp", "mensaje": "Quiero cotizar el plan mensual." },
+      { "nombre": "Esteban Inventado", "telefono": "+57 300 000 0012", "correo": "", "origen": "referido", "mensaje": "Me recomendó un amigo." },
+      { "nombre": "Fernanda Ejemplo", "telefono": "+57 300 000 0013", "correo": "fernanda@ejemplo.test", "origen": "feria", "mensaje": "Nos conocimos en la feria de prueba." }
+    ]
+  },
+  "asignacion": {
+    "modo": "turnos",
+    "porOrigen": [{ "origen": "whatsapp", "responsableId": "r-bruno" }]
+  },
+  "_estructura": {
+    "orden": ["formulario", "etapas", "responsables", "panel", "ejemplos", "asignacion"],
+    "ocultas": [],
+    "variantes": {}
+  }
+}

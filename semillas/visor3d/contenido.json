@@ -1,0 +1,64 @@
+{
+  "$comentario": "Semilla base del visor 3D. Producto, marca, precios y datos son ficticios.",
+  "encabezado": { "marca": "Taller Ejemplo", "textoBoton": "Pedir cotización", "destinoBoton": "#solicitar" },
+  "portada": {
+    "etiqueta": "Personalízalo en 3D",
+    "titulo": "Arma tu producto a tu gusto y míralo antes de pedirlo",
+    "subtitulo": "Gira el objeto, cambia colores y materiales, y envíanos la configuración que te gustó."
+  },
+  "modelo": {
+    "nombreProducto": "Silla Andes",
+    "descripcion": "Objeto de demostración con tres partes configurables.",
+    "archivo": null,
+    "imagenReserva": { "url": "/semillas/reserva.svg", "alt": "Ilustración de una silla de madera con asiento de color" }
+  },
+  "camara": { "camaraInicial": { "posicion": [2.2, 1.5, 2.4], "objetivo": [0, 0.55, 0], "fov": 40 } },
+  "partes": {
+    "partes": [
+      {
+        "id": "asiento", "nombre": "Asiento", "malla": "asiento",
+        "opciones": [
+          { "id": "arcilla", "nombre": "Arcilla", "color": "#c2410c", "rugosidad": 0.8, "metalicidad": 0 },
+          { "id": "oliva", "nombre": "Oliva", "color": "#4d7c0f", "rugosidad": 0.8, "metalicidad": 0 },
+          { "id": "grafito", "nombre": "Grafito", "color": "#334155", "rugosidad": 0.7, "metalicidad": 0 }
+        ]
+      },
+      {
+        "id": "respaldo", "nombre": "Respaldo", "malla": "respaldo",
+        "opciones": [
+          { "id": "roble", "nombre": "Roble", "color": "#b07a45", "rugosidad": 0.55, "metalicidad": 0 },
+          { "id": "nogal", "nombre": "Nogal", "color": "#5b3a24", "rugosidad": 0.5, "metalicidad": 0 },
+          { "id": "blanco", "nombre": "Blanco mate", "color": "#f1f5f9", "rugosidad": 0.9, "metalicidad": 0 }
+        ]
+      },
+      {
+        "id": "patas", "nombre": "Patas", "malla": "patas",
+        "opciones": [
+          { "id": "madera", "nombre": "Madera", "color": "#8b5a2b", "rugosidad": 0.6, "metalicidad": 0 },
+          { "id": "acero", "nombre": "Acero", "color": "#9ca3af", "rugosidad": 0.3, "metalicidad": 0.9 },
+          { "id": "negro", "nombre": "Negro", "color": "#111827", "rugosidad": 0.4, "metalicidad": 0.6 }
+        ]
+      }
+    ]
+  },
+  "ayuda": {
+    "instrucciones": "Arrastra para girar, pellizca o usa la rueda para acercar.",
+    "consejos": [
+      { "texto": "Elige una opción por parte: el cambio se ve al instante." },
+      { "texto": "Si te perdiste, pulsa «Reiniciar vista»." }
+    ]
+  },
+  "solicitud": {
+    "titulo": "Solicitar esta configuración",
+    "subtitulo": "Te enviamos la cotización con exactamente lo que armaste.",
+    "textoBoton": "Solicitar esta configuración",
+    "mensajeExito": "¡Recibido! Guardamos tu configuración y te escribimos con la cotización."
+  },
+  "escena": { "iluminacion": 1.2, "entorno": "local", "fondo": "" },
+  "pie": { "texto": "© 2026 Taller Ejemplo (marca ficticia). Demo de Kaizen." },
+  "_estructura": {
+    "orden": ["encabezado", "portada", "modelo", "camara", "partes", "ayuda", "solicitud", "escena", "pie"],
+    "ocultas": [],
+    "variantes": {}
+  }
+}

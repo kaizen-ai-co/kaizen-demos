@@ -1,0 +1,14 @@
+[
+  {
+    "nombre": "Carolina Prueba",
+    "contacto": { "correo": "carolina@ejemplo.test", "telefono": "+57 300 111 0001" },
+    "origen": "formulario-web",
+    "campos": { "servicio": "Tablero de clientes", "mensaje": "Quiero saber precios para 3 sedes." }
+  },
+  {
+    "nombre": "Julián Demo",
+    "contacto": { "telefono": "+57 300 111 0002" },
+    "origen": "formulario-movil",
+    "campos": { "servicio": "Respuestas automáticas" }
+  }
+]

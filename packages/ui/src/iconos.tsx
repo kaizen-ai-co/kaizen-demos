@@ -1,0 +1,25 @@
+import {
+  BarChart3, Bot, Briefcase, Calendar, Camera, CheckCircle2, Clock, Cog, CreditCard, Gem, Globe, Heart,
+  Home, Leaf, Lightbulb, Lock, Mail, MapPin, Megaphone, MessageCircle, Package, Phone, Rocket, Scissors,
+  ShieldCheck, ShoppingBag, Smile, Sparkles, Star, Stethoscope, Truck, Users, Wrench, Zap, type LucideIcon,
+} from 'lucide-react';
+
+/**
+ * Íconos disponibles en el editor (campo tipo "icono"). Lista cerrada para no
+ * cargar toda la librería. Para sumar uno: impórtalo de lucide-react y agrégalo.
+ */
+export const ICONOS: Record<string, LucideIcon> = {
+  analitica: BarChart3, asistente: Bot, maletin: Briefcase, calendario: Calendar, camara: Camera,
+  check: CheckCircle2, reloj: Clock, engranaje: Cog, pago: CreditCard, gema: Gem, web: Globe, corazon: Heart,
+  casa: Home, hoja: Leaf, idea: Lightbulb, candado: Lock, correo: Mail, ubicacion: MapPin, megafono: Megaphone,
+  chat: MessageCircle, paquete: Package, telefono: Phone, cohete: Rocket, tijeras: Scissors, escudo: ShieldCheck,
+  tienda: ShoppingBag, sonrisa: Smile, brillo: Sparkles, estrella: Star, salud: Stethoscope, envio: Truck,
+  equipo: Users, herramienta: Wrench, rayo: Zap,
+};
+
+export const NOMBRES_ICONOS = Object.keys(ICONOS);
+
+export function Icono({ nombre, className }: { nombre?: string; className?: string }) {
+  const C = (nombre && ICONOS[nombre]) || Sparkles;
+  return <C aria-hidden className={className} />;
+}

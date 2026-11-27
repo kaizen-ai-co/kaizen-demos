@@ -1,0 +1,17 @@
+{
+  "name": "@kaizen/datos",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Capa intercambiable de identidad, base de datos y archivos. Las apps solo hablan con estas interfaces.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./servidor": "./src/servidor.ts",
+    "./cliente-firebase": "./src/firebase/cliente.ts",
+    "./memoria": "./src/memoria/index.ts"
+  },
+  "dependencies": {
+    "firebase": "^11.0.0",
+    "firebase-admin": "^13.0.0"
+  }
+}

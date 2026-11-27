@@ -1,0 +1,6 @@
+[
+  { "servicioId": "s-valoracion", "profesionalId": "p-laura", "diasDesdeHoy": 1, "hora": "09:00", "estado": "confirmada", "visitante": { "nombre": "Natalia Ficticia", "telefono": "+57 300 000 0031" } },
+  { "servicioId": "s-sesion", "profesionalId": "p-laura", "diasDesdeHoy": 2, "hora": "14:00", "estado": "pendiente", "visitante": { "nombre": "Óscar Demo", "telefono": "+57 300 000 0032" } },
+  { "servicioId": "s-control", "profesionalId": "p-mateo", "diasDesdeHoy": 2, "hora": "10:00", "estado": "pendiente", "visitante": { "nombre": "Paula Ejemplo", "correo": "paula@ejemplo.test" } },
+  { "servicioId": "s-valoracion", "profesionalId": "p-mateo", "diasDesdeHoy": 3, "hora": "11:00", "estado": "cancelada", "visitante": { "nombre": "Ricardo Inventado", "telefono": "+57 300 000 0034" } }
+]

@@ -1,0 +1,13 @@
+{
+  "$sector": "muebles",
+  "$comentario": "Capa de sector: tienda de muebles a la medida. Datos ficticios.",
+  "encabezado": { "marca": "Muebles Ejemplo", "textoBoton": "Cotizar mi silla" },
+  "portada": {
+    "etiqueta": "Fabricación a la medida",
+    "titulo": "Diseña la silla de tu comedor y mírala antes de fabricarla",
+    "subtitulo": "Escoge tela, madera y patas. Te enviamos la cotización con tu combinación exacta."
+  },
+  "modelo": { "nombreProducto": "Silla Comedor Andes", "descripcion": "Silla de comedor con asiento tapizado y estructura en madera." },
+  "solicitud": { "mensajeExito": "¡Gracias! Un asesor de Muebles Ejemplo te escribe hoy con el precio y el tiempo de fabricación." },
+  "pie": { "texto": "© 2026 Muebles Ejemplo (marca ficticia). Demo de Kaizen." }
+}

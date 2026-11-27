@@ -1,0 +1,11 @@
+{
+  "name": "@kaizen/tema",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tema.json": "./tema.json",
+    "./base.css": "./src/base.css"
+  }
+}

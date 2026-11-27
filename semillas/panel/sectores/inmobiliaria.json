@@ -1,0 +1,35 @@
+{
+  "$sector": "inmobiliaria",
+  "$comentario": "Capa de sector: solo lo que cambia. Los ids de etapa se mantienen para no romper los leads sembrados.",
+  "formulario": {
+    "marca": "Inmobiliaria Ejemplo",
+    "titulo": "¿Buscas casa o apartamento? Te ayudamos hoy",
+    "subtitulo": "Déjanos tus datos y un asesor te muestra opciones que se ajustan a tu presupuesto.",
+    "camposFormulario": [
+      { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "opciones": [] },
+      { "id": "telefono", "etiqueta": "WhatsApp", "tipo": "telefono", "requerido": true, "opciones": [] },
+      { "id": "tipoInmueble", "etiqueta": "Tipo de inmueble", "tipo": "seleccion", "requerido": true, "opciones": [{ "texto": "Apartamento" }, { "texto": "Casa" }, { "texto": "Local" }] },
+      { "id": "operacion", "etiqueta": "¿Comprar o arrendar?", "tipo": "seleccion", "requerido": false, "opciones": [{ "texto": "Comprar" }, { "texto": "Arrendar" }] },
+      { "id": "presupuesto", "etiqueta": "Presupuesto aproximado", "tipo": "texto", "requerido": false, "opciones": [] }
+    ],
+    "textoBoton": "Quiero ver opciones",
+    "mensajeExito": "¡Gracias! Un asesor te envía opciones por WhatsApp hoy mismo."
+  },
+  "etapas": {
+    "lista": [
+      { "id": "nuevo", "nombre": "Nuevo", "color": "primario", "cerrada": false },
+      { "id": "contactado", "nombre": "Visita agendada", "color": "acento", "cerrada": false },
+      { "id": "propuesta", "nombre": "Oferta", "color": "aviso", "cerrada": false },
+      { "id": "ganado", "nombre": "Cerrado", "color": "exito", "cerrada": true },
+      { "id": "perdido", "nombre": "Descartado", "color": "peligro", "cerrada": true }
+    ]
+  },
+  "responsables": {
+    "lista": [
+      { "id": "r-ana", "nombre": "Asesora Ana Ficticia", "activo": true },
+      { "id": "r-bruno", "nombre": "Asesor Bruno Ejemplo", "activo": true },
+      { "id": "r-camila", "nombre": "Asesora Camila Demo", "activo": true }
+    ]
+  },
+  "panel": { "titulo": "Panel de asesores" }
+}

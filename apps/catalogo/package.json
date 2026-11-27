@@ -1,0 +1,28 @@
+{
+  "name": "@kaizen/app-catalogo",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --port 3003",
+    "build": "next build",
+    "start": "next start --port 3003",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@kaizen/datos": "*",
+    "@kaizen/editor": "*",
+    "@kaizen/modulos": "*",
+    "@kaizen/nucleo": "*",
+    "@kaizen/semillas": "*",
+    "@kaizen/tema": "*",
+    "@kaizen/ui": "*",
+    "next": "^15.5.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "pdf-lib": "^1.17.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.0",
+    "tailwindcss": "^4.1.0"
+  }
+}

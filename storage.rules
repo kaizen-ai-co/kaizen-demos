@@ -1,0 +1,15 @@
+rules_version = '2';
+
+// Archivos de las demos. Solo se sirven en público los de `publico/`.
+// Las subidas pasan por el servidor (/api/archivos), que valida rol, tipo y tamaño.
+service firebase.storage {
+  match /b/{bucket}/o {
+    match /sitios/{sitioId}/publico/{archivo=**} {
+      allow read: if true;
+      allow write: if false;
+    }
+    match /{todo=**} {
+      allow read, write: if false;
+    }
+  }
+}

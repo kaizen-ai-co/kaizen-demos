@@ -1,0 +1,6 @@
+id,nombre,descripcion,precio,unidad,categoria,disponible
+resma-carta,Resma de papel carta,500 hojas de 75 g blancas,18900,resma,oficina,si
+carpeta-az,Carpeta AZ oficio,Lomo ancho con palanca metálica,9500,unidad,oficina,si
+jabon-galon,Jabón líquido para manos,Galón de 3.8 L aroma neutro,32500,galón,aseo,si
+toallas-papel,Toallas de papel,Paquete por 6 rollos,21900,paquete,aseo,no
+cafe-500,Café molido 500 g,Tostión media origen ficticio,24800,bolsa,cafeteria,si

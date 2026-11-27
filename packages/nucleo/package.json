@@ -1,0 +1,25 @@
+{
+  "name": "@kaizen/nucleo",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pegamento Next.js de la base común: sesión, rutas API, lectura de contenido, /editar y layout de demo.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./servidor": "./src/servidor/index.ts",
+    "./react": "./src/react/index.ts",
+    "./cliente": "./src/react/cliente.ts"
+  },
+  "dependencies": {
+    "@kaizen/datos": "*",
+    "@kaizen/editor": "*",
+    "@kaizen/modulos": "*",
+    "@kaizen/tema": "*",
+    "@kaizen/ui": "*",
+    "server-only": "^0.0.1"
+  },
+  "peerDependencies": {
+    "next": ">=15.0.0",
+    "react": "^19.0.0"
+  }
+}

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Ilustración abstracta de montañas y planos">
+  <!-- Ilustración propia de Kaizen para demos (CC0). -->
+  <rect width="800" height="500" fill="#eef2ff"/>
+  <circle cx="620" cy="120" r="60" fill="#93c5fd"/>
+  <path d="M0 420 L220 170 L380 330 L520 200 L800 440 L800 500 L0 500Z" fill="#1d4ed8"/>
+  <path d="M0 470 L300 300 L560 470Z" fill="#93c5fd" opacity=".6"/>
+</svg>

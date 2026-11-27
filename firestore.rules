@@ -1,0 +1,71 @@
+rules_version = '2';
+
+// ─────────────────────────────────────────────────────────────────────
+// Reglas de Firestore · Kaizen demos
+// Segunda barrera: el servidor ya valida todo con el Admin SDK (que no pasa por
+// estas reglas). Estas reglas protegen ante cualquier acceso directo desde el
+// navegador. El rol viaja como custom claim: rol, sitioId, venceEl.
+// Misma lógica que packages/datos/src/acceso.ts — si cambias una, cambia la otra.
+// ─────────────────────────────────────────────────────────────────────
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function autenticado() { return request.auth != null; }
+    function rol() { return request.auth.token.rol; }
+    function registrado() {
+      return autenticado()
+        && exists(/databases/$(database)/documents/usuarios/$(request.auth.token.email.lower()))
+        && get(/databases/$(database)/documents/usuarios/$(request.auth.token.email.lower())).data.activo == true;
+    }
+    function esDesarrollador() { return registrado() && rol() == 'desarrollador'; }
+    function esAdministrador() { return registrado() && rol() == 'administrador'; }
+    function esClienteDe(sitioId) {
+      return registrado() && rol() == 'cliente'
+        && request.auth.token.sitioId == sitioId
+        && request.time < timestamp.value(request.auth.token.venceEl);
+    }
+    function puedeOperar(sitioId) { return esDesarrollador() || esAdministrador() || esClienteDe(sitioId); }
+
+    // La lista de usuarios solo la escribe la cuenta oficial (Admin SDK). Nadie la lee desde el navegador.
+    match /usuarios/{correo} {
+      allow read, write: if false;
+    }
+
+    match /sitios/{sitioId} {
+      // Contenido publicado: público. Borrador y archivados: solo quien opera el sitio.
+      match /contenido/{version} {
+        allow read: if version == 'publicado' || puedeOperar(sitioId);
+        allow write: if false; // solo el servidor publica (valida esquema y campos por rol)
+      }
+
+      // Leads, cotizaciones y citas: los crea el servidor (campo trampa + límite de envíos).
+      match /leads/{id} {
+        allow read: if puedeOperar(sitioId);
+        allow write: if false;
+      }
+      match /cotizaciones/{id} {
+        allow read: if puedeOperar(sitioId);
+        allow write: if false;
+      }
+      match /citas/{id} {
+        allow read: if puedeOperar(sitioId);
+        allow write: if false;
+      }
+
+      // Registros técnicos: solo desarrollador.
+      match /registros/{id} {
+        allow read: if esDesarrollador();
+        allow write: if false;
+      }
+
+      match /{otra}/{id} {
+        allow read: if puedeOperar(sitioId);
+        allow write: if false;
+      }
+    }
+
+    match /{todo=**} {
+      allow read, write: if false;
+    }
+  }
+}

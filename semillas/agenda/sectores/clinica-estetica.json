@@ -1,0 +1,20 @@
+{
+  "$sector": "clinica-estetica",
+  "$comentario": "Capa de sector: solo lo que cambia. Ids de servicios y profesionales se mantienen para las citas sembradas.",
+  "encabezado": {
+    "marca": "Estética Ejemplo",
+    "titulo": "Agenda tu valoración estética hoy",
+    "subtitulo": "Elige tratamiento, especialista y hora. Confirmación inmediata en pantalla."
+  },
+  "servicios": {
+    "lista": [
+      { "id": "s-valoracion", "nombre": "Valoración estética", "descripcion": "Revisión inicial y plan de tratamiento.", "duracionMin": 30, "precio": 0 },
+      { "id": "s-sesion", "nombre": "Limpieza facial profunda", "descripcion": "Sesión de 60 minutos.", "duracionMin": 60, "precio": 150000 },
+      { "id": "s-control", "nombre": "Control post tratamiento", "descripcion": "Seguimiento corto.", "duracionMin": 30, "precio": 50000 }
+    ]
+  },
+  "mensajes": {
+    "tituloConfirmacion": "¡Tu valoración quedó agendada!",
+    "textoConfirmacion": "Llega sin maquillaje y 10 minutos antes. En esta demo no se envían mensajes reales."
+  }
+}

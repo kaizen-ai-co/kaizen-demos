@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500" role="img" aria-label="Ilustración de una planta industrial">
+  <!-- Ilustración propia de Kaizen para demos (CC0). -->
+  <rect width="800" height="500" fill="#f1f5f9"/>
+  <rect x="120" y="220" width="560" height="200" fill="#334155"/>
+  <path d="M120 220 L260 140 L260 220 L400 140 L400 220 L540 140 L540 220Z" fill="#94a3b8"/>
+  <rect x="600" y="90" width="40" height="130" fill="#94a3b8"/>
+  <rect x="180" y="300" width="80" height="120" fill="#ffffff" opacity=".8"/>
+</svg>

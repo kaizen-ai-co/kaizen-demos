@@ -1,0 +1,9 @@
+[
+  {
+    "nombre": "Daniela Prueba",
+    "contacto": { "correo": "daniela@ejemplo.test" },
+    "origen": "caso-red-clinicas",
+    "campos": { "mensaje": "Tenemos tres sedes y nos interesa algo parecido." },
+    "extra": { "caso": "red-clinicas" }
+  }
+]

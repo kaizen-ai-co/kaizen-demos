@@ -1,0 +1,14 @@
+{
+  "name": "@kaizen/modulos",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Lógica de negocio pura y probada: totales de cotización, huecos de agenda y asignación de leads.",
+  "exports": {
+    ".": "./src/index.ts",
+    "./totales": "./src/totales.ts",
+    "./huecos": "./src/huecos.ts",
+    "./asignacion": "./src/asignacion.ts",
+    "./limite": "./src/limite.ts"
+  }
+}

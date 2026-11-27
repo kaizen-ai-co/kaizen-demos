@@ -1,0 +1,12 @@
+[
+  {
+    "nombre": "Valentina Ficticia",
+    "contacto": { "correo": "valentina@ejemplo.test" },
+    "origen": "visor3d",
+    "campos": { "mensaje": "La necesito para un comedor de 6 puestos." },
+    "extra": {
+      "configuracion": { "asiento": "oliva", "respaldo": "nogal", "patas": "negro" },
+      "resumen": "Asiento: Oliva · Respaldo: Nogal · Patas: Negro"
+    }
+  }
+]

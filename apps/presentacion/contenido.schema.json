@@ -1,0 +1,155 @@
+{
+  "$schema": "../../packages/editor/esquema.meta.json",
+  "plantilla": "presentacion",
+  "version": 1,
+  "titulo": "Presentación corporativa y portafolio",
+  "vistas": [{ "id": "leads", "titulo": "Leads", "permiso": "leads:leer" }],
+  "secciones": [
+    {
+      "id": "encabezado",
+      "titulo": "Encabezado",
+      "campos": [
+        { "id": "marca", "etiqueta": "Nombre de la empresa", "tipo": "texto", "requerido": true, "max": 40 },
+        { "id": "logo", "etiqueta": "Logo", "tipo": "imagen", "maxBytes": 500000 },
+        {
+          "id": "enlaces", "etiqueta": "Enlaces del menú", "tipo": "lista", "maxItems": 6, "nombreItem": "enlace", "campoTitulo": "texto",
+          "campos": [
+            { "id": "texto", "etiqueta": "Texto", "tipo": "texto", "requerido": true, "max": 24 },
+            { "id": "destino", "etiqueta": "Destino", "tipo": "enlace", "requerido": true }
+          ]
+        },
+        { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "max": 24 },
+        { "id": "destinoBoton", "etiqueta": "Destino del botón", "tipo": "enlace", "porDefecto": "/#contacto" }
+      ]
+    },
+    {
+      "id": "portada",
+      "titulo": "Portada",
+      "variantes": ["fondo", "dividida", "centrada"],
+      "campos": [
+        { "id": "etiqueta", "etiqueta": "Etiqueta superior", "tipo": "texto", "max": 40 },
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "min": 10, "max": 90 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 220 },
+        { "id": "textoBoton", "etiqueta": "Botón principal", "tipo": "texto", "requerido": true, "max": 28 },
+        { "id": "destinoBoton", "etiqueta": "Destino del botón principal", "tipo": "enlace", "porDefecto": "#casos" },
+        { "id": "textoBoton2", "etiqueta": "Botón secundario", "tipo": "texto", "max": 28 },
+        { "id": "destinoBoton2", "etiqueta": "Destino del botón secundario", "tipo": "enlace", "porDefecto": "#contacto" },
+        { "id": "imagen", "etiqueta": "Imagen", "tipo": "imagen", "maxBytes": 1500000 }
+      ]
+    },
+    {
+      "id": "quienesSomos",
+      "titulo": "Quiénes somos",
+      "activable": true,
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 70 },
+        { "id": "texto", "etiqueta": "Texto", "tipo": "textoLargo", "requerido": true, "max": 700 },
+        { "id": "imagen", "etiqueta": "Imagen", "tipo": "imagen", "maxBytes": 1500000 },
+        {
+          "id": "puntos", "etiqueta": "Puntos clave", "tipo": "lista", "maxItems": 6, "nombreItem": "punto",
+          "campos": [{ "id": "texto", "etiqueta": "Punto", "tipo": "texto", "requerido": true, "max": 90 }]
+        }
+      ]
+    },
+    {
+      "id": "equipo",
+      "titulo": "Equipo",
+      "activable": true,
+      "descripcion": "Arrastra para reordenar. Usa solo nombres ficticios en la demo.",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "max": 60 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
+        {
+          "id": "miembros", "etiqueta": "Miembros", "tipo": "lista", "maxItems": 12, "nombreItem": "persona", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "id", "etiqueta": "Id", "tipo": "texto" },
+            { "id": "nombre", "etiqueta": "Nombre (ficticio)", "tipo": "texto", "requerido": true, "max": 50 },
+            { "id": "cargo", "etiqueta": "Cargo", "tipo": "texto", "requerido": true, "max": 60 },
+            { "id": "foto", "etiqueta": "Foto", "tipo": "imagen", "maxBytes": 400000 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cifras",
+      "titulo": "Cifras",
+      "activable": true,
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "max": 60 },
+        {
+          "id": "items", "etiqueta": "Cifras", "tipo": "lista", "minItems": 1, "maxItems": 4, "nombreItem": "cifra", "campoTitulo": "etiqueta",
+          "campos": [
+            { "id": "valor", "etiqueta": "Valor", "tipo": "texto", "requerido": true, "max": 12, "placeholder": "+120" },
+            { "id": "etiqueta", "etiqueta": "Etiqueta", "tipo": "texto", "requerido": true, "max": 40 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "casos",
+      "titulo": "Galería de casos",
+      "descripcion": "Cada caso genera su propia página en /casos/<id>. El id no debe cambiar después de publicar.",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
+        { "id": "textoTodos", "etiqueta": "Texto del filtro «todos»", "tipo": "texto", "max": 20, "porDefecto": "Todos" },
+        {
+          "id": "items", "etiqueta": "Casos", "tipo": "lista", "minItems": 1, "maxItems": 24, "nombreItem": "caso", "campoTitulo": "titulo",
+          "campos": [
+            { "id": "id", "etiqueta": "Id (slug)", "tipo": "texto", "requerido": true, "patron": "^[a-z0-9-]+$", "max": 60 },
+            { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 80 },
+            { "id": "sector", "etiqueta": "Sector", "tipo": "texto", "requerido": true, "max": 30 },
+            { "id": "imagen", "etiqueta": "Imagen", "tipo": "imagen", "requerido": true, "maxBytes": 1500000 },
+            { "id": "resumen", "etiqueta": "Resumen", "tipo": "textoLargo", "requerido": true, "max": 220 },
+            { "id": "resultado", "etiqueta": "Resultado", "tipo": "texto", "requerido": true, "max": 90, "placeholder": "−40 % en tiempos de entrega" },
+            { "id": "texto", "etiqueta": "Texto del detalle", "tipo": "textoLargo", "max": 2000 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "logos",
+      "titulo": "Logos de clientes",
+      "activable": true,
+      "descripcion": "Solo clientes ficticios.",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "max": 60 },
+        {
+          "id": "logos", "etiqueta": "Logos", "tipo": "lista", "maxItems": 10, "nombreItem": "logo", "campoTitulo": "nombre",
+          "campos": [
+            { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 40 },
+            { "id": "imagen", "etiqueta": "Imagen", "tipo": "imagen", "maxBytes": 300000 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "contacto",
+      "titulo": "Contacto",
+      "campos": [
+        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
+        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
+        { "id": "textoCaso", "etiqueta": "Aviso cuando llega desde un caso", "tipo": "texto", "max": 80, "porDefecto": "Nos escribes por el caso:" },
+        { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "requerido": true, "max": 24 },
+        { "id": "mensajeExito", "etiqueta": "Mensaje de confirmación", "tipo": "textoLargo", "requerido": true, "max": 200 },
+        { "id": "correo", "etiqueta": "Correo (ficticio)", "tipo": "correo" },
+        { "id": "telefono", "etiqueta": "Teléfono (ficticio)", "tipo": "telefono" },
+        { "id": "direccion", "etiqueta": "Dirección", "tipo": "texto", "max": 120 }
+      ]
+    },
+    {
+      "id": "pie",
+      "titulo": "Pie de página",
+      "campos": [
+        { "id": "texto", "etiqueta": "Texto", "tipo": "texto", "max": 120 },
+        {
+          "id": "redes", "etiqueta": "Redes", "tipo": "lista", "maxItems": 6, "nombreItem": "red", "campoTitulo": "texto",
+          "campos": [
+            { "id": "texto", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 20 },
+            { "id": "destino", "etiqueta": "Enlace", "tipo": "enlace", "requerido": true }
+          ]
+        }
+      ]
+    }
+  ]
+}

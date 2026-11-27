@@ -1,0 +1,34 @@
+{
+  "$sector": "constructora",
+  "$comentario": "Capa de sector: solo lo que cambia frente a la base. Datos ficticios.",
+  "encabezado": { "marca": "Constructora Ejemplo" },
+  "portada": {
+    "etiqueta": "Vivienda y obra comercial",
+    "titulo": "Obras que se entregan en la fecha prometida",
+    "subtitulo": "Mira proyectos terminados, conoce al equipo y pide una visita técnica sin compromiso."
+  },
+  "casos": {
+    "items": [
+      {
+        "id": "torre-residencial",
+        "titulo": "Torre residencial de 12 pisos",
+        "sector": "Vivienda",
+        "imagen": { "url": "/semillas/caso-1.svg", "alt": "Ilustración de un edificio residencial" },
+        "resumen": "96 apartamentos entregados con dos semanas de anticipación.",
+        "resultado": "Entrega 2 semanas antes",
+        "texto": "Proyecto ficticio de vivienda media con control semanal de avance y comités con compradores."
+      },
+      {
+        "id": "bodega-logistica",
+        "titulo": "Bodega logística de 4.000 m²",
+        "sector": "Comercial",
+        "imagen": { "url": "/semillas/caso-3.svg", "alt": "Ilustración de una bodega" },
+        "resumen": "Construcción en estructura metálica en 7 meses.",
+        "resultado": "0 accidentes en obra",
+        "texto": "Proyecto ficticio con montaje por etapas para que el cliente operara la primera mitad mientras se terminaba la segunda."
+      }
+    ]
+  },
+  "contacto": { "titulo": "Pide una visita técnica" },
+  "pie": { "texto": "© 2026 Constructora Ejemplo (empresa ficticia). Demo de Kaizen." }
+}

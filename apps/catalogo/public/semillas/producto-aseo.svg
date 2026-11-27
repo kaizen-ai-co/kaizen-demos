@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Ilustración de un galón">
+  <!-- Ilustración propia de Kaizen para demos (CC0). -->
+  <rect width="400" height="300" fill="#ecfeff"/>
+  <rect x="140" y="80" width="120" height="160" rx="20" fill="#0e7490"/>
+  <rect x="175" y="55" width="50" height="30" rx="6" fill="#155e75"/>
+  <rect x="160" y="130" width="80" height="50" rx="6" fill="#cffafe"/>
+</svg>

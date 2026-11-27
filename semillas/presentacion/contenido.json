@@ -1,0 +1,115 @@
+{
+  "$comentario": "Semilla base de la plantilla de presentación. Empresa, personas, clientes y cifras ficticios.",
+  "encabezado": {
+    "marca": "Estudio Cordillera",
+    "logo": null,
+    "enlaces": [
+      { "texto": "Nosotros", "destino": "/#quienesSomos" },
+      { "texto": "Casos", "destino": "/#casos" },
+      { "texto": "Equipo", "destino": "/#equipo" }
+    ],
+    "textoBoton": "Hablemos",
+    "destinoBoton": "/#contacto"
+  },
+  "portada": {
+    "etiqueta": "Consultoría y proyectos desde 2012",
+    "titulo": "Convertimos ideas complicadas en proyectos que se entregan a tiempo",
+    "subtitulo": "Somos un equipo pequeño y exigente. Mira lo que hemos hecho y cuéntanos qué tienes en mente.",
+    "textoBoton": "Ver casos",
+    "destinoBoton": "#casos",
+    "textoBoton2": "Contactar",
+    "destinoBoton2": "#contacto",
+    "imagen": { "url": "/semillas/portada.svg", "alt": "Ilustración abstracta de montañas y planos" }
+  },
+  "quienesSomos": {
+    "titulo": "Quiénes somos",
+    "texto": "Estudio Cordillera nació para acompañar a empresas medianas en proyectos que no pueden fallar.\nTrabajamos con pocos clientes a la vez para dedicarle a cada uno la atención que merece.",
+    "imagen": { "url": "/semillas/equipo.svg", "alt": "Ilustración de un equipo reunido alrededor de una mesa" },
+    "puntos": [
+      { "texto": "Un solo responsable por proyecto" },
+      { "texto": "Avances semanales que se pueden medir" },
+      { "texto": "Precios cerrados desde el principio" }
+    ]
+  },
+  "equipo": {
+    "titulo": "El equipo",
+    "subtitulo": "Las personas que vas a ver en cada reunión.",
+    "miembros": [
+      { "id": "persona-1", "nombre": "Valentina Ficticia", "cargo": "Directora de proyectos", "foto": null },
+      { "id": "persona-2", "nombre": "Mateo Demo", "cargo": "Líder técnico", "foto": null },
+      { "id": "persona-3", "nombre": "Sara Ejemplo", "cargo": "Diseñadora", "foto": null },
+      { "id": "persona-4", "nombre": "Tomás Inventado", "cargo": "Analista", "foto": null }
+    ]
+  },
+  "cifras": {
+    "titulo": "En números",
+    "items": [
+      { "valor": "+120", "etiqueta": "Proyectos entregados" },
+      { "valor": "14", "etiqueta": "Años de experiencia" },
+      { "valor": "96 %", "etiqueta": "Entregas a tiempo" },
+      { "valor": "8", "etiqueta": "Sectores atendidos" }
+    ]
+  },
+  "casos": {
+    "titulo": "Casos",
+    "subtitulo": "Algunos proyectos recientes (ficticios para esta demo).",
+    "textoTodos": "Todos",
+    "items": [
+      {
+        "id": "planta-alimentos",
+        "titulo": "Reorganización de una planta de alimentos",
+        "sector": "Industria",
+        "imagen": { "url": "/semillas/caso-1.svg", "alt": "Ilustración de una planta industrial" },
+        "resumen": "Rediseñamos el flujo de producción para reducir tiempos muertos entre turnos.",
+        "resultado": "−35 % en tiempos muertos",
+        "texto": "La empresa ficticia perdía casi una hora por turno en cambios de línea.\nLevantamos el proceso con el equipo de planta, propusimos un nuevo orden de tareas y acompañamos la implementación durante seis semanas."
+      },
+      {
+        "id": "red-clinicas",
+        "titulo": "Agenda unificada para una red de clínicas",
+        "sector": "Salud",
+        "imagen": { "url": "/semillas/caso-2.svg", "alt": "Ilustración de un calendario médico" },
+        "resumen": "Cinco sedes con una sola agenda y recordatorios automáticos a pacientes.",
+        "resultado": "−28 % de inasistencias",
+        "texto": "Cada sede llevaba su propia agenda en hojas de cálculo.\nUnificamos la información, definimos reglas de confirmación y capacitamos a recepción en dos jornadas."
+      },
+      {
+        "id": "tienda-online",
+        "titulo": "Lanzamiento de una tienda en línea",
+        "sector": "Comercio",
+        "imagen": { "url": "/semillas/caso-3.svg", "alt": "Ilustración de un carrito de compras" },
+        "resumen": "De la vitrina física a vender en todo el país en ocho semanas.",
+        "resultado": "1.200 pedidos el primer trimestre",
+        "texto": "La marca ficticia vendía solo en su local.\nArmamos el catálogo, la logística de envíos y el tablero de pedidos, y medimos cada campaña desde el primer día."
+      }
+    ]
+  },
+  "logos": {
+    "titulo": "Han confiado en nosotros",
+    "logos": [
+      { "nombre": "Alimentos Ejemplo", "imagen": null },
+      { "nombre": "Clínicas Demo", "imagen": null },
+      { "nombre": "Moda Ficticia", "imagen": null },
+      { "nombre": "Transportes Prueba", "imagen": null }
+    ]
+  },
+  "contacto": {
+    "titulo": "Cuéntanos tu proyecto",
+    "subtitulo": "Te respondemos en un día hábil.",
+    "textoCaso": "Nos escribes por el caso:",
+    "textoBoton": "Enviar",
+    "mensajeExito": "Gracias. Te escribimos en un día hábil para agendar una llamada.",
+    "correo": "contacto@ejemplo.test",
+    "telefono": "+57 300 000 0010",
+    "direccion": "Carrera Ficticia 45, Bogotá"
+  },
+  "pie": {
+    "texto": "© 2026 Estudio Cordillera (empresa ficticia). Demo de Kaizen.",
+    "redes": [{ "texto": "LinkedIn", "destino": "#" }, { "texto": "Instagram", "destino": "#" }]
+  },
+  "_estructura": {
+    "orden": ["encabezado", "portada", "quienesSomos", "cifras", "casos", "equipo", "logos", "contacto", "pie"],
+    "ocultas": [],
+    "variantes": { "portada": "dividida" }
+  }
+}

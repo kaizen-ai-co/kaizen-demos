@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://kaizen.demos/esquema-contenido.json",
+  "title": "Esquema de contenido de una plantilla Kaizen",
+  "description": "Describe qué se edita en /editar, con tipos, límites y rol por campo.",
+  "type": "object",
+  "required": ["plantilla", "version", "titulo", "secciones"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "plantilla": { "type": "string", "description": "Id de la plantilla: comercial, presentacion, catalogo, visor3d, panel, agenda." },
+    "version": { "type": "integer", "minimum": 1 },
+    "titulo": { "type": "string" },
+    "vistas": {
+      "type": "array",
+      "description": "Pestañas de solo lectura del editor (leads, cotizaciones, citas).",
+      "items": {
+        "type": "object",
+        "required": ["id", "titulo"],
+        "properties": { "id": { "type": "string" }, "titulo": { "type": "string" }, "permiso": { "type": "string" } }
+      }
+    },
+    "secciones": { "type": "array", "items": { "$ref": "#/$defs/seccion" } }
+  },
+  "$defs": {
+    "rol": { "enum": ["administrador", "desarrollador"] },
+    "seccion": {
+      "type": "object",
+      "required": ["id", "titulo", "campos"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z][a-zA-Z0-9]*$" },
+        "titulo": { "type": "string" },
+        "descripcion": { "type": "string" },
+        "activable": { "type": "boolean", "description": "El Desarrollador puede mostrarla u ocultarla." },
+        "variantes": { "type": "array", "items": { "type": "string" }, "description": "Variantes visuales del bloque." },
+        "rol": { "$ref": "#/$defs/rol" },
+        "campos": { "type": "array", "items": { "$ref": "#/$defs/campo" } }
+      }
+    },
+    "campo": {
+      "type": "object",
+      "required": ["id", "etiqueta", "tipo"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-zA-Z][a-zA-Z0-9]*$" },
+        "etiqueta": { "type": "string" },
+        "tipo": {
+          "type": "string",
+          "description": "Tipos base o uno propio registrado con registrarControl().",
+          "examples": ["texto", "textoLargo", "numero", "precio", "porcentaje", "booleano", "imagen", "modelo3d", "color", "seleccion", "multiseleccion", "enlace", "correo", "telefono", "icono", "fecha", "hora", "lista", "grupo"]
+        },
+        "ayuda": { "type": "string" },
+        "placeholder": { "type": "string" },
+        "requerido": { "type": "boolean" },
+        "rol": { "$ref": "#/$defs/rol" },
+        "porDefecto": {},
+        "min": { "type": "number" },
+        "max": { "type": "number" },
+        "paso": { "type": "number" },
+        "patron": { "type": "string" },
+        "maxBytes": { "type": "integer" },
+        "formatos": { "type": "array", "items": { "type": "string" } },
+        "opciones": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "object", "required": ["valor", "etiqueta"], "properties": { "valor": { "type": "string" }, "etiqueta": { "type": "string" } } }
+            ]
+          }
+        },
+        "campos": { "type": "array", "items": { "$ref": "#/$defs/campo" } },
+        "minItems": { "type": "integer" },
+        "maxItems": { "type": "integer" },
+        "ordenable": { "type": "boolean" },
+        "campoTitulo": { "type": "string" },
+        "nombreItem": { "type": "string" },
+        "props": { "type": "object" }
+      }
+    }
+  }
+}
