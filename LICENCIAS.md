@@ -19,6 +19,8 @@ Solo entran recursos con licencia permisiva. Imágenes y modelos 3D: solo **CC0*
 | @react-three/fiber y @react-three/drei | npm | MIT | 26/11/2026 | No |
 | pdf-lib (PDF de cotizaciones) | npm `pdf-lib` | MIT | 26/11/2026 | No |
 | Vitest, Playwright, tsx, TypeScript | npm | MIT / Apache-2.0 / MIT / Apache-2.0 | 26/11/2026 | No |
+| ESLint, typescript-eslint, eslint-plugin-react-hooks, @next/eslint-plugin-next, eslint-plugin-jsx-a11y-x, globals | npm | MIT | 27/11/2026 | No |
+| Prettier | npm `prettier` | MIT | 27/11/2026 | No |
 
 ## Imágenes y modelos
 | Archivo | Origen | Licencia | Fecha | Atribución |

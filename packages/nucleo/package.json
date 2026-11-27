@@ -16,7 +16,7 @@
     "@kaizen/modulos": "*",
     "@kaizen/tema": "*",
     "@kaizen/ui": "*",
-    "server-only": "^0.0.1"
+    "server-only": "0.0.1"
   },
   "peerDependencies": {
     "next": ">=15.0.0",

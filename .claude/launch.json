@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "comercial", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:comercial"], "port": 3001 },
+    { "name": "presentacion", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:presentacion"], "port": 3002 },
+    { "name": "catalogo", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:catalogo"], "port": 3003 },
+    { "name": "visor3d", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:visor3d"], "port": 3004 },
+    { "name": "panel", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:panel"], "port": 3005 },
+    { "name": "agenda", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:agenda"], "port": 3006 }
+  ]
+}
