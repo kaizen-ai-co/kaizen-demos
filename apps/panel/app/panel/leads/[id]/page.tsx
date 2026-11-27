@@ -1,5 +1,6 @@
 import type { EventoHistorial } from '@kaizen/datos';
 import { Insignia, Tarjeta, formatearFecha } from '@kaizen/ui';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { etapasDe, nombreEtapa, nombreResponsable, responsablesDe, type Contenido } from '@/lib/crm';
 import { plantilla } from '@/lib/plantilla';
@@ -30,9 +31,9 @@ export default async function DetalleLead({ params }: { params: Promise<{ id: st
 
   return (
     <div className="grid gap-6">
-      <a href="/panel/leads" className="text-sm underline">
+      <Link href="/panel/leads" className="text-sm underline">
         ← Volver a leads
-      </a>
+      </Link>
       <div className="flex flex-wrap items-center gap-3">
         <h1 className="text-2xl">{lead.nombre}</h1>
         <Insignia tono="primario">{nombreEtapa(datos, lead.etapa)}</Insignia>

@@ -1,6 +1,7 @@
 import { BotonEnlace, Insignia, formatearPrecio, img, texto } from '@kaizen/ui';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { BotonAgregar } from '@/componentes/Interactivos';
 import { Marco } from '@/componentes/Marco';
@@ -34,9 +35,9 @@ export default async function DetalleProducto({ params, searchParams }: Props) {
   return (
     <Marco datos={datos} estado={estado}>
       <div className="k-contenedor k-seccion">
-        <a href="/" className="inline-flex items-center gap-1 text-sm text-suave hover:text-texto">
+        <Link href="/" className="inline-flex items-center gap-1 text-sm text-suave hover:text-texto">
           <ArrowLeft aria-hidden className="size-4" /> Volver al catálogo
-        </a>
+        </Link>
         <div className="mt-6 grid gap-10 md:grid-cols-2">
           {foto ? (
             <img

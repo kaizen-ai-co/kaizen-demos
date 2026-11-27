@@ -91,25 +91,21 @@ export function Reserva({
 
   React.useEffect(() => tituloRef.current?.focus(), [paso]);
 
-  const cargarHuecos = React.useCallback(
-    async (f: string) => {
-      if (!servicio) return;
-      setCargando(true);
-      setError(null);
-      setHuecos(null);
-      const q = new URLSearchParams({ servicio: servicio.id, profesional: profesionalId, fecha: f });
-      const r = await fetch(`/api/huecos?${q}`);
-      const c = await r.json().catch(() => ({}));
-      setCargando(false);
-      if (!r.ok) return setError(c.error ?? 'No pudimos cargar los horarios.');
-      setHuecos(c.huecos);
-    },
-    [servicio, profesionalId],
-  );
-
-  React.useEffect(() => {
-    if (paso === 2) void cargarHuecos(fecha);
-  }, [paso, fecha, cargarHuecos]);
+  // Los horarios se cargan en el evento que los pide (elegir profesional, cambiar de día, volver al
+  // paso 2), no en un efecto: así no hay renders en cascada y, tras un 409, se conservan las
+  // alternativas que propone el servidor.
+  async function cargarHuecos(f: string, servicioId = servicio?.id, prof = profesionalId) {
+    if (!servicioId) return;
+    setCargando(true);
+    setError(null);
+    setHuecos(null);
+    const q = new URLSearchParams({ servicio: servicioId, profesional: prof, fecha: f });
+    const r = await fetch(`/api/huecos?${q}`);
+    const c = await r.json().catch(() => ({}));
+    setCargando(false);
+    if (!r.ok) return setError(c.error ?? 'No pudimos cargar los horarios.');
+    setHuecos(c.huecos);
+  }
 
   async function confirmar(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -215,6 +211,7 @@ export function Reserva({
             onClick={() => {
               setError(null);
               setPaso(paso - 1);
+              if (paso - 1 === 2) void cargarHuecos(fecha);
             }}
           >
             <ChevronLeft aria-hidden className="size-4" /> Atrás
@@ -264,6 +261,7 @@ export function Reserva({
                     setProfesionalId(p.id);
                     setHueco(null);
                     setPaso(2);
+                    void cargarHuecos(fecha, servicio?.id, p.id);
                   }}
                   className="flex w-full items-center gap-3 rounded-lg border border-borde p-4 text-left hover:border-primario"
                 >
@@ -302,6 +300,7 @@ export function Reserva({
                       setFecha(d);
                       setHueco(null);
                       setError(null);
+                      void cargarHuecos(d);
                     }}
                     className={cn(
                       'min-w-16 shrink-0 rounded-lg border px-2 py-2 text-center text-xs',

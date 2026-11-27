@@ -68,7 +68,7 @@ export function Encabezado({ datos }: PropsBloque) {
   return (
     <header className="sticky top-0 z-40 border-b border-borde bg-fondo/90 backdrop-blur">
       <div className="k-contenedor flex h-16 items-center justify-between gap-4">
-        <a href="#" className="flex items-center gap-2 font-bold">
+        <a href="/" className="flex items-center gap-2 font-bold">
           {logo ? <img src={logo.src} alt={logo.alt} className="h-8 w-auto" /> : null}
           <span>{texto(datos.marca, 'Marca')}</span>
         </a>

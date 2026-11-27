@@ -35,9 +35,23 @@ export default [
   {
     files: ['**/*.tsx'],
     ...jsxA11y.configs.recommended,
+    // Primitivos de @kaizen/ui: se revisan como el elemento nativo que renderizan.
+    settings: {
+      'jsx-a11y-x': {
+        components: {
+          Boton: 'button',
+          BotonEnlace: 'a',
+          Entrada: 'input',
+          AreaTexto: 'textarea',
+          Selector: 'select',
+          Etiqueta: 'label',
+        },
+      },
+    },
   },
   {
-    files: ['apps/**/*.{ts,tsx}', 'packages/**/*.{ts,tsx}'],
+    // Reglas de Next solo donde se usa Next: apps y nucleo. packages/ui es independiente del framework.
+    files: ['apps/**/*.{ts,tsx}', 'packages/nucleo/**/*.{ts,tsx}'],
     plugins: { '@next/next': nextPlugin },
     rules: { ...nextPlugin.configs.recommended.rules, ...nextPlugin.configs['core-web-vitals'].rules },
     settings: { next: { rootDir: 'apps/*/' } },

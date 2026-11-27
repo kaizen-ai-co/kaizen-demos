@@ -13,7 +13,7 @@ import {
 import { Canvas, useThree } from '@react-three/fiber';
 import { cn } from '@kaizen/ui';
 import { RotateCcw } from 'lucide-react';
-import { Suspense, useEffect, useMemo, useRef, useState } from 'react';
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef, useSyncExternalStore } from 'react';
 import * as THREE from 'three';
 import type { OrbitControls as ImplControles } from 'three-stdlib';
 import { materialesPorMalla, type Escena, type Parte, type Seleccion, type V3, type VistaCamara } from '@/lib/tipos';
@@ -46,6 +46,21 @@ export interface PropsVisor {
 
 const r3 = (n: number) => Math.round(n * 1000) / 1000;
 
+// Soporte de WebGL: se detecta una sola vez por página y no cambia (por eso no hay suscripción).
+let webglDetectado: boolean | undefined;
+function soportaWebgl(): boolean {
+  if (webglDetectado === undefined) {
+    try {
+      const c = document.createElement('canvas');
+      webglDetectado = !!(c.getContext('webgl2') ?? c.getContext('webgl'));
+    } catch {
+      webglDetectado = false;
+    }
+  }
+  return webglDetectado;
+}
+const sinSuscripcion = () => () => {};
+
 function Cargando() {
   const { progress } = useProgress();
   return (
@@ -62,15 +77,20 @@ function Cargando() {
 
 function Controles({ vista, alListo }: { vista: VistaCamara; alListo?: (api: ApiVisor) => void }) {
   const controles = useRef<ImplControles>(null);
-  const camera = useThree((s) => s.camera) as THREE.PerspectiveCamera;
   const invalidate = useThree((s) => s.invalidate);
   const callback = useRef(alListo);
-  callback.current = alListo;
+  // La referencia al callback se actualiza después del render, nunca durante.
+  useLayoutEffect(() => {
+    callback.current = alListo;
+  });
   const clave = `${vista.posicion.join()}|${vista.objetivo.join()}|${vista.fov}`;
 
   useEffect(() => {
     const c = controles.current;
     if (!c) return;
+    // La cámara que mueven los controles (la misma de la escena): se modifica de forma imperativa,
+    // como pide three.js, sin tocar el valor que devuelve un hook.
+    const camera = c.object as THREE.PerspectiveCamera;
     const aplicar = () => {
       camera.position.set(...vista.posicion);
       camera.fov = vista.fov;
@@ -89,7 +109,7 @@ function Controles({ vista, alListo }: { vista: VistaCamara; alListo?: (api: Api
       }),
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [clave, camera, invalidate]);
+  }, [clave, invalidate]);
 
   return (
     <OrbitControls
@@ -170,18 +190,10 @@ export default function Visor({
   className,
   alListo,
 }: PropsVisor) {
-  const [webgl, setWebgl] = useState<boolean | null>(null);
+  // null en el servidor; en el navegador, si hay WebGL (sin setState dentro de un efecto).
+  const webgl = useSyncExternalStore(sinSuscripcion, soportaWebgl, () => null);
   const api = useRef<ApiVisor | null>(null);
   const materiales = useMemo(() => materialesPorMalla(partes, seleccion), [partes, seleccion]);
-
-  useEffect(() => {
-    try {
-      const c = document.createElement('canvas');
-      setWebgl(!!(c.getContext('webgl2') ?? c.getContext('webgl')));
-    } catch {
-      setWebgl(false);
-    }
-  }, []);
 
   if (webgl === false) {
     return (

@@ -1,4 +1,5 @@
 import { Boton, Entrada, Insignia, Selector, Tarjeta, cn, formatearFecha } from '@kaizen/ui';
+import Link from 'next/link';
 import { TONOS, etapasDe, nombreEtapa, nombreResponsable, responsablesDe } from '@/lib/crm';
 import { plantilla } from '@/lib/plantilla';
 import { protegerPanel } from '@/lib/proteger';
@@ -56,9 +57,9 @@ export default async function Leads({
         </label>
         <div className="flex items-end gap-2">
           <Boton type="submit">Filtrar</Boton>
-          <a href="/panel/leads" className="px-2 py-2 text-sm underline">
+          <Link href="/panel/leads" className="px-2 py-2 text-sm underline">
             Limpiar
-          </a>
+          </Link>
         </div>
       </form>
 

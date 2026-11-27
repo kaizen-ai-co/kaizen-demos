@@ -50,6 +50,9 @@ export interface PropsControl<V = unknown> {
   contexto: ContextoEditor;
 }
 
+// Registro heterogéneo: cada control tipa su propio valor (texto, color, horario…), así que el
+// registro no puede fijar V sin perder la contravarianza de `alCambiar`.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- tipo del registro, no de un control
 export type Control = React.ComponentType<PropsControl<any>>;
 
 const registro = new Map<string, Control>();

@@ -1,6 +1,7 @@
 import { tienePermiso } from '@kaizen/datos';
 import { AvisoDemo, Insignia, cn } from '@kaizen/ui';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
 import { fechaBogota, instanteBogota, lunesDe, profesionalesDe, serviciosDe, sumarDias } from '@/lib/agenda';
 import { plantilla } from '@/lib/plantilla';
@@ -21,6 +22,7 @@ export default async function Calendario({
   if (!acceso.ok || !tienePermiso(acceso.usuario, 'citas:gestionar')) redirect('/editar');
 
   const { semana, profesional } = await searchParams;
+  // eslint-disable-next-line react-hooks/purity -- Server Component async: se renderiza una vez por solicitud.
   const hoy = fechaBogota(Date.now());
   const lunes = lunesDe(/^\d{4}-\d{2}-\d{2}$/.test(semana ?? '') ? semana! : hoy);
   const dias = Array.from({ length: 7 }, (_, i) => sumarDias(lunes, i));
@@ -78,12 +80,12 @@ export default async function Calendario({
             </button>
           </form>
           <span className="ml-auto flex gap-3 text-sm">
-            <a className="underline" href="/editar">
+            <Link className="underline" href="/editar">
               Editar
-            </a>
-            <a className="underline" href="/">
+            </Link>
+            <Link className="underline" href="/">
               Reservar
-            </a>
+            </Link>
           </span>
         </div>
       </header>

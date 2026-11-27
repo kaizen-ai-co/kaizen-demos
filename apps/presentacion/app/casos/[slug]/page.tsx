@@ -2,6 +2,7 @@ import { Aparecer, AvisoDemo, BotonEnlace, Insignia, img } from '@kaizen/ui';
 import { Encabezado, Pie } from '@kaizen/ui/bloques';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { casosDe } from '@/componentes/bloques';
 import { plantilla } from '@/lib/plantilla';
@@ -44,9 +45,9 @@ export default async function DetalleCaso({ params, searchParams }: Props) {
       <Encabezado datos={datos.encabezado as Record<string, unknown>} />
       <main className="k-seccion">
         <article className="k-contenedor max-w-3xl">
-          <a href="/#casos" className="inline-flex items-center gap-1 text-sm text-suave hover:text-texto">
+          <Link href="/#casos" className="inline-flex items-center gap-1 text-sm text-suave hover:text-texto">
             <ArrowLeft aria-hidden className="size-4" /> Todos los casos
-          </a>
+          </Link>
           <Aparecer>
             <Insignia className="mt-6">{caso.sector}</Insignia>
             <h1 className="mt-3 text-3xl md:text-5xl">{caso.titulo}</h1>

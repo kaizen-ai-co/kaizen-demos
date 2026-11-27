@@ -47,9 +47,14 @@ export function BotonEnlace({
   className,
   variante,
   tamano,
+  children,
   ...props
 }: React.AnchorHTMLAttributes<HTMLAnchorElement> & VariantProps<typeof variantesBoton>) {
-  return <a className={cn(variantesBoton({ variante, tamano }), className)} {...props} />;
+  return (
+    <a className={cn(variantesBoton({ variante, tamano }), className)} {...props}>
+      {children}
+    </a>
+  );
 }
 
 const claseCampo =
@@ -70,8 +75,12 @@ export const Selector = React.forwardRef<HTMLSelectElement, React.SelectHTMLAttr
 );
 Selector.displayName = 'Selector';
 
-export function Etiqueta({ className, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
-  return <label className={cn('text-sm font-medium text-texto', className)} {...props} />;
+export function Etiqueta({ className, htmlFor, children, ...props }: React.LabelHTMLAttributes<HTMLLabelElement>) {
+  return (
+    <label htmlFor={htmlFor} className={cn('text-sm font-medium text-texto', className)} {...props}>
+      {children}
+    </label>
+  );
 }
 
 export function Tarjeta({ className, ...props }: React.HTMLAttributes<HTMLDivElement>) {
