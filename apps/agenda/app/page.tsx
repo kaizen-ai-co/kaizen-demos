@@ -18,7 +18,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
       {estado === 'borrador' && (
         <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
       )}
-      <main className="mx-auto w-full max-w-2xl px-4 py-8">
+      <main id="contenido" tabIndex={-1} className="mx-auto w-full max-w-2xl px-4 py-8">
         <header className="mb-6">
           <p className="text-sm font-semibold text-primario">{texto(e.marca, 'Marca')}</p>
           <h1 className="mt-2 text-3xl md:text-4xl">{texto(e.titulo, 'Reserva tu cita')}</h1>

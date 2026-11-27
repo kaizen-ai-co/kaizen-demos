@@ -126,7 +126,12 @@ export function Reserva({
     : [];
   const nombreProf = (id: string) => profesionales.find((p) => p.id === id)?.nombre ?? id;
 
-  React.useEffect(() => tituloRef.current?.focus(), [paso]);
+  // Al cambiar de paso, el foco va al título del paso nuevo (lectores de pantalla y teclado). En la
+  // primera carga no se mueve: así el primer Tab llega a «Saltar al contenido» como en el resto del sitio.
+  const pasoInicial = React.useRef(paso);
+  React.useEffect(() => {
+    if (paso !== pasoInicial.current) tituloRef.current?.focus();
+  }, [paso]);
 
   // Los horarios se cargan en el evento que los pide (elegir profesional, cambiar de día, volver al
   // paso 2), no en un efecto: así no hay renders en cascada y, tras un 409, se conservan las
@@ -244,7 +249,7 @@ export function Reserva({
         {paso > 0 && (
           <button
             type="button"
-            className="mb-3 inline-flex items-center gap-1 text-sm text-suave hover:text-texto"
+            className="mb-3 inline-flex min-h-6 items-center gap-1 text-sm text-suave hover:text-texto"
             onClick={() => {
               setError(null);
               setPaso(paso - 1);

@@ -53,7 +53,7 @@ export function TablaEstados({ funciones }: { funciones: { nombre: string; estad
   if (!funciones.length) return null;
   return (
     <details className="k-contenedor py-6 text-sm">
-      <summary className="cursor-pointer font-semibold">Qué incluye esta demo</summary>
+      <summary className="cursor-pointer font-semibold leading-6">Qué incluye esta demo</summary>
       <ul className="mt-3 grid gap-2 sm:grid-cols-2">
         {funciones.map((f) => (
           <li

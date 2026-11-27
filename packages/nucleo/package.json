@@ -8,7 +8,8 @@
     ".": "./src/index.ts",
     "./servidor": "./src/servidor/index.ts",
     "./react": "./src/react/index.ts",
-    "./cliente": "./src/react/cliente.ts"
+    "./cliente": "./src/react/cliente.ts",
+    "./metadatos": "./src/metadatos.tsx"
   },
   "dependencies": {
     "@kaizen/datos": "*",

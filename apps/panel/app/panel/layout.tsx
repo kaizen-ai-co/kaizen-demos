@@ -35,7 +35,9 @@ export default async function LayoutPanel({ children }: { children: ReactNode })
           </span>
         </div>
       </header>
-      <main className="k-contenedor py-6">{children}</main>
+      <main id="contenido" tabIndex={-1} className="k-contenedor py-6">
+        {children}
+      </main>
     </div>
   );
 }

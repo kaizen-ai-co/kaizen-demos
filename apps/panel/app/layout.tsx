@@ -1,6 +1,8 @@
+import { metadatosDemo } from '@kaizen/nucleo/metadatos';
 import { LayoutDemo } from '@kaizen/nucleo/react';
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { datosMetadatos } from '@/lib/metadatos';
 import { plantilla } from '@/lib/plantilla';
 import './globals.css';
 
@@ -8,12 +10,7 @@ export const dynamic = 'force-dynamic';
 
 export async function generateMetadata(): Promise<Metadata> {
   const { datos } = await plantilla.obtenerContenido();
-  const f = datos.formulario as { marca?: string; titulo?: string; subtitulo?: string };
-  return {
-    title: `${f.marca ?? 'Demo'} · ${f.titulo ?? ''}`.slice(0, 70),
-    description: f.subtitulo?.slice(0, 160),
-    robots: { index: false, follow: false },
-  };
+  return metadatosDemo(datosMetadatos(datos));
 }
 
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 };

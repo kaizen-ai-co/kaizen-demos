@@ -443,7 +443,7 @@ export function Pie({ datos }: PropsBloque) {
             ...lista<{ texto: string; destino: string }>(datos.enlaces),
             ...lista<{ texto: string; destino: string }>(datos.redes),
           ].map((e) => (
-            <a key={e.texto + e.destino} href={e.destino} className="hover:text-texto">
+            <a key={e.texto + e.destino} href={e.destino} className="inline-flex min-h-6 items-center hover:text-texto">
               {e.texto}
             </a>
           ))}

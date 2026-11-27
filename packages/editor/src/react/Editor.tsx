@@ -318,7 +318,11 @@ export function Editor({
         </div>
       )}
 
-      <div className="grid min-h-0 flex-1 lg:grid-cols-[minmax(22rem,30rem)_1fr]">
+      <div
+        id="contenido"
+        tabIndex={-1}
+        className="grid min-h-0 flex-1 outline-none lg:grid-cols-[minmax(22rem,30rem)_1fr]"
+      >
         {/* Panel de edición */}
         <aside className="flex min-h-0 flex-col border-r border-borde bg-fondo">
           <div

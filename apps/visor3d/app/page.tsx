@@ -23,7 +23,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
         <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
       )}
       {visibles.has('encabezado') && <Encabezado datos={datos.encabezado ?? {}} />}
-      <main>
+      <main id="contenido" tabIndex={-1}>
         <section className="k-contenedor py-10 md:py-14">
           {texto(portada?.etiqueta) && (
             <Insignia tono="primario" className="mb-3">

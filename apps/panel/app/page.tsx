@@ -20,7 +20,11 @@ export default async function FormularioMovil({ searchParams }: { searchParams: 
       {estado === 'borrador' && (
         <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
       )}
-      <main className="mx-auto flex min-h-[80dvh] w-full max-w-md flex-col gap-6 px-4 py-8">
+      <main
+        id="contenido"
+        tabIndex={-1}
+        className="mx-auto flex min-h-[80dvh] w-full max-w-md flex-col gap-6 px-4 py-8"
+      >
         <header>
           <p className="text-sm font-semibold text-primario">{texto(f.marca, 'Marca')}</p>
           <h1 className="mt-2 text-3xl">{texto(f.titulo, 'Déjanos tus datos')}</h1>

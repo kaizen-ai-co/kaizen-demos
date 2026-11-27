@@ -44,7 +44,7 @@ export default async function DetalleCaso({ params, searchParams }: Props) {
         <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
       )}
       <Encabezado datos={datos.encabezado as Record<string, unknown>} />
-      <main className="k-seccion">
+      <main id="contenido" tabIndex={-1} className="k-seccion">
         <article className="k-contenedor max-w-3xl">
           <Link href="/#casos" className="inline-flex items-center gap-1 text-sm text-suave hover:text-texto">
             <ArrowLeft aria-hidden className="size-4" /> {texto(textos.textoVolver, 'Todos los casos')}

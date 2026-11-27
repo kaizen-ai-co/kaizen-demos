@@ -31,7 +31,9 @@ export function Marco({
           <EnlaceCotizacion texto={texto(enc.textoCotizacion, 'Mi cotización')} />
         </div>
       </header>
-      <main>{children}</main>
+      <main id="contenido" tabIndex={-1}>
+        {children}
+      </main>
       <Pie datos={(datos.pie ?? {}) as Record<string, unknown>} />
     </>
   );

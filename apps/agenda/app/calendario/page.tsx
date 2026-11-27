@@ -89,7 +89,7 @@ export default async function Calendario({
           </span>
         </div>
       </header>
-      <main className="k-contenedor py-6">
+      <main id="contenido" tabIndex={-1} className="k-contenedor py-6">
         <h1 className="mb-4 text-2xl">
           Semana del {fmt(`${lunes}T12:00:00-05:00`, { day: 'numeric', month: 'long' })}
         </h1>

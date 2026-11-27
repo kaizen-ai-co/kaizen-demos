@@ -51,7 +51,7 @@ export function InicioSesion({
   }
 
   return (
-    <main className="flex min-h-dvh flex-col bg-superficie">
+    <main id="contenido" tabIndex={-1} className="flex min-h-dvh flex-col bg-superficie">
       <AvisoDemo />
       <div className="flex flex-1 items-center justify-center p-4">
         <Tarjeta className="w-full max-w-sm text-center">
@@ -114,7 +114,7 @@ export function SinAcceso({
   apiSesion?: string;
 }) {
   return (
-    <main className="flex min-h-dvh flex-col bg-superficie">
+    <main id="contenido" tabIndex={-1} className="flex min-h-dvh flex-col bg-superficie">
       <AvisoDemo />
       <div className="flex flex-1 items-center justify-center p-4">
         <Tarjeta className="w-full max-w-sm text-center">

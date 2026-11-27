@@ -12,7 +12,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
       {estado === 'borrador' && (
         <p className="bg-secundario py-1 text-center text-xs text-secundario-texto">Vista previa del borrador</p>
       )}
-      <main>
+      <main id="contenido" tabIndex={-1}>
         <RenderizadorSecciones secciones={secciones} contexto={{ origen: 'formulario-web' }} />
       </main>
       <TablaEstados funciones={plantilla.config.funciones ?? []} />

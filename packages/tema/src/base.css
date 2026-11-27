@@ -57,6 +57,14 @@
     outline: 2px solid var(--k-foco);
     outline-offset: 2px;
   }
+  /* Destino del enlace «Saltar al contenido»: recibe el foco sin dibujar un marco alrededor de toda la página. */
+  #contenido:focus {
+    outline: none;
+  }
+  /* Al saltar, el contenido queda debajo del encabezado fijo (h-16), no tapado por él (WCAG 2.4.11). */
+  #contenido {
+    scroll-margin-top: 4rem;
+  }
   img,
   video,
   canvas {
