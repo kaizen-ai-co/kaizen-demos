@@ -6,6 +6,9 @@ Un proyecto de Vercel por plantilla (lo crea Santiago con la cuenta oficial o te
 
 - Root Directory: `apps/<plantilla>` · Install: `npm install` (en la raíz, Vercel detecta workspaces) · Build: `npm run build`
 - Variables: las de `.env.example` con `DATOS_PROVEEDOR=firebase`, `SITIO_ID=<sitio>`, `SECTOR` opcional.
+- `SITIO_URL` (opcional, recomendada): URL pública de la demo, p. ej. `https://demos.<dominio>/clinica-x`.
+  Hace que `og:image` sea absoluta para que la vista previa del enlace salga en WhatsApp, LinkedIn o correo.
+  Sin ella Next usa la URL de la solicitud y algunas redes no muestran la imagen. Aplica igual en Docker o Cloudflare.
 - Una demo de cliente = mismo proyecto con otra rama o un proyecto con su `SITIO_ID`.
 
 ## Docker (cualquier nube: Cloudflare, AWS, servidor propio)
