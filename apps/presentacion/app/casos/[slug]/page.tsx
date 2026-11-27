@@ -1,4 +1,4 @@
-import { Aparecer, AvisoDemo, BotonEnlace, Insignia, img } from '@kaizen/ui';
+import { Aparecer, AvisoDemo, BotonEnlace, Insignia, img, texto } from '@kaizen/ui';
 import { Encabezado, Pie } from '@kaizen/ui/bloques';
 import { ArrowLeft } from 'lucide-react';
 import type { Metadata } from 'next';
@@ -35,6 +35,7 @@ export default async function DetalleCaso({ params, searchParams }: Props) {
   const otros = casosDe(datos)
     .filter((c) => c.id !== caso.id && c.sector === caso.sector)
     .slice(0, 2);
+  const textos = (datos.casos as Record<string, unknown> | undefined) ?? {};
 
   return (
     <>
@@ -46,7 +47,7 @@ export default async function DetalleCaso({ params, searchParams }: Props) {
       <main className="k-seccion">
         <article className="k-contenedor max-w-3xl">
           <Link href="/#casos" className="inline-flex items-center gap-1 text-sm text-suave hover:text-texto">
-            <ArrowLeft aria-hidden className="size-4" /> Todos los casos
+            <ArrowLeft aria-hidden className="size-4" /> {texto(textos.textoVolver, 'Todos los casos')}
           </Link>
           <Aparecer>
             <Insignia className="mt-6">{caso.sector}</Insignia>
@@ -61,21 +62,23 @@ export default async function DetalleCaso({ params, searchParams }: Props) {
             />
           )}
           <div className="mt-8 rounded-lg border border-borde bg-superficie p-5">
-            <p className="text-sm text-suave">Resultado</p>
+            <p className="text-sm text-suave">{texto(textos.textoResultado, 'Resultado')}</p>
             <p className="text-2xl font-bold text-primario">{caso.resultado}</p>
           </div>
           {caso.texto && <div className="mt-8 whitespace-pre-line text-lg leading-relaxed">{caso.texto}</div>}
           <div className="mt-10 flex flex-wrap gap-3">
             <BotonEnlace tamano="lg" href={`/?caso=${encodeURIComponent(caso.id)}#contacto`}>
-              Quiero algo así
+              {texto(textos.textoQuieroAlgo, 'Quiero algo así')}
             </BotonEnlace>
             <BotonEnlace tamano="lg" variante="borde" href="/#casos">
-              Ver más casos
+              {texto(textos.textoVerMas, 'Ver más casos')}
             </BotonEnlace>
           </div>
           {otros.length > 0 && (
             <aside className="mt-14">
-              <h2 className="text-xl">Otros casos de {caso.sector}</h2>
+              <h2 className="text-xl">
+                {texto(textos.textoOtrosCasos, 'Otros casos de')} {caso.sector}
+              </h2>
               <ul className="mt-4 grid gap-3 sm:grid-cols-2">
                 {otros.map((o) => (
                   <li key={o.id}>

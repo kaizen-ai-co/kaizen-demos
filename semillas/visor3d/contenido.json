@@ -1,6 +1,10 @@
 {
   "$comentario": "Semilla base del visor 3D. Producto, marca, precios y datos son ficticios.",
-  "encabezado": { "marca": "Taller Ejemplo", "textoBoton": "Pedir cotización", "destinoBoton": "#solicitar" },
+  "encabezado": {
+    "marca": "Taller Ejemplo",
+    "textoBoton": "Pedir cotización",
+    "destinoBoton": "#solicitar"
+  },
   "portada": {
     "etiqueta": "Personalízalo en 3D",
     "titulo": "Arma tu producto a tu gusto y míralo antes de pedirlo",
@@ -15,7 +19,13 @@
       "alt": "Ilustración de una silla de madera con asiento de color"
     }
   },
-  "camara": { "camaraInicial": { "posicion": [2.2, 1.5, 2.4], "objetivo": [0, 0.55, 0], "fov": 40 } },
+  "camara": {
+    "camaraInicial": {
+      "posicion": [2.2, 1.5, 2.4],
+      "objetivo": [0, 0.55, 0],
+      "fov": 40
+    }
+  },
   "partes": {
     "partes": [
       {
@@ -23,9 +33,27 @@
         "nombre": "Asiento",
         "malla": "asiento",
         "opciones": [
-          { "id": "arcilla", "nombre": "Arcilla", "color": "#c2410c", "rugosidad": 0.8, "metalicidad": 0 },
-          { "id": "oliva", "nombre": "Oliva", "color": "#4d7c0f", "rugosidad": 0.8, "metalicidad": 0 },
-          { "id": "grafito", "nombre": "Grafito", "color": "#334155", "rugosidad": 0.7, "metalicidad": 0 }
+          {
+            "id": "arcilla",
+            "nombre": "Arcilla",
+            "color": "#c2410c",
+            "rugosidad": 0.8,
+            "metalicidad": 0
+          },
+          {
+            "id": "oliva",
+            "nombre": "Oliva",
+            "color": "#4d7c0f",
+            "rugosidad": 0.8,
+            "metalicidad": 0
+          },
+          {
+            "id": "grafito",
+            "nombre": "Grafito",
+            "color": "#334155",
+            "rugosidad": 0.7,
+            "metalicidad": 0
+          }
         ]
       },
       {
@@ -33,9 +61,27 @@
         "nombre": "Respaldo",
         "malla": "respaldo",
         "opciones": [
-          { "id": "roble", "nombre": "Roble", "color": "#b07a45", "rugosidad": 0.55, "metalicidad": 0 },
-          { "id": "nogal", "nombre": "Nogal", "color": "#5b3a24", "rugosidad": 0.5, "metalicidad": 0 },
-          { "id": "blanco", "nombre": "Blanco mate", "color": "#f1f5f9", "rugosidad": 0.9, "metalicidad": 0 }
+          {
+            "id": "roble",
+            "nombre": "Roble",
+            "color": "#b07a45",
+            "rugosidad": 0.55,
+            "metalicidad": 0
+          },
+          {
+            "id": "nogal",
+            "nombre": "Nogal",
+            "color": "#5b3a24",
+            "rugosidad": 0.5,
+            "metalicidad": 0
+          },
+          {
+            "id": "blanco",
+            "nombre": "Blanco mate",
+            "color": "#f1f5f9",
+            "rugosidad": 0.9,
+            "metalicidad": 0
+          }
         ]
       },
       {
@@ -43,9 +89,27 @@
         "nombre": "Patas",
         "malla": "patas",
         "opciones": [
-          { "id": "madera", "nombre": "Madera", "color": "#8b5a2b", "rugosidad": 0.6, "metalicidad": 0 },
-          { "id": "acero", "nombre": "Acero", "color": "#9ca3af", "rugosidad": 0.3, "metalicidad": 0.9 },
-          { "id": "negro", "nombre": "Negro", "color": "#111827", "rugosidad": 0.4, "metalicidad": 0.6 }
+          {
+            "id": "madera",
+            "nombre": "Madera",
+            "color": "#8b5a2b",
+            "rugosidad": 0.6,
+            "metalicidad": 0
+          },
+          {
+            "id": "acero",
+            "nombre": "Acero",
+            "color": "#9ca3af",
+            "rugosidad": 0.3,
+            "metalicidad": 0.9
+          },
+          {
+            "id": "negro",
+            "nombre": "Negro",
+            "color": "#111827",
+            "rugosidad": 0.4,
+            "metalicidad": 0.6
+          }
         ]
       }
     ]
@@ -53,20 +117,61 @@
   "ayuda": {
     "instrucciones": "Arrastra para girar, pellizca o usa la rueda para acercar.",
     "consejos": [
-      { "texto": "Elige una opción por parte: el cambio se ve al instante." },
-      { "texto": "Si te perdiste, pulsa «Reiniciar vista»." }
+      {
+        "texto": "Elige una opción por parte: el cambio se ve al instante."
+      },
+      {
+        "texto": "Si te perdiste, pulsa «Reiniciar vista»."
+      }
     ]
   },
   "solicitud": {
     "titulo": "Solicitar esta configuración",
     "subtitulo": "Te enviamos la cotización con exactamente lo que armaste.",
     "textoBoton": "Solicitar esta configuración",
-    "mensajeExito": "¡Recibido! Guardamos tu configuración y te escribimos con la cotización."
+    "mensajeExito": "¡Recibido! Guardamos tu configuración y te escribimos con la cotización.",
+    "etiquetaResumen": "Tu configuración:",
+    "etiquetaNombre": "Nombre",
+    "etiquetaCorreo": "Correo",
+    "etiquetaTelefono": "Teléfono",
+    "etiquetaMensaje": "¿En qué te ayudamos?",
+    "textoEnviando": "Enviando…",
+    "textoEnviarOtro": "Enviar otro",
+    "textoElegirOpcion": "Elige una opción",
+    "errorObligatorio": "Este campo es obligatorio.",
+    "errorCorreo": "Revisa el correo.",
+    "errorTelefono": "Revisa el teléfono.",
+    "errorSinContacto": "Deja un correo o un teléfono.",
+    "errorEnvio": "No pudimos enviar el formulario."
   },
-  "escena": { "iluminacion": 1.2, "entorno": "local", "fondo": "" },
-  "pie": { "texto": "© 2026 Taller Ejemplo (marca ficticia). Demo de Kaizen." },
+  "escena": {
+    "iluminacion": 1.2,
+    "entorno": "local",
+    "fondo": ""
+  },
+  "pie": {
+    "texto": "© 2026 Taller Ejemplo (marca ficticia). Demo de Kaizen."
+  },
+  "textosInterfaz": {
+    "preparandoVisor": "Preparando visor 3D…",
+    "cargandoModelo": "Cargando modelo…",
+    "textoReiniciar": "Reiniciar vista",
+    "avisoSinWebgl": "Tu dispositivo no admite 3D; te mostramos una imagen.",
+    "etiquetaModelo": "Modelo 3D de"
+  },
   "_estructura": {
-    "orden": ["encabezado", "portada", "modelo", "camara", "partes", "ayuda", "solicitud", "escena", "pie"],
+    "orden": [
+      "encabezado",
+      "portada",
+      "modelo",
+      "camara",
+      "partes",
+      "ayuda",
+      "solicitud",
+      "escena",
+      "pie",
+      "textosInterfaz"
+    ],
     "ocultas": [],
     "variantes": {}
   }

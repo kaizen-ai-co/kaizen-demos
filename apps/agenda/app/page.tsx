@@ -9,6 +9,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const { datos, estado } = await plantilla.obtenerContenido({ vista });
   const e = (datos.encabezado ?? {}) as Record<string, unknown>;
   const m = (datos.mensajes ?? {}) as Record<string, unknown>;
+  const t = (datos.textosInterfaz ?? {}) as Record<string, unknown>;
   const reglas = reglasDe(datos);
 
   return (
@@ -40,6 +41,41 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
             textoConfirmacion: texto(m.textoConfirmacion),
             textoOcupado: texto(m.textoOcupado, 'Ese horario se ocupó. Elige otro:'),
             politicaCancelacion: texto((datos.reglas as Record<string, unknown>)?.politicaCancelacion),
+          }}
+          interfaz={{
+            ariaPasos: texto(t.ariaPasos, 'Pasos de la reserva'),
+            pasoServicio: texto(t.pasoServicio, 'Servicio'),
+            pasoProfesional: texto(t.pasoProfesional, 'Profesional'),
+            pasoHora: texto(t.pasoHora, 'Hora'),
+            pasoDatos: texto(t.pasoDatos, 'Tus datos'),
+            textoAtras: texto(t.textoAtras, 'Atrás'),
+            tituloPasoServicio: texto(t.tituloPasoServicio, '¿Qué servicio necesitas?'),
+            tituloPasoProfesional: texto(t.tituloPasoProfesional, '¿Con quién?'),
+            tituloPasoHora: texto(t.tituloPasoHora, '¿Qué día y a qué hora?'),
+            tituloPasoDatos: texto(t.tituloPasoDatos, 'Tus datos'),
+            unidadMinutos: texto(t.unidadMinutos, 'min'),
+            textoSinCosto: texto(t.textoSinCosto, 'Sin costo'),
+            cualquierProfesional: texto(t.cualquierProfesional, 'Cualquier profesional'),
+            detalleCualquierProfesional: texto(t.detalleCualquierProfesional, 'La primera hora disponible'),
+            ariaDias: texto(t.ariaDias, 'Día'),
+            textoBuscandoHorarios: texto(t.textoBuscandoHorarios, 'Buscando horarios…'),
+            textoSinHorarios: texto(t.textoSinHorarios, 'No hay horarios disponibles este día. Prueba otro.'),
+            errorCargarHorarios: texto(t.errorCargarHorarios, 'No pudimos cargar los horarios.'),
+            conectorProfesional: texto(t.conectorProfesional, 'con'),
+            etiquetaNombre: texto(t.etiquetaNombre, 'Nombre'),
+            etiquetaTelefono: texto(t.etiquetaTelefono, 'Teléfono o WhatsApp'),
+            etiquetaCorreo: texto(t.etiquetaCorreo, 'Correo (opcional)'),
+            errorNombre: texto(t.errorNombre, 'Escribe tu nombre.'),
+            errorContacto: texto(t.errorContacto, 'Deja un teléfono o un correo.'),
+            errorCorreo: texto(t.errorCorreo, 'Revisa el correo.'),
+            textoReservando: texto(t.textoReservando, 'Reservando…'),
+            errorReservar: texto(t.errorReservar, 'No pudimos reservar.'),
+            resumenServicio: texto(t.resumenServicio, 'Servicio'),
+            resumenProfesional: texto(t.resumenProfesional, 'Con'),
+            resumenDia: texto(t.resumenDia, 'Día'),
+            resumenHora: texto(t.resumenHora, 'Hora'),
+            resumenNombre: texto(t.resumenNombre, 'A nombre de'),
+            textoReservarOtra: texto(t.textoReservarOtra, 'Reservar otra cita'),
           }}
         />
         <p className="mt-8 text-center text-xs text-suave">

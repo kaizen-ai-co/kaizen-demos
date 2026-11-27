@@ -17,7 +17,7 @@ export interface Caso {
 
 /**
  * Galería de casos con filtro por sector (plantilla 2).
- * Campos: titulo, subtitulo, textoTodos, items[{id, titulo, sector, imagen, resumen, resultado, texto}]
+ * Campos: titulo, subtitulo, textoTodos, textoFiltro, textoVerCaso, items[{id, titulo, sector, imagen, resumen, resultado, texto}]
  * Cada caso enlaza a /casos/<id>, página generada desde el mismo contenido.
  */
 export function GaleriaCasos({ id = 'casos', datos }: PropsBloque) {
@@ -37,7 +37,11 @@ export function GaleriaCasos({ id = 'casos', datos }: PropsBloque) {
         </Aparecer>
 
         {sectores.length > 1 && (
-          <div role="group" aria-label="Filtrar casos por sector" className="mb-8 flex flex-wrap justify-center gap-2">
+          <div
+            role="group"
+            aria-label={texto(datos.textoFiltro, 'Filtrar casos por sector')}
+            className="mb-8 flex flex-wrap justify-center gap-2"
+          >
             {[null, ...sectores].map((s) => (
               <button
                 key={s ?? 'todos'}
@@ -79,7 +83,7 @@ export function GaleriaCasos({ id = 'casos', datos }: PropsBloque) {
                     <p className="mt-2 flex-1 text-sm text-suave">{c.resumen}</p>
                     <p className="mt-4 font-semibold text-primario">{c.resultado}</p>
                     <span className="mt-3 inline-flex items-center gap-1 text-sm font-medium">
-                      Ver caso <ArrowRight aria-hidden className="size-4" />
+                      {texto(datos.textoVerCaso, 'Ver caso')} <ArrowRight aria-hidden className="size-4" />
                     </span>
                   </div>
                 </a>

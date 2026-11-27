@@ -1,9 +1,9 @@
 'use client';
 
 import { Tarjeta, cn } from '@kaizen/ui';
-import { FormularioLead } from '@kaizen/ui/modulos';
+import { CAMPOS_LEAD_POR_DEFECTO, FormularioLead, type TextosFormularioLead } from '@kaizen/ui/modulos';
 import dynamic from 'next/dynamic';
-import { useMemo, useState } from 'react';
+import { createContext, useContext, useMemo, useState } from 'react';
 import {
   opcionElegida,
   resumenSeleccion,
@@ -13,18 +13,34 @@ import {
   type VistaCamara,
 } from '@/lib/tipos';
 
-// Carga diferida: three.js solo se descarga en el navegador y cuando hace falta.
-const Visor = dynamic(() => import('./Visor'), {
-  ssr: false,
-  loading: () => (
+// El texto de carga viene del contenido; `loading` de next/dynamic no recibe props, así que se lee de un contexto.
+const TextoPreparando = createContext('Preparando visor 3D…');
+
+function PreparandoVisor() {
+  const texto = useContext(TextoPreparando);
+  return (
     <div
       role="status"
       className="flex aspect-square w-full animate-pulse items-center justify-center rounded-xl border border-borde bg-superficie text-sm text-suave md:aspect-[4/3]"
     >
-      Preparando visor 3D…
+      {texto}
     </div>
-  ),
+  );
+}
+
+// Carga diferida: three.js solo se descarga en el navegador y cuando hace falta.
+const Visor = dynamic(() => import('./Visor'), {
+  ssr: false,
+  loading: () => <PreparandoVisor />,
 });
+
+export interface TextosConfigurador {
+  preparandoVisor: string;
+  cargandoModelo: string;
+  textoReiniciar: string;
+  avisoSinWebgl: string;
+  etiquetaModelo: string;
+}
 
 export interface PropsConfigurador {
   producto: { nombre: string; descripcion?: string };
@@ -34,7 +50,17 @@ export interface PropsConfigurador {
   escena: Escena;
   imagenReserva?: { src: string; alt: string } | null;
   ayuda?: { instrucciones?: string; consejos?: string[] } | null;
-  solicitud: { titulo: string; subtitulo?: string; textoBoton: string; mensajeExito: string };
+  solicitud: {
+    titulo: string;
+    subtitulo?: string;
+    textoBoton: string;
+    mensajeExito: string;
+    etiquetaResumen: string;
+    etiquetas: { nombre: string; correo: string; telefono: string; mensaje: string };
+    /** Estados, errores y botones del formulario (desde la sección `solicitud`). */
+    textosFormulario?: TextosFormularioLead;
+  };
+  textos: TextosConfigurador;
 }
 
 export function Configurador({
@@ -46,23 +72,39 @@ export function Configurador({
   imagenReserva,
   ayuda,
   solicitud,
+  textos,
 }: PropsConfigurador) {
   const [seleccion, setSeleccion] = useState(() => seleccionInicial(partes));
   const resumen = useMemo(() => resumenSeleccion(partes, seleccion), [partes, seleccion]);
+  // Mismos campos del formulario base; solo las etiquetas visibles salen del contenido.
+  const etiquetas = solicitud.etiquetas;
+  const campos = useMemo(
+    () =>
+      CAMPOS_LEAD_POR_DEFECTO.map((c) => {
+        const etiqueta = (etiquetas as Record<string, string>)[c.id];
+        return etiqueta ? { ...c, etiqueta } : c;
+      }),
+    [etiquetas],
+  );
 
   return (
     <div id="configurador" className="k-contenedor grid gap-8 pb-16 lg:grid-cols-[1.4fr_1fr]">
       <div className="lg:sticky lg:top-20 lg:self-start">
-        <Visor
-          modeloUrl={modeloUrl}
-          partes={partes}
-          seleccion={seleccion}
-          vista={vista}
-          escena={escena}
-          imagenReserva={imagenReserva}
-          etiqueta={`Modelo 3D de ${producto.nombre}: ${resumen}`}
-          className="aspect-square w-full md:aspect-[4/3]"
-        />
+        <TextoPreparando.Provider value={textos.preparandoVisor}>
+          <Visor
+            modeloUrl={modeloUrl}
+            partes={partes}
+            seleccion={seleccion}
+            vista={vista}
+            escena={escena}
+            imagenReserva={imagenReserva}
+            etiqueta={`${textos.etiquetaModelo} ${producto.nombre}: ${resumen}`}
+            textoReiniciar={textos.textoReiniciar}
+            textoCargando={textos.cargandoModelo}
+            textoSinWebgl={textos.avisoSinWebgl}
+            className="aspect-square w-full md:aspect-[4/3]"
+          />
+        </TextoPreparando.Provider>
         {ayuda?.instrucciones && <p className="mt-3 text-sm text-suave">{ayuda.instrucciones}</p>}
       </div>
 
@@ -121,14 +163,16 @@ export function Configurador({
           <h2 className="text-xl">{solicitud.titulo}</h2>
           {solicitud.subtitulo && <p className="mt-1 text-sm text-suave">{solicitud.subtitulo}</p>}
           <p className="mt-3 rounded-md bg-superficie p-3 text-sm">
-            <strong>Tu configuración:</strong> {resumen}
+            <strong>{solicitud.etiquetaResumen}</strong> {resumen}
           </p>
           <FormularioLead
             className="mt-4"
+            campos={campos}
             origen="visor3d"
             extra={{ producto: producto.nombre, configuracion: seleccion, resumen }}
             textoBoton={solicitud.textoBoton}
             mensajeExito={solicitud.mensajeExito}
+            textos={solicitud.textosFormulario}
           />
         </Tarjeta>
       </div>

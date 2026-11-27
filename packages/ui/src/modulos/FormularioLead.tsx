@@ -3,6 +3,7 @@
 import * as React from 'react';
 import { AreaTexto, Aviso, Boton, CampoFormulario, Entrada, Selector } from '../primitivos';
 import { cn } from '../utilidades';
+import { TEXTOS_FORMULARIO_LEAD, type TextosFormularioLead } from './textos-formulario';
 
 /**
  * Módulo "formulario a lead" (base común). Lo reutilizan las plantillas 1, 2, 4 y 5.
@@ -35,6 +36,8 @@ export interface PropsFormularioLead {
   extra?: Record<string, unknown>;
   textoBoton?: string;
   mensajeExito?: string;
+  /** Textos fijos de la interfaz; los que falten (o lleguen vacíos) usan el texto por defecto. */
+  textos?: TextosFormularioLead;
   endpoint?: string;
   className?: string;
   /** Se llama con el id del lead creado (útil para redirigir o mostrar resumen). */
@@ -44,15 +47,27 @@ export interface PropsFormularioLead {
 type Estado = { tipo: 'inicial' } | { tipo: 'enviando' } | { tipo: 'exito' } | { tipo: 'error'; mensaje: string };
 
 export function FormularioLead({
-  campos = CAMPOS_LEAD_POR_DEFECTO,
+  campos: camposProp,
   origen,
   extra,
   textoBoton = 'Enviar',
   mensajeExito = '¡Gracias! Recibimos tus datos y te contactaremos pronto.',
+  textos: textosProp,
   endpoint = '/api/leads',
   className,
   alCrear,
 }: PropsFormularioLead) {
+  const t = { ...TEXTOS_FORMULARIO_LEAD };
+  for (const [k, v] of Object.entries(textosProp ?? {}) as [keyof TextosFormularioLead, unknown][])
+    if (typeof v === 'string' && v.trim()) t[k] = v;
+  const etiquetasPorDefecto: Record<string, string> = {
+    nombre: t.etiquetaNombre,
+    correo: t.etiquetaCorreo,
+    telefono: t.etiquetaTelefono,
+    mensaje: t.etiquetaMensaje,
+  };
+  const campos =
+    camposProp ?? CAMPOS_LEAD_POR_DEFECTO.map((c) => ({ ...c, etiqueta: etiquetasPorDefecto[c.id] ?? c.etiqueta }));
   const [estado, setEstado] = React.useState<Estado>({ tipo: 'inicial' });
   const [errores, setErrores] = React.useState<Record<string, string>>({});
   const idBase = React.useId();
@@ -63,17 +78,16 @@ export function FormularioLead({
     const nuevosErrores: Record<string, string> = {};
     for (const c of campos) {
       const v = (datos[c.id] ?? '').trim();
-      if (c.requerido && !v) nuevosErrores[c.id] = 'Este campo es obligatorio.';
-      else if (v && c.tipo === 'correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v))
-        nuevosErrores[c.id] = 'Revisa el correo.';
-      else if (v && c.tipo === 'telefono' && !/^[+()\d\s-]{7,20}$/.test(v)) nuevosErrores[c.id] = 'Revisa el teléfono.';
+      if (c.requerido && !v) nuevosErrores[c.id] = t.errorObligatorio;
+      else if (v && c.tipo === 'correo' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)) nuevosErrores[c.id] = t.errorCorreo;
+      else if (v && c.tipo === 'telefono' && !/^[+()\d\s-]{7,20}$/.test(v)) nuevosErrores[c.id] = t.errorTelefono;
     }
     if (
       !datos.correo?.trim() &&
       !datos.telefono?.trim() &&
       campos.some((c) => c.id === 'correo' || c.id === 'telefono')
     ) {
-      nuevosErrores[campos.find((c) => c.id === 'correo')?.id ?? 'telefono'] = 'Deja un correo o un teléfono.';
+      nuevosErrores[campos.find((c) => c.id === 'correo')?.id ?? 'telefono'] = t.errorSinContacto;
     }
     setErrores(nuevosErrores);
     if (Object.keys(nuevosErrores).length) return;
@@ -86,7 +100,7 @@ export function FormularioLead({
         body: JSON.stringify({ ...datos, origen, extra }),
       });
       const cuerpo = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(cuerpo.error ?? 'No pudimos enviar el formulario.');
+      if (!r.ok) throw new Error(cuerpo.error ?? t.errorEnvio);
       setEstado({ tipo: 'exito' });
       alCrear?.(cuerpo.id);
     } catch (err) {
@@ -99,7 +113,7 @@ export function FormularioLead({
       <Aviso tono="exito" className={className}>
         <p className="font-semibold">{mensajeExito}</p>
         <button type="button" className="mt-2 text-xs underline" onClick={() => setEstado({ tipo: 'inicial' })}>
-          Enviar otro
+          {t.textoEnviarOtro}
         </button>
       </Aviso>
     );
@@ -116,7 +130,7 @@ export function FormularioLead({
           ) : c.tipo === 'seleccion' ? (
             <Selector {...comun} defaultValue="">
               <option value="" disabled>
-                Elige una opción
+                {t.textoElegirOpcion}
               </option>
               {(c.opciones ?? []).map((o) => (
                 <option key={o} value={o}>
@@ -155,7 +169,7 @@ export function FormularioLead({
       {estado.tipo === 'error' && <Aviso tono="peligro">{estado.mensaje}</Aviso>}
 
       <Boton type="submit" tamano="lg" disabled={estado.tipo === 'enviando'}>
-        {estado.tipo === 'enviando' ? 'Enviando…' : textoBoton}
+        {estado.tipo === 'enviando' ? t.textoEnviando : textoBoton}
       </Boton>
       <p className="text-xs text-suave">Demo con datos ficticios: no escribas datos personales reales.</p>
     </form>

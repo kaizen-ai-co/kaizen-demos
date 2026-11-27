@@ -369,7 +369,8 @@ export function PreguntasFrecuentes({ id = 'preguntas', datos }: PropsBloque) {
 
 /**
  * Campos: titulo, subtitulo, camposFormulario[{id, etiqueta, tipo, requerido, opciones[]}], textoBoton,
- * mensajeExito, correo, telefono, direccion, horario
+ * mensajeExito, correo, telefono, direccion, horario. Opcionales (textos del formulario): textoEnviando,
+ * textoEnviarOtro, textoElegirOpcion, errorObligatorio, errorCorreo, errorTelefono, errorSinContacto, errorEnvio
  */
 export function Contacto({ id = 'contacto', datos, contexto }: PropsBloque) {
   const campos = lista<CampoLead & { opciones?: unknown }>(datos.camposFormulario).map((c) => ({
@@ -414,6 +415,16 @@ export function Contacto({ id = 'contacto', datos, contexto }: PropsBloque) {
             extra={contexto?.extraLead as Record<string, unknown> | undefined}
             textoBoton={texto(datos.textoBoton, 'Enviar')}
             mensajeExito={texto(datos.mensajeExito) || undefined}
+            textos={{
+              textoEnviando: texto(datos.textoEnviando, 'Enviando…'),
+              textoEnviarOtro: texto(datos.textoEnviarOtro, 'Enviar otro'),
+              textoElegirOpcion: texto(datos.textoElegirOpcion, 'Elige una opción'),
+              errorObligatorio: texto(datos.errorObligatorio, 'Este campo es obligatorio.'),
+              errorCorreo: texto(datos.errorCorreo, 'Revisa el correo.'),
+              errorTelefono: texto(datos.errorTelefono, 'Revisa el teléfono.'),
+              errorSinContacto: texto(datos.errorSinContacto, 'Deja un correo o un teléfono.'),
+              errorEnvio: texto(datos.errorEnvio, 'No pudimos enviar el formulario.'),
+            }}
           />
         </Tarjeta>
       </div>

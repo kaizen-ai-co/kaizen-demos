@@ -190,6 +190,225 @@
           "max": 400
         }
       ]
+    },
+    {
+      "id": "textosInterfaz",
+      "titulo": "Textos de la interfaz",
+      "campos": [
+        {
+          "id": "ariaPasos",
+          "etiqueta": "Nombre de la lista de pasos (lector de pantalla)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 38
+        },
+        {
+          "id": "pasoServicio",
+          "etiqueta": "Paso 1 en la barra de pasos",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "pasoProfesional",
+          "etiqueta": "Paso 2 en la barra de pasos",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 22
+        },
+        { "id": "pasoHora", "etiqueta": "Paso 3 en la barra de pasos", "tipo": "texto", "requerido": true, "max": 20 },
+        { "id": "pasoDatos", "etiqueta": "Paso 4 en la barra de pasos", "tipo": "texto", "requerido": true, "max": 20 },
+        {
+          "id": "textoAtras",
+          "etiqueta": "Botón para volver al paso anterior",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "tituloPasoServicio",
+          "etiqueta": "Título del paso 1 (servicio)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 48
+        },
+        {
+          "id": "tituloPasoProfesional",
+          "etiqueta": "Título del paso 2 (profesional)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 22
+        },
+        {
+          "id": "tituloPasoHora",
+          "etiqueta": "Título del paso 3 (día y hora)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 44
+        },
+        {
+          "id": "tituloPasoDatos",
+          "etiqueta": "Título del paso 4 (datos)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "unidadMinutos",
+          "etiqueta": "Unidad de la duración del servicio",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "textoSinCosto",
+          "etiqueta": "Precio cuando el servicio es gratis",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "cualquierProfesional",
+          "etiqueta": "Opción para no elegir profesional",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 42
+        },
+        {
+          "id": "detalleCualquierProfesional",
+          "etiqueta": "Detalle de la opción sin profesional",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 52
+        },
+        {
+          "id": "ariaDias",
+          "etiqueta": "Nombre del selector de día (lector de pantalla)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "textoBuscandoHorarios",
+          "etiqueta": "Mensaje mientras se cargan los horarios",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 36
+        },
+        {
+          "id": "textoSinHorarios",
+          "etiqueta": "Mensaje si el día no tiene horarios",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 100
+        },
+        {
+          "id": "errorCargarHorarios",
+          "etiqueta": "Error si no se pudieron cargar los horarios",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 62
+        },
+        {
+          "id": "conectorProfesional",
+          "etiqueta": "Palabra entre servicio y profesional en el resumen",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaNombre",
+          "etiqueta": "Etiqueta del campo nombre",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaTelefono",
+          "etiqueta": "Etiqueta del campo teléfono",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 38
+        },
+        {
+          "id": "etiquetaCorreo",
+          "etiqueta": "Etiqueta del campo correo",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 34
+        },
+        { "id": "errorNombre", "etiqueta": "Error si falta el nombre", "tipo": "texto", "requerido": true, "max": 36 },
+        {
+          "id": "errorContacto",
+          "etiqueta": "Error si falta teléfono y correo",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 58
+        },
+        {
+          "id": "errorCorreo",
+          "etiqueta": "Error si el correo no es válido",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 34
+        },
+        {
+          "id": "textoReservando",
+          "etiqueta": "Botón mientras se envía la reserva",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 22
+        },
+        {
+          "id": "errorReservar",
+          "etiqueta": "Error si no se pudo reservar",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "resumenServicio",
+          "etiqueta": "Confirmación: etiqueta del servicio",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "resumenProfesional",
+          "etiqueta": "Confirmación: etiqueta del profesional",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "resumenDia",
+          "etiqueta": "Confirmación: etiqueta del día",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "resumenHora",
+          "etiqueta": "Confirmación: etiqueta de la hora",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "resumenNombre",
+          "etiqueta": "Confirmación: etiqueta del nombre",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 22
+        },
+        {
+          "id": "textoReservarOtra",
+          "etiqueta": "Botón para reservar otra cita",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 36
+        }
+      ]
     }
   ]
 }

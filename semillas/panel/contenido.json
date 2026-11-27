@@ -17,7 +17,15 @@
       }
     ],
     "textoBoton": "Quiero que me llamen",
-    "mensajeExito": "¡Recibido! Un asesor te escribe por WhatsApp en menos de 2 horas hábiles."
+    "mensajeExito": "¡Recibido! Un asesor te escribe por WhatsApp en menos de 2 horas hábiles.",
+    "textoEnviando": "Enviando…",
+    "textoEnviarOtro": "Enviar otro",
+    "textoElegirOpcion": "Elige una opción",
+    "errorObligatorio": "Este campo es obligatorio.",
+    "errorCorreo": "Revisa el correo.",
+    "errorTelefono": "Revisa el teléfono.",
+    "errorSinContacto": "Deja un correo o un teléfono.",
+    "errorEnvio": "No pudimos enviar el formulario."
   },
   "etapas": {
     "lista": [

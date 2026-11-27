@@ -19,7 +19,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
           {texto(portada.subtitulo) && <p className="mt-4 text-lg text-suave">{texto(portada.subtitulo)}</p>}
         </div>
       </section>
-      <section className="k-seccion" aria-label="Productos">
+      <section className="k-seccion" aria-label={texto(cat.textoSeccionProductos, 'Productos')}>
         <div className="k-contenedor">
           <Catalogo
             productos={productos}
@@ -30,6 +30,9 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
               todas: texto(cat.textoTodas, 'Todas'),
               agregar: texto(cat.textoAgregar, 'Agregar a la cotización'),
               agotado: texto(cat.textoAgotado, 'No disponible'),
+              agregado: texto(cat.textoAgregado, 'Agregado'),
+              sinResultados: texto(cat.textoSinResultados, 'No encontramos productos con ese filtro.'),
+              filtrarCategorias: texto(cat.textoFiltrarCategorias, 'Filtrar por categoría'),
             }}
           />
         </div>

@@ -1,5 +1,6 @@
 import { AvisoDemo, Insignia, TablaEstados, img, lista, texto } from '@kaizen/ui';
 import { Encabezado, Pie } from '@kaizen/ui/bloques';
+import { textosFormularioDe } from '@kaizen/ui/modulos';
 import { Configurador } from '@/componentes/Configurador';
 import { plantilla } from '@/lib/plantilla';
 import { normalizarEscena, normalizarPartes, normalizarVista } from '@/lib/tipos';
@@ -12,7 +13,7 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
   const { datos: crudos, estado, secciones } = await plantilla.obtenerContenido({ vista });
   const datos = crudos as unknown as Datos;
   const visibles = new Set(secciones.map((s) => s.id));
-  const { portada, modelo, solicitud, ayuda } = datos;
+  const { portada, modelo, solicitud, ayuda, textosInterfaz } = datos;
   const archivo = modelo?.archivo as { url?: string } | null;
 
   return (
@@ -59,6 +60,24 @@ export default async function Inicio({ searchParams }: { searchParams: Promise<{
             subtitulo: texto(solicitud?.subtitulo) || undefined,
             textoBoton: texto(solicitud?.textoBoton, 'Solicitar esta configuración'),
             mensajeExito: texto(solicitud?.mensajeExito, '¡Recibido! Te escribimos pronto.'),
+            etiquetaResumen: texto(solicitud?.etiquetaResumen, 'Tu configuración:'),
+            etiquetas: {
+              nombre: texto(solicitud?.etiquetaNombre, 'Nombre'),
+              correo: texto(solicitud?.etiquetaCorreo, 'Correo'),
+              telefono: texto(solicitud?.etiquetaTelefono, 'Teléfono'),
+              mensaje: texto(solicitud?.etiquetaMensaje, '¿En qué te ayudamos?'),
+            },
+            textosFormulario: textosFormularioDe(solicitud),
+          }}
+          textos={{
+            preparandoVisor: texto(textosInterfaz?.preparandoVisor, 'Preparando visor 3D…'),
+            cargandoModelo: texto(textosInterfaz?.cargandoModelo, 'Cargando modelo…'),
+            textoReiniciar: texto(textosInterfaz?.textoReiniciar, 'Reiniciar vista'),
+            avisoSinWebgl: texto(
+              textosInterfaz?.avisoSinWebgl,
+              'Tu dispositivo no admite 3D; te mostramos una imagen.',
+            ),
+            etiquetaModelo: texto(textosInterfaz?.etiquetaModelo, 'Modelo 3D de'),
           }}
         />
       </main>

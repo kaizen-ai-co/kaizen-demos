@@ -65,6 +65,48 @@
           "porDefecto": "No disponible"
         },
         {
+          "id": "textoAgregado",
+          "etiqueta": "Texto del botón tras agregar",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "textoSinResultados",
+          "etiqueta": "Texto cuando el filtro no encuentra productos",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 80
+        },
+        {
+          "id": "textoFiltrarCategorias",
+          "etiqueta": "Nombre del grupo de filtros (lectores de pantalla)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 42
+        },
+        {
+          "id": "textoSeccionProductos",
+          "etiqueta": "Nombre de la sección de productos (lectores de pantalla)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "textoVerCotizacion",
+          "etiqueta": "Botón «ver mi cotización» en el detalle del producto",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 34
+        },
+        {
+          "id": "textoVolver",
+          "etiqueta": "Enlace «volver al catálogo» en el detalle del producto",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 36
+        },
+        {
           "id": "categorias",
           "etiqueta": "Categorías",
           "tipo": "lista",
@@ -178,6 +220,101 @@
           "tipo": "textoLargo",
           "requerido": true,
           "max": 200
+        },
+        { "id": "textoDescargarPdf", "etiqueta": "Botón descargar PDF", "tipo": "texto", "requerido": true, "max": 26 },
+        {
+          "id": "textoVolver",
+          "etiqueta": "Botón «volver al catálogo» tras enviar",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 36
+        },
+        {
+          "id": "textoIrCatalogo",
+          "etiqueta": "Botón «ir al catálogo» cuando está vacía",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 28
+        },
+        { "id": "textoCargando", "etiqueta": "Texto mientras carga", "tipo": "texto", "requerido": true, "max": 20 },
+        {
+          "id": "textoGenerando",
+          "etiqueta": "Texto del botón mientras envía",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        { "id": "textoSubtotal", "etiqueta": "Etiqueta del subtotal", "tipo": "texto", "requerido": true, "max": 20 },
+        { "id": "textoTotal", "etiqueta": "Etiqueta del total", "tipo": "texto", "requerido": true, "max": 20 },
+        {
+          "id": "textoImpuesto",
+          "etiqueta": "Etiqueta del impuesto si no tiene nombre",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "textoSeccionProductos",
+          "etiqueta": "Nombre de la lista de productos (lectores de pantalla)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 52
+        },
+        {
+          "id": "textoSeccionDatos",
+          "etiqueta": "Nombre del bloque de datos (lectores de pantalla)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaNombre",
+          "etiqueta": "Etiqueta del campo nombre",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaEmpresa",
+          "etiqueta": "Etiqueta del campo empresa",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaCorreo",
+          "etiqueta": "Etiqueta del campo correo",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaTelefono",
+          "etiqueta": "Etiqueta del campo teléfono",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "errorNombre",
+          "etiqueta": "Mensaje si falta el nombre",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 36
+        },
+        {
+          "id": "errorContacto",
+          "etiqueta": "Mensaje si falta correo o teléfono",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 58
+        },
+        {
+          "id": "errorGenerar",
+          "etiqueta": "Mensaje si falla el envío",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 66
         }
       ]
     },

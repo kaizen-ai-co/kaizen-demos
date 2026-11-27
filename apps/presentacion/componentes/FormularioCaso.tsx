@@ -1,7 +1,7 @@
 'use client';
 
 import { Aviso } from '@kaizen/ui';
-import { FormularioLead } from '@kaizen/ui/modulos';
+import { FormularioLead, type TextosFormularioLead } from '@kaizen/ui/modulos';
 import * as React from 'react';
 
 /** Lee el caso desde `?caso=<slug>` o desde `#contacto?caso=<slug>`. */
@@ -23,11 +23,14 @@ export function FormularioCaso({
   textoCaso,
   textoBoton,
   mensajeExito,
+  textos,
 }: {
   casos: { id: string; titulo: string }[];
   textoCaso: string;
   textoBoton: string;
   mensajeExito?: string;
+  /** Estados, errores y botones del formulario (desde la sección `contacto`). */
+  textos?: TextosFormularioLead;
 }) {
   const [caso, setCaso] = React.useState<string | null>(null);
 
@@ -57,6 +60,7 @@ export function FormularioCaso({
         extra={caso ? { caso } : undefined}
         textoBoton={textoBoton}
         mensajeExito={mensajeExito}
+        textos={textos}
       />
     </div>
   );

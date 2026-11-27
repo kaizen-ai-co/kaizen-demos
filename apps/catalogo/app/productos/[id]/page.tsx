@@ -36,7 +36,7 @@ export default async function DetalleProducto({ params, searchParams }: Props) {
     <Marco datos={datos} estado={estado}>
       <div className="k-contenedor k-seccion">
         <Link href="/" className="inline-flex items-center gap-1 text-sm text-suave hover:text-texto">
-          <ArrowLeft aria-hidden className="size-4" /> Volver al catálogo
+          <ArrowLeft aria-hidden className="size-4" /> {texto(cat.textoVolver, 'Volver al catálogo')}
         </Link>
         <div className="mt-6 grid gap-10 md:grid-cols-2">
           {foto ? (
@@ -64,9 +64,10 @@ export default async function DetalleProducto({ params, searchParams }: Props) {
                 texto={texto(cat.textoAgregar, 'Agregar a la cotización')}
                 deshabilitado={p.disponible === false}
                 textoDeshabilitado={texto(cat.textoAgotado, 'No disponible')}
+                textoAgregado={texto(cat.textoAgregado, 'Agregado')}
               />
               <BotonEnlace href="/cotizacion" variante="borde">
-                Ver mi cotización
+                {texto(cat.textoVerCotizacion, 'Ver mi cotización')}
               </BotonEnlace>
             </div>
             {condiciones.entrega && <p className="mt-6 text-sm text-suave">{condiciones.entrega}</p>}

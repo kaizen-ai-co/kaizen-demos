@@ -30,6 +30,42 @@ interface Textos {
   textoOcupado: string;
   politicaCancelacion: string;
 }
+/** Textos fijos del recorrido, editables en la sección «Textos de la interfaz». */
+interface TextosInterfaz {
+  ariaPasos: string;
+  pasoServicio: string;
+  pasoProfesional: string;
+  pasoHora: string;
+  pasoDatos: string;
+  textoAtras: string;
+  tituloPasoServicio: string;
+  tituloPasoProfesional: string;
+  tituloPasoHora: string;
+  tituloPasoDatos: string;
+  unidadMinutos: string;
+  textoSinCosto: string;
+  cualquierProfesional: string;
+  detalleCualquierProfesional: string;
+  ariaDias: string;
+  textoBuscandoHorarios: string;
+  textoSinHorarios: string;
+  errorCargarHorarios: string;
+  conectorProfesional: string;
+  etiquetaNombre: string;
+  etiquetaTelefono: string;
+  etiquetaCorreo: string;
+  errorNombre: string;
+  errorContacto: string;
+  errorCorreo: string;
+  textoReservando: string;
+  errorReservar: string;
+  resumenServicio: string;
+  resumenProfesional: string;
+  resumenDia: string;
+  resumenHora: string;
+  resumenNombre: string;
+  textoReservarOtra: string;
+}
 
 const ZONA = 'America/Bogota';
 const hoyBogota = () => new Intl.DateTimeFormat('en-CA', { timeZone: ZONA }).format(new Date());
@@ -51,19 +87,19 @@ const etiquetaDia = (f: string) => {
 const hora = (iso: string) =>
   new Intl.DateTimeFormat('es-CO', { hour: 'numeric', minute: '2-digit', timeZone: ZONA }).format(new Date(iso));
 
-const PASOS = ['Servicio', 'Profesional', 'Hora', 'Tus datos'];
-
 /** Flujo de reserva: servicio → profesional → hora → datos. El servidor valida el hueco otra vez al confirmar. */
 export function Reserva({
   servicios,
   profesionales,
   diasAdelante,
   textos,
+  interfaz: t,
 }: {
   servicios: Servicio[];
   profesionales: Profesional[];
   diasAdelante: number;
   textos: Textos;
+  interfaz: TextosInterfaz;
 }) {
   const [paso, setPaso] = React.useState(0);
   const [servicio, setServicio] = React.useState<Servicio | null>(null);
@@ -79,6 +115,7 @@ export function Reserva({
     null,
   );
   const tituloRef = React.useRef<HTMLHeadingElement>(null);
+  const PASOS = [t.pasoServicio, t.pasoProfesional, t.pasoHora, t.pasoDatos];
 
   const dias = React.useMemo(
     () => Array.from({ length: diasAdelante + 1 }, (_, i) => sumarDias(hoyBogota(), i)),
@@ -103,7 +140,7 @@ export function Reserva({
     const r = await fetch(`/api/huecos?${q}`);
     const c = await r.json().catch(() => ({}));
     setCargando(false);
-    if (!r.ok) return setError(c.error ?? 'No pudimos cargar los horarios.');
+    if (!r.ok) return setError(c.error ?? t.errorCargarHorarios);
     setHuecos(c.huecos);
   }
 
@@ -112,9 +149,9 @@ export function Reserva({
     if (!servicio || !hueco) return;
     const d = Object.fromEntries(new FormData(e.currentTarget).entries()) as Record<string, string>;
     const errs: Record<string, string> = {};
-    if (!d.nombre?.trim()) errs.nombre = 'Escribe tu nombre.';
-    if (!d.telefono?.trim() && !d.correo?.trim()) errs.telefono = 'Deja un teléfono o un correo.';
-    if (d.correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.correo)) errs.correo = 'Revisa el correo.';
+    if (!d.nombre?.trim()) errs.nombre = t.errorNombre;
+    if (!d.telefono?.trim() && !d.correo?.trim()) errs.telefono = t.errorContacto;
+    if (d.correo && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.correo)) errs.correo = t.errorCorreo;
     setErrores(errs);
     if (Object.keys(errs).length) return;
     setEnviando(true);
@@ -133,7 +170,7 @@ export function Reserva({
       setPaso(2);
       return;
     }
-    if (!r.ok) return setError(c.error ?? 'No pudimos reservar.');
+    if (!r.ok) return setError(c.error ?? t.errorReservar);
     setConfirmada({ inicio: hueco.inicio, profesional: nombreProf(hueco.profesionalId), nombre: d.nombre! });
   }
 
@@ -144,23 +181,23 @@ export function Reserva({
         <h2 className="mt-3 text-2xl">{textos.tituloConfirmacion}</h2>
         <dl className="mx-auto mt-4 grid max-w-sm gap-1 text-left text-sm">
           <div className="flex justify-between gap-4">
-            <dt className="text-suave">Servicio</dt>
+            <dt className="text-suave">{t.resumenServicio}</dt>
             <dd>{servicio.nombre}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-suave">Con</dt>
+            <dt className="text-suave">{t.resumenProfesional}</dt>
             <dd>{confirmada.profesional}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-suave">Día</dt>
+            <dt className="text-suave">{t.resumenDia}</dt>
             <dd>{etiquetaDia(confirmada.inicio.slice(0, 10)).largo}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-suave">Hora</dt>
+            <dt className="text-suave">{t.resumenHora}</dt>
             <dd>{hora(confirmada.inicio)}</dd>
           </div>
           <div className="flex justify-between gap-4">
-            <dt className="text-suave">A nombre de</dt>
+            <dt className="text-suave">{t.resumenNombre}</dt>
             <dd>{confirmada.nombre}</dd>
           </div>
         </dl>
@@ -176,7 +213,7 @@ export function Reserva({
             setPaso(0);
           }}
         >
-          Reservar otra cita
+          {t.textoReservarOtra}
         </Boton>
       </Tarjeta>
     );
@@ -184,7 +221,7 @@ export function Reserva({
 
   return (
     <div className="grid gap-4">
-      <ol className="grid grid-cols-4 gap-1 text-center text-xs" aria-label="Pasos de la reserva">
+      <ol className="grid grid-cols-4 gap-1 text-center text-xs" aria-label={t.ariaPasos}>
         {PASOS.map((p, i) => (
           <li
             key={p}
@@ -214,11 +251,11 @@ export function Reserva({
               if (paso - 1 === 2) void cargarHuecos(fecha);
             }}
           >
-            <ChevronLeft aria-hidden className="size-4" /> Atrás
+            <ChevronLeft aria-hidden className="size-4" /> {t.textoAtras}
           </button>
         )}
         <h2 ref={tituloRef} tabIndex={-1} className="mb-4 text-xl outline-none">
-          {['¿Qué servicio necesitas?', '¿Con quién?', '¿Qué día y a qué hora?', 'Tus datos'][paso]}
+          {[t.tituloPasoServicio, t.tituloPasoProfesional, t.tituloPasoHora, t.tituloPasoDatos][paso]}
         </h2>
 
         {paso === 0 && (
@@ -238,10 +275,12 @@ export function Reserva({
                   <span>
                     <span className="block font-semibold">{s.nombre}</span>
                     <span className="block text-sm text-suave">
-                      {s.descripcion} · {s.duracionMin} min
+                      {s.descripcion} · {s.duracionMin} {t.unidadMinutos}
                     </span>
                   </span>
-                  <span className="text-sm font-semibold">{s.precio ? formatearPrecio(s.precio) : 'Sin costo'}</span>
+                  <span className="text-sm font-semibold">
+                    {s.precio ? formatearPrecio(s.precio) : t.textoSinCosto}
+                  </span>
                 </button>
               </li>
             ))}
@@ -251,7 +290,7 @@ export function Reserva({
         {paso === 1 && (
           <ul className="grid gap-3 sm:grid-cols-2">
             {[
-              { id: 'cualquiera', nombre: 'Cualquier profesional', cargo: 'La primera hora disponible', foto: null },
+              { id: 'cualquiera', nombre: t.cualquierProfesional, cargo: t.detalleCualquierProfesional, foto: null },
               ...candidatos,
             ].map((p) => (
               <li key={p.id}>
@@ -287,7 +326,7 @@ export function Reserva({
 
         {paso === 2 && (
           <div className="grid gap-4">
-            <div className="flex gap-2 overflow-x-auto pb-2" role="group" aria-label="Día">
+            <div className="flex gap-2 overflow-x-auto pb-2" role="group" aria-label={t.ariaDias}>
               {dias.map((d) => {
                 const e = etiquetaDia(d);
                 return (
@@ -315,10 +354,8 @@ export function Reserva({
             </div>
             {error && <Aviso tono="aviso">{error}</Aviso>}
             <div aria-live="polite">
-              {cargando && <p className="text-sm text-suave">Buscando horarios…</p>}
-              {huecos && huecos.length === 0 && (
-                <p className="text-sm text-suave">No hay horarios disponibles este día. Prueba otro.</p>
-              )}
+              {cargando && <p className="text-sm text-suave">{t.textoBuscandoHorarios}</p>}
+              {huecos && huecos.length === 0 && <p className="text-sm text-suave">{t.textoSinHorarios}</p>}
               {huecos && huecos.length > 0 && (
                 <ul className="grid grid-cols-3 gap-2 sm:grid-cols-4">
                   {huecos.map((h) => (
@@ -348,16 +385,16 @@ export function Reserva({
         {paso === 3 && hueco && servicio && (
           <form onSubmit={confirmar} noValidate className="grid gap-4">
             <p className="rounded-md bg-superficie p-3 text-sm">
-              {servicio.nombre} con <strong>{nombreProf(hueco.profesionalId)}</strong> ·{' '}
+              {servicio.nombre} {t.conectorProfesional} <strong>{nombreProf(hueco.profesionalId)}</strong> ·{' '}
               {etiquetaDia(hueco.inicio.slice(0, 10)).largo}, {hora(hueco.inicio)}
             </p>
-            <CampoFormulario id="r-nombre" etiqueta="Nombre" requerido error={errores.nombre}>
+            <CampoFormulario id="r-nombre" etiqueta={t.etiquetaNombre} requerido error={errores.nombre}>
               <Entrada name="nombre" autoComplete="name" placeholder="Nombre ficticio" />
             </CampoFormulario>
-            <CampoFormulario id="r-telefono" etiqueta="Teléfono o WhatsApp" error={errores.telefono}>
+            <CampoFormulario id="r-telefono" etiqueta={t.etiquetaTelefono} error={errores.telefono}>
               <Entrada name="telefono" type="tel" inputMode="tel" autoComplete="tel" placeholder="300 000 0000" />
             </CampoFormulario>
-            <CampoFormulario id="r-correo" etiqueta="Correo (opcional)" error={errores.correo}>
+            <CampoFormulario id="r-correo" etiqueta={t.etiquetaCorreo} error={errores.correo}>
               <Entrada name="correo" type="email" autoComplete="email" placeholder="nombre@ejemplo.test" />
             </CampoFormulario>
             <div
@@ -372,7 +409,7 @@ export function Reserva({
             {textos.politicaCancelacion && <p className="text-xs text-suave">{textos.politicaCancelacion}</p>}
             {error && <Aviso tono="peligro">{error}</Aviso>}
             <Boton type="submit" tamano="lg" disabled={enviando}>
-              {enviando ? 'Reservando…' : textos.textoBoton}
+              {enviando ? t.textoReservando : textos.textoBoton}
             </Boton>
             <p className="text-xs text-suave">
               Demo con datos ficticios: no escribas datos personales reales. No se envían correos ni mensajes.

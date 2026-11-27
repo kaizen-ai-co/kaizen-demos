@@ -3,24 +3,63 @@
   "plantilla": "visor3d",
   "version": 1,
   "titulo": "Visor 3D de objetos",
-  "vistas": [{ "id": "leads", "titulo": "Configuraciones pedidas", "permiso": "leads:leer" }],
+  "vistas": [
+    {
+      "id": "leads",
+      "titulo": "Configuraciones pedidas",
+      "permiso": "leads:leer"
+    }
+  ],
   "secciones": [
     {
       "id": "encabezado",
       "titulo": "Encabezado",
       "campos": [
-        { "id": "marca", "etiqueta": "Nombre de la marca", "tipo": "texto", "requerido": true, "max": 40 },
-        { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "max": 24 },
-        { "id": "destinoBoton", "etiqueta": "Destino del botón", "tipo": "enlace", "porDefecto": "#solicitar" }
+        {
+          "id": "marca",
+          "etiqueta": "Nombre de la marca",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "textoBoton",
+          "etiqueta": "Texto del botón",
+          "tipo": "texto",
+          "max": 24
+        },
+        {
+          "id": "destinoBoton",
+          "etiqueta": "Destino del botón",
+          "tipo": "enlace",
+          "porDefecto": "#solicitar"
+        }
       ]
     },
     {
       "id": "portada",
       "titulo": "Presentación",
       "campos": [
-        { "id": "etiqueta", "etiqueta": "Etiqueta superior", "tipo": "texto", "max": 40 },
-        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "min": 10, "max": 80 },
-        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "textoLargo", "max": 220 }
+        {
+          "id": "etiqueta",
+          "etiqueta": "Etiqueta superior",
+          "tipo": "texto",
+          "max": 40
+        },
+        {
+          "id": "titulo",
+          "etiqueta": "Título",
+          "tipo": "texto",
+          "requerido": true,
+          "min": 10,
+          "max": 80
+        },
+        {
+          "id": "subtitulo",
+          "etiqueta": "Subtítulo",
+          "tipo": "textoLargo",
+          "max": 220
+        }
       ]
     },
     {
@@ -28,8 +67,19 @@
       "titulo": "Modelo 3D",
       "descripcion": "Si no subes un modelo, se muestra el objeto de demostración (silla procedural).",
       "campos": [
-        { "id": "nombreProducto", "etiqueta": "Nombre del producto", "tipo": "texto", "requerido": true, "max": 50 },
-        { "id": "descripcion", "etiqueta": "Descripción corta", "tipo": "textoLargo", "max": 200 },
+        {
+          "id": "nombreProducto",
+          "etiqueta": "Nombre del producto",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 50
+        },
+        {
+          "id": "descripcion",
+          "etiqueta": "Descripción corta",
+          "tipo": "textoLargo",
+          "max": 200
+        },
         {
           "id": "archivo",
           "etiqueta": "Modelo .glb",
@@ -73,8 +123,18 @@
           "nombreItem": "parte",
           "campoTitulo": "nombre",
           "campos": [
-            { "id": "id", "etiqueta": "Id", "tipo": "texto" },
-            { "id": "nombre", "etiqueta": "Nombre visible", "tipo": "texto", "requerido": true, "max": 30 },
+            {
+              "id": "id",
+              "etiqueta": "Id",
+              "tipo": "texto"
+            },
+            {
+              "id": "nombre",
+              "etiqueta": "Nombre visible",
+              "tipo": "texto",
+              "requerido": true,
+              "max": 30
+            },
             {
               "id": "malla",
               "etiqueta": "Malla o material del modelo",
@@ -92,9 +152,24 @@
               "nombreItem": "opción",
               "campoTitulo": "nombre",
               "campos": [
-                { "id": "id", "etiqueta": "Id", "tipo": "texto" },
-                { "id": "nombre", "etiqueta": "Nombre", "tipo": "texto", "requerido": true, "max": 30 },
-                { "id": "color", "etiqueta": "Color", "tipo": "color", "requerido": true },
+                {
+                  "id": "id",
+                  "etiqueta": "Id",
+                  "tipo": "texto"
+                },
+                {
+                  "id": "nombre",
+                  "etiqueta": "Nombre",
+                  "tipo": "texto",
+                  "requerido": true,
+                  "max": 30
+                },
+                {
+                  "id": "color",
+                  "etiqueta": "Color",
+                  "tipo": "color",
+                  "requerido": true
+                },
                 {
                   "id": "rugosidad",
                   "etiqueta": "Rugosidad (0 brillante – 1 mate)",
@@ -124,14 +199,28 @@
       "titulo": "Textos de ayuda",
       "activable": true,
       "campos": [
-        { "id": "instrucciones", "etiqueta": "Instrucciones", "tipo": "texto", "requerido": true, "max": 120 },
+        {
+          "id": "instrucciones",
+          "etiqueta": "Instrucciones",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 120
+        },
         {
           "id": "consejos",
           "etiqueta": "Consejos",
           "tipo": "lista",
           "maxItems": 4,
           "nombreItem": "consejo",
-          "campos": [{ "id": "texto", "etiqueta": "Consejo", "tipo": "texto", "requerido": true, "max": 90 }]
+          "campos": [
+            {
+              "id": "texto",
+              "etiqueta": "Consejo",
+              "tipo": "texto",
+              "requerido": true,
+              "max": 90
+            }
+          ]
         }
       ]
     },
@@ -139,15 +228,123 @@
       "id": "solicitud",
       "titulo": "Solicitar configuración",
       "campos": [
-        { "id": "titulo", "etiqueta": "Título", "tipo": "texto", "requerido": true, "max": 60 },
-        { "id": "subtitulo", "etiqueta": "Subtítulo", "tipo": "texto", "max": 160 },
-        { "id": "textoBoton", "etiqueta": "Texto del botón", "tipo": "texto", "requerido": true, "max": 32 },
+        {
+          "id": "titulo",
+          "etiqueta": "Título",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 60
+        },
+        {
+          "id": "subtitulo",
+          "etiqueta": "Subtítulo",
+          "tipo": "texto",
+          "max": 160
+        },
+        {
+          "id": "textoBoton",
+          "etiqueta": "Texto del botón",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 32
+        },
         {
           "id": "mensajeExito",
           "etiqueta": "Mensaje de confirmación",
           "tipo": "textoLargo",
           "requerido": true,
           "max": 200
+        },
+        {
+          "id": "textoEnviando",
+          "etiqueta": "Botón mientras envía",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "textoEnviarOtro",
+          "etiqueta": "Enlace para enviar otro formulario",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 24
+        },
+        {
+          "id": "textoElegirOpcion",
+          "etiqueta": "Texto inicial de las listas de opciones",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "errorObligatorio",
+          "etiqueta": "Error: campo obligatorio vacío",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 60
+        },
+        {
+          "id": "errorCorreo",
+          "etiqueta": "Error: correo mal escrito",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "errorTelefono",
+          "etiqueta": "Error: teléfono mal escrito",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "errorSinContacto",
+          "etiqueta": "Error: falta correo y teléfono",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 60
+        },
+        {
+          "id": "errorEnvio",
+          "etiqueta": "Error: no se pudo enviar",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 70
+        },
+        {
+          "id": "etiquetaResumen",
+          "etiqueta": "Encabezado del resumen de la configuración",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "etiquetaNombre",
+          "etiqueta": "Etiqueta del campo «Nombre»",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaCorreo",
+          "etiqueta": "Etiqueta del campo «Correo»",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaTelefono",
+          "etiqueta": "Etiqueta del campo «Teléfono»",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 20
+        },
+        {
+          "id": "etiquetaMensaje",
+          "etiqueta": "Etiqueta del campo de mensaje",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
         }
       ]
     },
@@ -170,11 +367,26 @@
           "etiqueta": "Entorno",
           "tipo": "seleccion",
           "opciones": [
-            { "valor": "local", "etiqueta": "Estudio local (sin descargas)" },
-            { "valor": "studio", "etiqueta": "Studio (HDR externo)" },
-            { "valor": "city", "etiqueta": "City (HDR externo)" },
-            { "valor": "apartment", "etiqueta": "Apartment (HDR externo)" },
-            { "valor": "sunset", "etiqueta": "Sunset (HDR externo)" }
+            {
+              "valor": "local",
+              "etiqueta": "Estudio local (sin descargas)"
+            },
+            {
+              "valor": "studio",
+              "etiqueta": "Studio (HDR externo)"
+            },
+            {
+              "valor": "city",
+              "etiqueta": "City (HDR externo)"
+            },
+            {
+              "valor": "apartment",
+              "etiqueta": "Apartment (HDR externo)"
+            },
+            {
+              "valor": "sunset",
+              "etiqueta": "Sunset (HDR externo)"
+            }
           ]
         },
         {
@@ -188,7 +400,55 @@
     {
       "id": "pie",
       "titulo": "Pie de página",
-      "campos": [{ "id": "texto", "etiqueta": "Texto", "tipo": "texto", "max": 120 }]
+      "campos": [
+        {
+          "id": "texto",
+          "etiqueta": "Texto",
+          "tipo": "texto",
+          "max": 120
+        }
+      ]
+    },
+    {
+      "id": "textosInterfaz",
+      "titulo": "Textos de la interfaz",
+      "campos": [
+        {
+          "id": "preparandoVisor",
+          "etiqueta": "Mensaje mientras se prepara el visor",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "cargandoModelo",
+          "etiqueta": "Mensaje de carga del modelo (antes del porcentaje)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 32
+        },
+        {
+          "id": "textoReiniciar",
+          "etiqueta": "Botón para reiniciar la vista",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 30
+        },
+        {
+          "id": "avisoSinWebgl",
+          "etiqueta": "Aviso cuando el dispositivo no admite 3D",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 110
+        },
+        {
+          "id": "etiquetaModelo",
+          "etiqueta": "Descripción accesible del visor (antes del nombre del producto)",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 24
+        }
+      ]
     }
   ]
 }

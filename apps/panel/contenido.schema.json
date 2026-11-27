@@ -55,7 +55,45 @@
           "tipo": "textoLargo",
           "requerido": true,
           "max": 200
-        }
+        },
+        { "id": "textoEnviando", "etiqueta": "Botón mientras envía", "tipo": "texto", "requerido": true, "max": 20 },
+        {
+          "id": "textoEnviarOtro",
+          "etiqueta": "Enlace para enviar otro formulario",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 24
+        },
+        {
+          "id": "textoElegirOpcion",
+          "etiqueta": "Texto inicial de las listas de opciones",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "errorObligatorio",
+          "etiqueta": "Error: campo obligatorio vacío",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 60
+        },
+        { "id": "errorCorreo", "etiqueta": "Error: correo mal escrito", "tipo": "texto", "requerido": true, "max": 40 },
+        {
+          "id": "errorTelefono",
+          "etiqueta": "Error: teléfono mal escrito",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 40
+        },
+        {
+          "id": "errorSinContacto",
+          "etiqueta": "Error: falta correo y teléfono",
+          "tipo": "texto",
+          "requerido": true,
+          "max": 60
+        },
+        { "id": "errorEnvio", "etiqueta": "Error: no se pudo enviar", "tipo": "texto", "requerido": true, "max": 70 }
       ]
     },
     {

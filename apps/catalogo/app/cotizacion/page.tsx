@@ -24,6 +24,23 @@ export default async function PaginaCotizacion({ searchParams }: { searchParams:
             textoVacio: texto(t.textoVacio, 'Todavía no has agregado productos.'),
             textoBoton: texto(t.textoBoton, 'Recibir mi cotización'),
             mensajeExito: texto(t.mensajeExito, '¡Listo! Esta es tu cotización.'),
+            descargarPdf: texto(t.textoDescargarPdf, 'Descargar PDF'),
+            volver: texto(t.textoVolver, 'Volver al catálogo'),
+            irCatalogo: texto(t.textoIrCatalogo, 'Ir al catálogo'),
+            cargando: texto(t.textoCargando, 'Cargando…'),
+            generando: texto(t.textoGenerando, 'Generando…'),
+            subtotal: texto(t.textoSubtotal, 'Subtotal'),
+            total: texto(t.textoTotal, 'Total'),
+            impuesto: texto(t.textoImpuesto, 'Impuesto'),
+            seccionProductos: texto(t.textoSeccionProductos, 'Productos de la cotización'),
+            seccionDatos: texto(t.textoSeccionDatos, 'Tus datos'),
+            etiquetaNombre: texto(t.etiquetaNombre, 'Nombre'),
+            etiquetaEmpresa: texto(t.etiquetaEmpresa, 'Empresa'),
+            etiquetaCorreo: texto(t.etiquetaCorreo, 'Correo'),
+            etiquetaTelefono: texto(t.etiquetaTelefono, 'Teléfono'),
+            errorNombre: texto(t.errorNombre, 'Escribe tu nombre.'),
+            errorContacto: texto(t.errorContacto, 'Deja un correo o un teléfono.'),
+            errorGenerar: texto(t.errorGenerar, 'No pudimos generar la cotización.'),
           }}
         />
       </div>

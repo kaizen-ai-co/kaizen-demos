@@ -31,12 +31,14 @@ export function BotonAgregar({
   texto,
   deshabilitado,
   textoDeshabilitado,
+  textoAgregado,
   className,
 }: {
   productoId: string;
   texto: string;
   deshabilitado?: boolean;
   textoDeshabilitado?: string;
+  textoAgregado?: string;
   className?: string;
 }) {
   const [agregado, setAgregado] = React.useState(false);
@@ -62,7 +64,7 @@ export function BotonAgregar({
     >
       {agregado ? (
         <>
-          <Check aria-hidden /> Agregado
+          <Check aria-hidden /> {textoAgregado ?? 'Agregado'}
         </>
       ) : (
         texto
@@ -81,7 +83,15 @@ export function Catalogo({
   productos: Producto[];
   categorias: Categoria[];
   moneda: string;
-  textos: { buscar: string; todas: string; agregar: string; agotado: string };
+  textos: {
+    buscar: string;
+    todas: string;
+    agregar: string;
+    agotado: string;
+    agregado: string;
+    sinResultados: string;
+    filtrarCategorias: string;
+  };
 }) {
   const [categoria, setCategoria] = React.useState<string | null>(null);
   const [busqueda, setBusqueda] = React.useState('');
@@ -96,7 +106,7 @@ export function Catalogo({
   return (
     <div>
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div role="group" aria-label="Filtrar por categoría" className="flex flex-wrap gap-2">
+        <div role="group" aria-label={textos.filtrarCategorias} className="flex flex-wrap gap-2">
           {[{ id: null as string | null, nombre: textos.todas }, ...categorias].map((c) => (
             <button
               key={c.id ?? 'todas'}
@@ -135,7 +145,7 @@ export function Catalogo({
       </p>
       {visibles.length === 0 ? (
         <p className="rounded-lg border border-dashed border-borde p-8 text-center text-suave">
-          No encontramos productos con ese filtro.
+          {textos.sinResultados}
         </p>
       ) : (
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -176,6 +186,7 @@ export function Catalogo({
                     texto={textos.agregar}
                     deshabilitado={agotado}
                     textoDeshabilitado={textos.agotado}
+                    textoAgregado={textos.agregado}
                   />
                 </div>
               </li>

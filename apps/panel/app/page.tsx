@@ -32,6 +32,16 @@ export default async function FormularioMovil({ searchParams }: { searchParams: 
             origen="formulario-movil"
             textoBoton={texto(f.textoBoton, 'Enviar')}
             mensajeExito={texto(f.mensajeExito) || undefined}
+            textos={{
+              textoEnviando: texto(f.textoEnviando, 'Enviando…'),
+              textoEnviarOtro: texto(f.textoEnviarOtro, 'Enviar otro'),
+              textoElegirOpcion: texto(f.textoElegirOpcion, 'Elige una opción'),
+              errorObligatorio: texto(f.errorObligatorio, 'Este campo es obligatorio.'),
+              errorCorreo: texto(f.errorCorreo, 'Revisa el correo.'),
+              errorTelefono: texto(f.errorTelefono, 'Revisa el teléfono.'),
+              errorSinContacto: texto(f.errorSinContacto, 'Deja un correo o un teléfono.'),
+              errorEnvio: texto(f.errorEnvio, 'No pudimos enviar el formulario.'),
+            }}
           />
         </Tarjeta>
         <p className="text-center text-xs text-suave">

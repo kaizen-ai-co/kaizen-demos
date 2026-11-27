@@ -12,6 +12,23 @@ interface Textos {
   textoVacio: string;
   textoBoton: string;
   mensajeExito: string;
+  descargarPdf: string;
+  volver: string;
+  irCatalogo: string;
+  cargando: string;
+  generando: string;
+  subtotal: string;
+  total: string;
+  impuesto: string;
+  seccionProductos: string;
+  seccionDatos: string;
+  etiquetaNombre: string;
+  etiquetaEmpresa: string;
+  etiquetaCorreo: string;
+  etiquetaTelefono: string;
+  errorNombre: string;
+  errorContacto: string;
+  errorGenerar: string;
 }
 
 type Resultado = { id: string; numero: string; items: ItemCotizacion[]; totales: Totales };
@@ -53,8 +70,8 @@ export function MiCotizacion({
   async function enviar(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const fd = Object.fromEntries(new FormData(e.currentTarget).entries()) as Record<string, string>;
-    if (!fd.nombre?.trim()) return setError('Escribe tu nombre.');
-    if (!fd.correo?.trim() && !fd.telefono?.trim()) return setError('Deja un correo o un teléfono.');
+    if (!fd.nombre?.trim()) return setError(textos.errorNombre);
+    if (!fd.correo?.trim() && !fd.telefono?.trim()) return setError(textos.errorContacto);
     setError(null);
     setEnviando(true);
     try {
@@ -68,7 +85,7 @@ export function MiCotizacion({
         }),
       });
       const cuerpo = await r.json().catch(() => ({}));
-      if (!r.ok) throw new Error(cuerpo.error ?? 'No pudimos generar la cotización.');
+      if (!r.ok) throw new Error(cuerpo.error ?? textos.errorGenerar);
       setResultado(cuerpo);
       guardarCarrito({});
     } catch (err) {
@@ -81,7 +98,7 @@ export function MiCotizacion({
   const tablaTotales = (t: Totales) => (
     <dl className="grid gap-1 text-sm">
       <div className="flex justify-between">
-        <dt>Subtotal</dt>
+        <dt>{textos.subtotal}</dt>
         <dd>{formatearPrecio(t.subtotal, moneda)}</dd>
       </div>
       {t.descuento > 0 && (
@@ -92,12 +109,12 @@ export function MiCotizacion({
       )}
       <div className="flex justify-between">
         <dt>
-          {condiciones.nombreImpuesto ?? 'Impuesto'} ({Math.round(condiciones.tasaImpuesto * 1000) / 10} %)
+          {condiciones.nombreImpuesto ?? textos.impuesto} ({Math.round(condiciones.tasaImpuesto * 1000) / 10} %)
         </dt>
         <dd>{formatearPrecio(t.impuesto, moneda)}</dd>
       </div>
       <div className="mt-2 flex justify-between border-t border-borde pt-2 text-lg font-bold">
-        <dt>Total</dt>
+        <dt>{textos.total}</dt>
         <dd>{formatearPrecio(t.total, moneda)}</dd>
       </div>
     </dl>
@@ -127,10 +144,10 @@ export function MiCotizacion({
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             <BotonEnlace href={`/api/cotizaciones/${resultado.id}/pdf`} target="_blank" rel="noreferrer">
-              <FileDown aria-hidden /> Descargar PDF
+              <FileDown aria-hidden /> {textos.descargarPdf}
             </BotonEnlace>
             <BotonEnlace href="/" variante="borde">
-              Volver al catálogo
+              {textos.volver}
             </BotonEnlace>
           </div>
         </Tarjeta>
@@ -138,14 +155,14 @@ export function MiCotizacion({
     );
   }
 
-  if (!listo) return <p className="text-suave">Cargando…</p>;
+  if (!listo) return <p className="text-suave">{textos.cargando}</p>;
 
   if (!lineas.length) {
     return (
       <div className="mx-auto max-w-xl text-center">
         <p className="text-suave">{textos.textoVacio}</p>
         <BotonEnlace href="/" className="mt-6">
-          Ir al catálogo
+          {textos.irCatalogo}
         </BotonEnlace>
       </div>
     );
@@ -153,7 +170,7 @@ export function MiCotizacion({
 
   return (
     <div className="grid gap-8 lg:grid-cols-5">
-      <section aria-label="Productos de la cotización" className="lg:col-span-3">
+      <section aria-label={textos.seccionProductos} className="lg:col-span-3">
         <ul className="grid gap-3">
           {lineas.map(({ producto: p, cantidad }) => {
             const foto = img(p.foto, p.nombre);
@@ -210,19 +227,19 @@ export function MiCotizacion({
         <Tarjeta className="mt-4">{tablaTotales(totales)}</Tarjeta>
       </section>
 
-      <section aria-label="Tus datos" className="lg:col-span-2">
+      <section aria-label={textos.seccionDatos} className="lg:col-span-2">
         <Tarjeta>
           <form onSubmit={enviar} noValidate className="grid gap-4">
-            <CampoFormulario id="cot-nombre" etiqueta="Nombre" requerido>
+            <CampoFormulario id="cot-nombre" etiqueta={textos.etiquetaNombre} requerido>
               <Entrada name="nombre" autoComplete="name" placeholder="Nombre ficticio" />
             </CampoFormulario>
-            <CampoFormulario id="cot-empresa" etiqueta="Empresa">
+            <CampoFormulario id="cot-empresa" etiqueta={textos.etiquetaEmpresa}>
               <Entrada name="empresa" autoComplete="organization" />
             </CampoFormulario>
-            <CampoFormulario id="cot-correo" etiqueta="Correo">
+            <CampoFormulario id="cot-correo" etiqueta={textos.etiquetaCorreo}>
               <Entrada name="correo" type="email" autoComplete="email" placeholder="nombre@ejemplo.test" />
             </CampoFormulario>
-            <CampoFormulario id="cot-telefono" etiqueta="Teléfono">
+            <CampoFormulario id="cot-telefono" etiqueta={textos.etiquetaTelefono}>
               <Entrada name="telefono" type="tel" inputMode="tel" autoComplete="tel" />
             </CampoFormulario>
             <div
@@ -236,7 +253,7 @@ export function MiCotizacion({
             </div>
             {error && <Aviso tono="peligro">{error}</Aviso>}
             <Boton type="submit" tamano="lg" disabled={enviando}>
-              {enviando ? 'Generando…' : textos.textoBoton}
+              {enviando ? textos.generando : textos.textoBoton}
             </Boton>
             <p className="text-xs text-suave">Demo con datos ficticios: no escribas datos personales reales.</p>
           </form>

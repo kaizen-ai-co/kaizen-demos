@@ -40,6 +40,8 @@ export interface PropsVisor {
   imagenReserva?: { src: string; alt: string } | null;
   etiqueta: string;
   textoReiniciar?: string;
+  textoCargando?: string;
+  textoSinWebgl?: string;
   className?: string;
   alListo?: (api: ApiVisor) => void;
 }
@@ -61,7 +63,7 @@ function soportaWebgl(): boolean {
 }
 const sinSuscripcion = () => () => {};
 
-function Cargando() {
+function Cargando({ texto }: { texto: string }) {
   const { progress } = useProgress();
   return (
     <Html center>
@@ -69,7 +71,7 @@ function Cargando() {
         role="status"
         className="whitespace-nowrap rounded-md bg-fondo px-3 py-1.5 text-xs font-medium text-texto shadow-md"
       >
-        Cargando modelo… {Math.round(progress)} %
+        {texto} {Math.round(progress)} %
       </div>
     </Html>
   );
@@ -187,6 +189,8 @@ export default function Visor({
   imagenReserva,
   etiqueta,
   textoReiniciar = 'Reiniciar vista',
+  textoCargando = 'Cargando modelo…',
+  textoSinWebgl = 'Tu dispositivo no admite 3D; te mostramos una imagen.',
   className,
   alListo,
 }: PropsVisor) {
@@ -201,9 +205,7 @@ export default function Visor({
         {imagenReserva && (
           <img src={imagenReserva.src} alt={imagenReserva.alt} className="h-full w-full object-contain" />
         )}
-        <p className="absolute inset-x-0 bottom-0 bg-fondo/90 p-2 text-center text-xs text-suave">
-          Tu dispositivo no admite 3D; te mostramos una imagen.
-        </p>
+        <p className="absolute inset-x-0 bottom-0 bg-fondo/90 p-2 text-center text-xs text-suave">{textoSinWebgl}</p>
       </div>
     );
   }
@@ -228,7 +230,7 @@ export default function Visor({
         >
           <ambientLight intensity={0.35 * escena.iluminacion} />
           <directionalLight position={[3, 5, 2]} intensity={escena.iluminacion} />
-          <Suspense fallback={<Cargando />}>
+          <Suspense fallback={<Cargando texto={textoCargando} />}>
             {modeloUrl ? (
               <ModeloGLB url={modeloUrl} materiales={materiales} />
             ) : (
