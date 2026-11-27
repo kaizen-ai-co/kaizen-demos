@@ -14,6 +14,12 @@ const PATAS: [number, number][] = [
   [0.38, 0.38],
 ];
 
+/**
+ * Colores de fábrica del modelo (dato del objeto 3D, como los que trae un .glb): solo se usan si el
+ * contenido no define la parte. No son colores de marca, por eso no salen del tema.
+ */
+const COLORES_DE_FABRICA = { asiento: '#c2410c', respaldo: '#b07a45', patas: '#8b5a2b' } as const;
+
 export function SillaProcedural({ materiales }: { materiales: Record<string, OpcionParte> }) {
   const material = (malla: string, porDefecto: string) => {
     const o = materiales[malla];
@@ -29,16 +35,16 @@ export function SillaProcedural({ materiales }: { materiales: Record<string, Opc
     <group>
       <mesh name="asiento" position={[0, 0.45, 0]} castShadow>
         <boxGeometry args={[0.92, 0.09, 0.92]} />
-        {material('asiento', '#c2410c')}
+        {material('asiento', COLORES_DE_FABRICA.asiento)}
       </mesh>
       <mesh name="respaldo" position={[0, 0.96, -0.42]} castShadow>
         <boxGeometry args={[0.92, 0.9, 0.08]} />
-        {material('respaldo', '#b07a45')}
+        {material('respaldo', COLORES_DE_FABRICA.respaldo)}
       </mesh>
       {PATAS.map(([x, z]) => (
         <mesh key={`${x}${z}`} name="patas" position={[x, 0.2, z]} castShadow>
           <cylinderGeometry args={[0.035, 0.028, 0.41, 16]} />
-          {material('patas', '#8b5a2b')}
+          {material('patas', COLORES_DE_FABRICA.patas)}
         </mesh>
       ))}
     </group>

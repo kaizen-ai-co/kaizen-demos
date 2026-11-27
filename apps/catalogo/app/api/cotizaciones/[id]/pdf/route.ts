@@ -1,4 +1,5 @@
 import { ErrorEntrada, manejar } from '@kaizen/nucleo/servidor';
+import { resolverTema, type SobrescriturasTema } from '@kaizen/tema';
 import { leerCatalogo } from '@/lib/cotizacion';
 import { generarPdfCotizacion } from '@/lib/pdf';
 import { plantilla } from '@/lib/plantilla';
@@ -16,7 +17,10 @@ export const GET = manejar(async (_req: Request, { params }: { params: Promise<{
   const { datos } = await plantilla.obtenerContenido();
   const { condiciones } = leerCatalogo(datos);
   const marca = String((datos.encabezado as { marca?: string } | undefined)?.marca ?? 'Catálogo');
-  const bytes = await generarPdfCotizacion({ cotizacion: cot, marca, condiciones });
+  // El PDF usa los colores del tema del sitio (con sus sobrescrituras), igual que las páginas.
+  const sobre = (datos._estructura as { tema?: SobrescriturasTema } | undefined)?.tema;
+  const { colores } = resolverTema(sobre);
+  const bytes = await generarPdfCotizacion({ cotizacion: cot, marca, condiciones, colores });
   return new Response(new Uint8Array(bytes), {
     headers: {
       'content-type': 'application/pdf',

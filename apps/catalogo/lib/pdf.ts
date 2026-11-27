@@ -1,4 +1,5 @@
 import type { Cotizacion } from '@kaizen/datos';
+import { tema } from '@kaizen/tema';
 import { PDFDocument, StandardFonts, rgb, type PDFFont, type PDFPage } from 'pdf-lib';
 import { decimalesDe, totalesDe, type Condiciones } from './cotizacion';
 
@@ -43,14 +44,31 @@ function partirLineas(texto: string, fuente: PDFFont, tamano: number, ancho: num
   return salida;
 }
 
+/** Colores del tema que usa el PDF (los del sitio, con sus sobrescrituras). */
+export type ColoresPdf = Pick<(typeof tema)['colores'], 'fondo' | 'texto' | 'suave' | 'superficie' | 'borde' | 'aviso'>;
+
+/** #rrggbb → canales 0..1 para pdf-lib. */
+function canales(hex: string): [number, number, number] {
+  const n = /^#?([0-9a-f]{6})$/i.exec(hex.trim())?.[1] ?? '000000';
+  return [0, 2, 4].map((i) => parseInt(n.slice(i, i + 2), 16) / 255) as [number, number, number];
+}
+const color = (hex: string) => rgb(...canales(hex));
+/** `frente` al `proporcion` (0..1) sobre `fondo`, como `bg-aviso/15` en CSS. */
+function mezcla(frente: string, fondo: string, proporcion: number) {
+  const [a, b] = [canales(frente), canales(fondo)];
+  return rgb(...(a.map((v, i) => v * proporcion + b[i]! * (1 - proporcion)) as [number, number, number]));
+}
+
 export async function generarPdfCotizacion({
   cotizacion,
   marca,
   condiciones,
+  colores = tema.colores,
 }: {
   cotizacion: Cotizacion;
   marca: string;
   condiciones: Condiciones;
+  colores?: ColoresPdf;
 }): Promise<Uint8Array> {
   const doc = await PDFDocument.create();
   doc.setTitle(limpio(`Cotización ${cotizacion.numero}`));
@@ -69,7 +87,8 @@ export async function generarPdfCotizacion({
   let pagina: PDFPage = doc.addPage([595.28, 841.89]); // A4
   const ancho = pagina.getWidth() - margen * 2;
   let y = pagina.getHeight() - margen;
-  const gris = rgb(0.4, 0.45, 0.5);
+  const gris = color(colores.suave);
+  const colorTexto = color(colores.texto);
   const texto = (
     t: string,
     x: number,
@@ -79,7 +98,7 @@ export async function generarPdfCotizacion({
     const s = opciones.s ?? 10;
     const t2 = limpio(t);
     const xx = opciones.derecha ? x - f.widthOfTextAtSize(t2, s) : x;
-    pagina.drawText(t2, { x: xx, y, size: s, font: f, color: opciones.c ?? rgb(0.06, 0.09, 0.16) });
+    pagina.drawText(t2, { x: xx, y, size: s, font: f, color: opciones.c ?? colorTexto });
   };
   const nuevaPaginaSiHaceFalta = (alto: number) => {
     if (y - alto < margen) {
@@ -94,7 +113,7 @@ export async function generarPdfCotizacion({
     y: pagina.getHeight() - 22,
     width: pagina.getWidth(),
     height: 22,
-    color: rgb(0.98, 0.93, 0.83),
+    color: mezcla(colores.aviso, colores.fondo, 0.15),
   });
   y = pagina.getHeight() - 15;
   texto('DEMO CON DATOS FICTICIOS - no es una oferta comercial', margen, { s: 8, f: negrita });
@@ -127,7 +146,7 @@ export async function generarPdfCotizacion({
     unitario: margen + ancho * 0.8,
     total: margen + ancho,
   };
-  pagina.drawRectangle({ x: margen - 6, y: y - 6, width: ancho + 12, height: 20, color: rgb(0.93, 0.95, 0.98) });
+  pagina.drawRectangle({ x: margen - 6, y: y - 6, width: ancho + 12, height: 20, color: color(colores.superficie) });
   texto('Producto', col.producto, { f: negrita, s: 9 });
   texto('Cantidad', col.cantidad, { f: negrita, s: 9, derecha: true });
   texto('Unitario', col.unitario, { f: negrita, s: 9, derecha: true });
@@ -150,7 +169,7 @@ export async function generarPdfCotizacion({
       start: { x: margen - 6, y: y + 3 },
       end: { x: margen + ancho + 6, y: y + 3 },
       thickness: 0.5,
-      color: rgb(0.88, 0.9, 0.93),
+      color: color(colores.borde),
     });
     y -= 8;
   }
