@@ -35,6 +35,8 @@ Portada de cada app, build de producción en modo memoria, `npx -y lighthouse@13
 
 | App          | Modo       | Rendimiento | Accesibilidad | Buenas prácticas | SEO | LCP (s) | CLS |
 | ------------ | ---------- | ----------- | ------------- | ---------------- | --- | ------- | --- |
+| comercial    | móvil      | 99          | 100           | 100              | 92  | 2,0     | 0   |
+| comercial    | escritorio | 100         | 100           | 100              | 92  | 0,3     | 0   |
 | presentacion | móvil      | 100         | 100           | 100              | 92  | 1,0     | 0   |
 | presentacion | escritorio | 100         | 100           | 100              | 92  | 0,3     | 0   |
 | catalogo     | móvil      | 100         | 98            | 100              | 92  | 0,8     | 0   |
@@ -46,7 +48,7 @@ Portada de cada app, build de producción en modo memoria, `npx -y lighthouse@13
 | agenda       | móvil      | 100         | 100           | 100              | 91  | 0,9     | 0   |
 | agenda       | escritorio | 100         | 100           | 100              | 91  | 0,2     | 0   |
 
-- `comercial` sin medir todavía (su `.next` lo usaba un `next dev` abierto).
+- comercial móvil: LCP 2,0 s, el más cercano al umbral de 2,5 s (imagen de portada); vigilarlo.
 - SEO < 100 es esperado: las demos llevan `noindex` a propósito (datos ficticios).
 - visor3d móvil (81) es el más justo frente al umbral de 80: lo pesa three.js; vigilarlo si crece.
 
